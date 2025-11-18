@@ -1,10 +1,9 @@
 package com.zone.zone01blog.dto;
 
-import com.zone.zone01blog.dto.UserDTO;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class PostDTO {
     private String id;
     private String title;

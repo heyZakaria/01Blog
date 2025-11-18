@@ -1,8 +1,8 @@
 package com.zone.zone01blog.dto;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class UserDTO {
     private String id;
     private String name;
