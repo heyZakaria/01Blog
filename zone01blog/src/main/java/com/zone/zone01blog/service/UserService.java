@@ -39,7 +39,7 @@ public class UserService {
     }
 
     // Helper method to convert User -> UserDTO (removes password!)
-    private UserDTO convertToDTO(User user) {
+    public UserDTO convertToDTO(User user) {
         return new UserDTO(
                 user.getId(),
                 user.getName(),
@@ -50,7 +50,7 @@ public class UserService {
     public UserDTO createUser(CreateUserRequest request) {
         String id = UUID.randomUUID().toString();
         String hashedPassword = this.passwordEncoder.encode(request.getPassword());
-
+        System.out.println("hashedPassword"+ " "+ hashedPassword);
         User user = new User(
                 id,
                 request.getName(),

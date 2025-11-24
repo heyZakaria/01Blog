@@ -25,6 +25,12 @@ public class UserRepository {
                 .findFirst();
     }
 
+    public Optional<User> findByEmail(String email){
+        return users.stream()
+                .filter(user -> user.getEmail().equals(email))
+                .findFirst();
+    }
+
     public List<User> findAll() {
         return new ArrayList<>(users); // Return defensive copy
     }
