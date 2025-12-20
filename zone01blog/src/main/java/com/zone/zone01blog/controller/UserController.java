@@ -3,7 +3,6 @@ package com.zone.zone01blog.controller;
 import com.zone.zone01blog.dto.CreateUserRequest;
 import com.zone.zone01blog.dto.UpdateUserRequest;
 import com.zone.zone01blog.dto.UserDTO;
-import com.zone.zone01blog.entity.User;
 import com.zone.zone01blog.service.UserService;
 
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import java.util.*;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
-
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -41,23 +39,21 @@ public class UserController {
         UserDTO createdUser = userService.createUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
-    //            OR
+    // OR dir hadi
     // @ResponseStatus(HttpStatus.CREATED)
     // @PostMapping
     // public UserDTO createUser(@RequestBody CreateUserRequest request) {
     // return userService.createUser(request);
     // }
 
-    
     @PutMapping("/{id}")
-    public UserDTO updateUser(@PathVariable String id, @RequestBody UpdateUserRequest request){
+    public UserDTO updateUser(@PathVariable String id, @RequestBody UpdateUserRequest request) {
         UserDTO updateUser = userService.updateUser(request, id);
         return updateUser;
     }
 
-
     @DeleteMapping("/{id}")
-    public ResponseEntity<UserDTO> deleteUser(@PathVariable String id){
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
 
         return ResponseEntity.noContent().build();

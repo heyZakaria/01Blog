@@ -1,5 +1,8 @@
 package com.zone.zone01blog.dto;
 
+import java.util.*;
+
+import com.zone.zone01blog.entity.Comment;
 
 import lombok.Getter;
 
@@ -8,6 +11,7 @@ public class PostDTO {
     private String id;
     private String title;
     private String description;
+    // private List<Comment> comments;
     private Integer likes;
     private UserDTO author;
 

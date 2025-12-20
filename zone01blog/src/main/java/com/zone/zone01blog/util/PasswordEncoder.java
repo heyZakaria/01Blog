@@ -5,12 +5,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PasswordEncoder {
-     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-    
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
     public String encode(String plainPassword) {
         return encoder.encode(plainPassword);
     }
-    
+
     public boolean matches(String plainPassword, String hashedPassword) {
         return encoder.matches(plainPassword, hashedPassword);
     }

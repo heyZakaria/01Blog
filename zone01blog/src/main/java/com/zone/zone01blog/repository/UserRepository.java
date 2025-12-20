@@ -1,5 +1,6 @@
 package com.zone.zone01blog.repository;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -12,11 +13,12 @@ import com.zone.zone01blog.entity.User;
 public class UserRepository {
     private List<User> users = new ArrayList<>();
 
+     LocalDateTime fakeTime = LocalDateTime.of(2025, 12, 25, 10, 30, 0);
     // Initialize with fake data
     public UserRepository() {
-        users.add(new User("1", "Ahmed", "ahmed@example.com", "$2a$10$hashedpass1", "USER"));
-        users.add(new User("2", "Sara", "sara@example.com", "$2a$10$hashedpass2", "ADMIN"));
-        users.add(new User("3", "Youssef", "youssef@example.com", "$2a$10$hashedpass3", "USER"));
+        users.add(new User("1", "Ahmed", "ahmed@example.com", "$2a$10$hashedpass1", "USER", fakeTime));
+        users.add(new User("2", "Sara", "sara@example.com", "$2a$10$hashedpass2", "ADMIN", fakeTime));
+        users.add(new User("3", "Youssef", "youssef@example.com", "$2a$10$hashedpass3", "USER", fakeTime));
     }
 
     public Optional<User> findById(String id) {
@@ -25,14 +27,14 @@ public class UserRepository {
                 .findFirst();
     }
 
-    public Optional<User> findByEmail(String email){
+    public Optional<User> findByEmail(String email) {
         return users.stream()
                 .filter(user -> user.getEmail().equals(email))
                 .findFirst();
     }
 
     public List<User> findAll() {
-        return new ArrayList<>(users); // Return defensive copy
+        return new ArrayList<>(users); // Return copy jdida
     }
 
     public User save(User user) {
@@ -51,9 +53,9 @@ public class UserRepository {
         return Optional.empty();
     }
 
-    public void deleteUser(String id){
+    public void deleteUser(String id) {
         users.removeIf(user -> user.getId().equals(id));
         // users.stream()
-                // .filter(user -> user.getId().equals(id)).collect(Collectors.toList());
+        // .filter(user -> user.getId().equals(id)).collect(Collectors.toList());
     }
 }

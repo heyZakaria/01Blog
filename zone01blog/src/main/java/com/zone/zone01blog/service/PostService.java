@@ -1,5 +1,6 @@
 package com.zone.zone01blog.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,12 +35,15 @@ public class PostService {
 
         // 2. Generate ID and create Post entity
         String postId = UUID.randomUUID().toString();
+        LocalDateTime timestamp = LocalDateTime.now();
+
         Post post = new Post(
                 postId,
                 request.getTitle(),
                 request.getDescription(),
-                0, // New post starts with 0 likes
-                userId);
+                0,
+                userId,
+                timestamp);
 
         // 3. Save
         Post savedPost = postRepository.save(post);
@@ -106,10 +110,9 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new PostNotFoundException("Post not found with id: " + postId));
 
-                if(!post.getUserId().equals(userId)){
-                    throw new UnauthorizedAccessException("You cannot edit someone else's post");
-                }
-                
+        if (!post.getUserId().equals(userId)) {
+            throw new UnauthorizedAccessException("You cannot edit someone else's post");
+        }
 
         postRepository.delete(postId);
     }

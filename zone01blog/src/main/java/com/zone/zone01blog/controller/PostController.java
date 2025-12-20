@@ -9,13 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestClient.ResponseSpec;
-
 import com.zone.zone01blog.dto.CreatePostRequest;
 import com.zone.zone01blog.dto.PostDTO;
 import com.zone.zone01blog.dto.UpdatePostRequest;
 import com.zone.zone01blog.service.PostService;
-import com.zone.zone01blog.service.UserService;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,7 +68,6 @@ public class PostController {
     @DeleteMapping("users/{userId}/posts/{postId}")
     public ResponseEntity<PostDTO> deletePost(@PathVariable String userId, @PathVariable String postId) {
         postService.deletePost(userId, postId);
-
 
         return ResponseEntity.noContent().build();
     }
