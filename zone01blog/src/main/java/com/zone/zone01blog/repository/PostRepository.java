@@ -7,9 +7,7 @@ import java.util.stream.Collectors;
 import com.zone.zone01blog.service.UserService;
 import org.springframework.stereotype.Repository;
 
-import com.zone.zone01blog.dto.PostDTO;
 import com.zone.zone01blog.entity.Post;
-import com.zone.zone01blog.entity.User;
 
 @Repository
 public class PostRepository {

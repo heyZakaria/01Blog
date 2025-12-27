@@ -1,8 +1,5 @@
 package com.zone.zone01blog.dto;
 
-import java.util.*;
-
-import com.zone.zone01blog.entity.Comment;
 
 import lombok.Getter;
 

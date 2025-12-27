@@ -15,3 +15,10 @@ public class PasswordEncoder {
         return encoder.matches(plainPassword, hashedPassword);
     }
 }
+
+
+/* 
+    Encoding == just algo
+    Encryption == Encoding + key
+    Hash Func == one way
+*/

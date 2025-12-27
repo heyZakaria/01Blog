@@ -2,7 +2,6 @@ package com.zone.zone01blog.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -13,7 +12,6 @@ import com.zone.zone01blog.dto.PostDTO;
 import com.zone.zone01blog.dto.UpdatePostRequest;
 import com.zone.zone01blog.dto.UserDTO;
 import com.zone.zone01blog.entity.Post;
-import com.zone.zone01blog.entity.User;
 import com.zone.zone01blog.exception.PostNotFoundException;
 import com.zone.zone01blog.exception.UnauthorizedAccessException;
 import com.zone.zone01blog.repository.PostRepository;
@@ -33,7 +31,6 @@ public class PostService {
         // 1. Verify user exists (will throw UserNotFoundException if not)
         userService.getUserById(userId);
 
-        // 2. Generate ID and create Post entity
         String postId = UUID.randomUUID().toString();
         LocalDateTime timestamp = LocalDateTime.now();
 
@@ -45,10 +42,8 @@ public class PostService {
                 userId,
                 timestamp);
 
-        // 3. Save
         Post savedPost = postRepository.save(post);
 
-        // 4. Convert to DTO and return
         return convertToDTO(savedPost);
     }
 
@@ -67,7 +62,6 @@ public class PostService {
     }
 
     public List<PostDTO> getPostsByUserId(String userId) {
-        // Verify user exists
         userService.getUserById(userId);
 
         return postRepository.findByUserId(userId)

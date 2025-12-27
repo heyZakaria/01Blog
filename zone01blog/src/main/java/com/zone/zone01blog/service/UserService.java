@@ -40,7 +40,7 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    // Helper method to convert User -> UserDTO (removes password!)
+    // Helper method to convert User -> UserDTO (password!!!)
     public UserDTO convertToDTO(User user) {
         return new UserDTO(
                 user.getId(),
