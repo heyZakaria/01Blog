@@ -28,7 +28,6 @@ public class PostService {
     }
 
     public PostDTO createPost(String userId, CreatePostRequest request) {
-        // 1. Verify user exists (will throw UserNotFoundException if not)
         userService.getUserById(userId);
 
         String postId = UUID.randomUUID().toString();
