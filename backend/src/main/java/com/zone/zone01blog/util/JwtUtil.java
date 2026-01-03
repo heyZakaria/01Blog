@@ -35,17 +35,14 @@ public class JwtUtil {
                 .compact();
     }
 
-    // Extract userId from token
     public String getUserIdFromToken(String token) {
         return extractClaims(token).getSubject();
     }
 
-    // Extract role from token
     public String getRoleFromToken(String token) {
         return (String) extractClaims(token).get("role");
     }
 
-    // Validate token
     public boolean validateToken(String token) {
         try {
             extractClaims(token); // If this succeeds, token is valid
@@ -63,7 +60,7 @@ public class JwtUtil {
 
     // Extract all claims from token
     private Claims extractClaims(String token) {
-        return Jwts.parserBuilder()
+        return Jwts.parser()
                 .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)

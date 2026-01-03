@@ -1,6 +1,6 @@
-package main.java.com.zone.zone01blog.util;
+package com.zone.zone01blog.util;
 
-import com.blog.exception.UnauthorizedAccessException;
+import com.zone.zone01blog.exception.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 

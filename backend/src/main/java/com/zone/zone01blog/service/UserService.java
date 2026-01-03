@@ -8,7 +8,7 @@ import com.zone.zone01blog.dto.UserDTO;
 import com.zone.zone01blog.entity.User;
 import com.zone.zone01blog.exception.UserNotFoundException;
 import com.zone.zone01blog.repository.UserRepository;
-import com.zone.zone01blog.util.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -52,7 +52,7 @@ public class UserService {
     public UserDTO createUser(CreateUserRequest request) {
         String id = UUID.randomUUID().toString();
         String hashedPassword = this.passwordEncoder.encode(request.getPassword());
-        System.out.println("hashedPassword" + " " + hashedPassword);
+
         LocalDateTime timestamp = LocalDateTime.now();
         User user = new User(
                 id,

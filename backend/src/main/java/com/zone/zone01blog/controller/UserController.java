@@ -4,25 +4,25 @@ import com.zone.zone01blog.dto.CreateUserRequest;
 import com.zone.zone01blog.dto.UpdateUserRequest;
 import com.zone.zone01blog.dto.UserDTO;
 import com.zone.zone01blog.exception.UnauthorizedAccessException;
+import com.zone.zone01blog.security.JwtAuthenticationToken;
 import com.zone.zone01blog.service.UserService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
-import com.zone.zone01blog.util.AuthContext;
 
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService userService;
-    private final AuthContext authContext;
 
     // Constructor injection
-    public UserController(UserService userService, AuthContext authContext) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.authContext = authContext;
     }
 
     // choooooof any profile
@@ -31,19 +31,24 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @GetMapping("/ana")
-    public ResponseEntity<UserDTO> getUserById() {
-        String userId = authContext.getCurrentUserId();
-        UserDTO user = userService.getUserById(userId);
-        return ResponseEntity.ok(user);
-    }
-
     // admiiiiiiin
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO> getCurrentUser(
+        @AuthenticationPrincipal JwtAuthenticationToken auth
+    ) {
+        String userId = auth.getUserId();
+        UserDTO user = userService.getUserById(userId);
+        return ResponseEntity.ok(user);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody CreateUserRequest request) {
         UserDTO createdUser = userService.createUser(request);
@@ -56,27 +61,18 @@ public class UserController {
     // return userService.createUser(request);
     // }
 
+    @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.userId")
     @PutMapping("/{id}")
-    public UserDTO updateUser(@PathVariable String id, @RequestBody UpdateUserRequest request) {
-        String userId = authContext.getCurrentUserId();
-
-        if(!id.equals(userId)){
-            throw new UnauthorizedAccessException("You can only update your own profile");
-        }
-
-        UserDTO updateUser = userService.updateUser(request, userId);
+    public UserDTO updateUser(@PathVariable String id, @RequestBody UpdateUserRequest request, @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        UserDTO updateUser = userService.updateUser(request, id);
         return updateUser;
     }
 
+    @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.userId")
     @DeleteMapping("/{id}")
     public ResponseEntity<UserDTO> deleteUser(@PathVariable String id) {
-        String userId = authContext.getCurrentUserId();
-        
-        if(!id.equals(userId)){
-            throw new UnauthorizedAccessException("You can only delete your own profile");
-        }
-        userService.deleteUser(userId);
-
+    
+        userService.deleteUser(id);
 
         return ResponseEntity.noContent().build();
     }

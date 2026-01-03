@@ -10,7 +10,7 @@ import com.zone.zone01blog.entity.User;
 import com.zone.zone01blog.exception.InvalidCredentialsException;
 import com.zone.zone01blog.repository.UserRepository;
 import com.zone.zone01blog.util.JwtUtil;
-import com.zone.zone01blog.util.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 public class AuthService {
