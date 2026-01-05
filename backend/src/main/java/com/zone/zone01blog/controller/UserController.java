@@ -26,6 +26,7 @@ public class UserController {
     }
 
     // choooooof any profile
+    @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.userId")
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable String id) {
         return ResponseEntity.ok(userService.getUserById(id));
@@ -38,7 +39,8 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-
+    // check this later @PreAuthorize
+    @PreAuthorize("#id == authentication.principal.userId")
     @GetMapping("/me")
     public ResponseEntity<UserDTO> getCurrentUser(
         @AuthenticationPrincipal JwtAuthenticationToken auth

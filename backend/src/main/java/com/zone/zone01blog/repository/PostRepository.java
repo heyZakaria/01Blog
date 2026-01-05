@@ -1,58 +1,69 @@
 package com.zone.zone01blog.repository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import com.zone.zone01blog.service.UserService;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.zone.zone01blog.entity.Post;
+import com.zone.zone01blog.entity.User;
 
 @Repository
-public class PostRepository {
+public interface PostRepository extends JpaRepository<Post, String> {
 
-    private final UserService userService;
+    // Find posts by author
+    List<Post> findByAuthor(User author);
 
-    private List<Post> posts = new ArrayList<>();
+    // Find posts by author ID (more efficient if you only have ID)
+    List<Post> findByAuthorId(String authorId);
 
-    PostRepository(UserService userService) {
-        this.userService = userService;
-    }
+    //  SOLUTION TO N+1 PROBLEM: Join fetch
+    @Query("SELECT p FROM Post p JOIN FETCH p.author")
+    List<Post> findAllWithAuthors();
 
-    public Post save(Post post) {
-        posts.add(post);
-        return post;
-    }
+    // Find single post with author
+    @Query("SELECT p FROM Post p JOIN FETCH p.author WHERE p.id = :id")
+    Post findByIdWithAuthor(String id);
 
-    public Optional<Post> findById(String id) {
-        return posts.stream()
-                .filter(post -> post.getId().equals(id))
-                .findFirst();
-    }
+    // private List<Post> posts = new ArrayList<>();
 
-    public List<Post> findAll() {
-        return new ArrayList<>(posts);
-    }
+    // PostRepository(UserService userService) {
+    // this.userService = userService;
+    // }
 
-    public List<Post> findByUserId(String userId) {
-        return posts.stream()
-                .filter(post -> post.getUserId().equals(userId))
-                .collect(Collectors.toList());
-    }
+    // public Post save(Post post) {
+    // posts.add(post);
+    // return post;
+    // }
 
-    public Optional<Post> update(Post post) {
-        for (int i = 0; i < posts.size(); i++) {
-            if (posts.get(i).getId().equals(post.getId())) {
-                posts.set(i, post);
-                return Optional.of(post);
-            }
-        }
-        return Optional.empty();
-    }
+    // public Optional<Post> findById(String id) {
+    // return posts.stream()
+    // .filter(post -> post.getId().equals(id))
+    // .findFirst();
+    // }
 
-    public void delete(String id) {
-        posts.removeIf(post -> post.getId().equals(id));
-    }
+    // public List<Post> findAll() {
+    // return new ArrayList<>(posts);
+    // }
+
+    // public List<Post> findByUserId(String userId) {
+    // return posts.stream()
+    // .filter(post -> post.getUserId().equals(userId))
+    // .collect(Collectors.toList());
+    // }
+
+    // public Optional<Post> update(Post post) {
+    // for (int i = 0; i < posts.size(); i++) {
+    // if (posts.get(i).getId().equals(post.getId())) {
+    // posts.set(i, post);
+    // return Optional.of(post);
+    // }
+    // }
+    // return Optional.empty();
+    // }
+
+    // public void delete(String id) {
+    // posts.removeIf(post -> post.getId().equals(id));
+    // }
 
 }

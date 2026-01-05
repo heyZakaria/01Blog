@@ -12,6 +12,7 @@ import com.zone.zone01blog.dto.PostDTO;
 import com.zone.zone01blog.dto.UpdatePostRequest;
 import com.zone.zone01blog.dto.UserDTO;
 import com.zone.zone01blog.entity.Post;
+import com.zone.zone01blog.entity.User;
 import com.zone.zone01blog.exception.PostNotFoundException;
 import com.zone.zone01blog.exception.UnauthorizedAccessException;
 import com.zone.zone01blog.repository.PostRepository;
@@ -28,7 +29,7 @@ public class PostService {
     }
 
     public PostDTO createPost(String userId, CreatePostRequest request) {
-        userService.getUserById(userId);
+        UserDTO u = userService.getUserById(userId);
 
         String postId = UUID.randomUUID().toString();
         LocalDateTime timestamp = LocalDateTime.now();
@@ -38,7 +39,7 @@ public class PostService {
                 request.getTitle(),
                 request.getDescription(),
                 0,
-                userId,
+                u,
                 timestamp);
 
         Post savedPost = postRepository.save(post);
@@ -63,7 +64,7 @@ public class PostService {
     public List<PostDTO> getPostsByUserId(String userId) {
         userService.getUserById(userId);
 
-        return postRepository.findByUserId(userId)
+        return postRepository.findById(userId)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -71,7 +72,7 @@ public class PostService {
 
     private PostDTO convertToDTO(Post post) {
         // Fetch author info
-        UserDTO author = userService.getUserById(post.getUserId());
+        UserDTO author = userService.getUserById(post.getAuthor().getId());
 
         return new PostDTO(
                 post.getId(),
@@ -82,18 +83,20 @@ public class PostService {
     }
 
     public PostDTO updatePost(String userId, String postId, UpdatePostRequest request) {
-        userService.getUserById(userId);
+        UserDTO u = userService.getUserById(userId);
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new PostNotFoundException("Post not found with id: " + postId));
-
-        if (!post.getUserId().equals(userId)) {
-            throw new UnauthorizedAccessException("You cannot edit someone else's post");
-        }
-
+    
+        // no need
+        /*
+         * if (!post.getUserId().equals(userId)) {
+         * throw new UnauthorizedAccessException("You cannot edit someone else's post");
+         * }
+         */
         post.setTitle(request.getTitle());
         post.setDescription(request.getDescription());
 
-        postRepository.update(post);
+        postRepository.save(post);
 
         return convertToDTO(post);
     }
@@ -103,10 +106,10 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new PostNotFoundException("Post not found with id: " + postId));
 
-        if (!post.getUserId().equals(userId)) {
+        if (!post.getAuthor().getId().equals(userId)) {
             throw new UnauthorizedAccessException("You cannot edit someone else's post");
         }
 
-        postRepository.delete(postId);
+        postRepository.deleteById(postId);
     }
 }

@@ -57,7 +57,7 @@ public class UserService {
         User user = new User(
                 id,
                 request.getName(),
-                request.getEmail(),
+                request.getEmail().toLowerCase(),
                 hashedPassword,
                 request.getRole(),
                 timestamp);
@@ -73,7 +73,7 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
 
         existingUser.setName(request.getName());
-        existingUser.setEmail(request.getEmail());
+        existingUser.setEmail(request.getEmail().toLowerCase());
 
         if (request.getPassword() != null && !request.getPassword().isEmpty()) {
             String hashed = passwordEncoder.encode(request.getPassword());
@@ -82,8 +82,7 @@ public class UserService {
 
         existingUser.setRole(request.getRole());
 
-        User updated = userRepository.update(existingUser)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+        User updated = userRepository.save(existingUser);
 
         return convertToDTO(updated);
     }
@@ -94,6 +93,6 @@ public class UserService {
         // .orElseThrow(() -> new UserNotFoundException("User not found with id: " +
         // id));
 
-        userRepository.deleteUser(id);
+        userRepository.deleteById(id);
     }
 }

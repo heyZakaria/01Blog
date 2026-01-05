@@ -1,15 +1,30 @@
 package com.zone.zone01blog.repository;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.zone.zone01blog.entity.User;
 
 @Repository
-public class UserRepository {
-    private List<User> users = new ArrayList<>();
+public interface UserRepository extends JpaRepository<User, String> {
+    
+    // No SQL written! Spring Data generates everything!
+
+    // Custom query methods (Spring Data generates implementation) JPQL
+    // @Query("SELECT user FROM users u WHERE u.email = :email") ❌ ❌ 3 errors find them
+    @Query("SELECT u FROM User u WHERE u.email = :email")
+    Optional<User> findByEmail(@Param("email") String email);
+    //OR
+    // Optional<User> findByEmail(String email);
+    // Spring JPA/DATA will create a JPQL ==> SELECT u FROM User u WHERE u.email = ?1
+    // Another ex: findByEmailAndStatus(String email, Status status); ==> WHERE email = ?1 AND status = ?2
+
+    // Old In-Memory Repository
+    /* private List<User> users = new ArrayList<>();
 
      LocalDateTime fakeTime = LocalDateTime.of(2025, 12, 25, 10, 30, 0);
     // Initialize with fake data
@@ -55,5 +70,5 @@ public class UserRepository {
         users.removeIf(user -> user.getId().equals(id));
         // users.stream()
         // .filter(user -> user.getId().equals(id)).collect(Collectors.toList());
-    }
+    } */
 }
