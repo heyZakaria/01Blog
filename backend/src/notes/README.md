@@ -1,0 +1,1 @@
+docker pull mirror.gcr.io/postgres:15
