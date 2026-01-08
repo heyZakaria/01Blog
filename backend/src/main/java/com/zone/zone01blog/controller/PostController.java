@@ -1,6 +1,8 @@
 package com.zone.zone01blog.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,67 +20,78 @@ import com.zone.zone01blog.dto.CreatePostRequest;
 import com.zone.zone01blog.dto.PostDTO;
 import com.zone.zone01blog.dto.UpdatePostRequest;
 import com.zone.zone01blog.security.JwtAuthenticationToken;
+import com.zone.zone01blog.service.LikeService;
 import com.zone.zone01blog.service.PostService;
-import com.zone.zone01blog.util.AuthContext;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/posts")
 public class PostController {
 
     private final PostService postService;
+    private final LikeService likeService;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, LikeService likeService) {
         this.postService = postService;
+        this.likeService = likeService;
     }
 
-    // ===== General Post Endpoints =====
-
-    @GetMapping("/posts")
-    public ResponseEntity<List<PostDTO>> getPosts() {
-        List<PostDTO> posts = postService.getAllPosts();
+    @GetMapping
+    public ResponseEntity<List<PostDTO>> getAllPosts(
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        String userId = auth.getUserId();
+        List<PostDTO> posts = postService.getAllPosts(userId);
         return ResponseEntity.ok(posts);
     }
 
-    @GetMapping("/posts/{id}")
-    public ResponseEntity<PostDTO> getPostById(@PathVariable String id) {
-        PostDTO post = postService.getPostById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDTO> getPostById(
+            @PathVariable String id,
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        String userId = auth.getUserId();
+        PostDTO post = postService.getPostById(id, userId);
         return ResponseEntity.ok(post);
     }
 
-    // ===== User-Specific Post Endpoints =====
-
-    @GetMapping("/users/posts")
-    public ResponseEntity<List<PostDTO>> getUserPosts(@AuthenticationPrincipal JwtAuthenticationToken auth) {
-        String userId = auth.getUserId();
-
-        List<PostDTO> posts = postService.getPostsByUserId(userId);
-        return ResponseEntity.ok(posts);
-    }
-
-    @PostMapping("/posts")
-    public ResponseEntity<PostDTO> createPost(@RequestBody CreatePostRequest postRequest,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
-
-        String userId = auth.getUserId();
-        PostDTO createdPost = postService.createPost(userId, postRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
-    }
-
-    @PutMapping("/posts/{postId}")
-    public ResponseEntity<PostDTO> updatePost(@PathVariable String postId,
-            @RequestBody UpdatePostRequest postRequest, @AuthenticationPrincipal JwtAuthenticationToken auth) {
-        String userId = auth.getUserId();
-
-        PostDTO postDTO = postService.updatePost(userId, postId, postRequest);
-
-        return ResponseEntity.ok(postDTO);
-    }
-
-    @DeleteMapping("/posts/{postId}")
-    public ResponseEntity<PostDTO> deletePost(@PathVariable String postId,
+    @PostMapping
+    public ResponseEntity<PostDTO> createPost(
+            @RequestBody CreatePostRequest request,
             @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
-        postService.deletePost(userId, postId);
+        PostDTO post = postService.createPost(request, userId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(post);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PostDTO> updatePost(
+            @PathVariable String id,
+            @RequestBody UpdatePostRequest request,
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        String userId = auth.getUserId();
+        PostDTO post = postService.updatePost(id, request, userId);
+        return ResponseEntity.ok(post);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(
+            @PathVariable String id,
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        String userId = auth.getUserId();
+        postService.deletePost(id, userId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/like")
+    public ResponseEntity<Map<String, Object>> toggleLike(
+            @PathVariable String id,
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        String userId = auth.getUserId();
+        boolean liked = likeService.toggleLike(id, userId);
+        long likeCount = likeService.getLikeCount(id);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("liked", liked);
+        response.put("likeCount", likeCount);
+
+        return ResponseEntity.ok(response);
     }
 }

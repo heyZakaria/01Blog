@@ -31,9 +31,6 @@ public class Post {
     @Column(nullable = false, length = 1000)
     private String description;
 
-    @Column(nullable = false)
-    private Integer likes;
-
     // fetch = FetchType.LAZY, what it means: "Don't load the author until I access
     // it"
     // LAZY (default for @ManyToOne, recommended):
@@ -51,17 +48,15 @@ public class Post {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public Post(String id, String title, String description, Integer likes, User author) {
+    public Post(String id, String title, String description, User author) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.likes = likes;
         this.author = author;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
     public Post() {
-
     }
 }
