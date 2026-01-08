@@ -8,13 +8,16 @@ import com.zone.zone01blog.dto.UserDTO;
 import com.zone.zone01blog.entity.User;
 import com.zone.zone01blog.exception.UserNotFoundException;
 import com.zone.zone01blog.repository.UserRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -33,6 +36,17 @@ public class UserService {
         return convertToDTO(user);
     }
 
+    // User entity for internal use
+    public User getUserEntityById(String id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+    }
+
+    public User getUserEntityByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
+    }
+
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll()
                 .stream()
@@ -40,27 +54,30 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    // Helper method to convert User -> UserDTO (password!!!)
+    // Helper method to convert User -> UserDTO (for outside responce no password)
     public UserDTO convertToDTO(User user) {
         return new UserDTO(
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
-                user.getRole());
+                user.getRole(),
+                user.getCreatedAt(),
+                user.getUpdatedAt());
     }
 
     public UserDTO createUser(CreateUserRequest request) {
         String id = UUID.randomUUID().toString();
         String hashedPassword = this.passwordEncoder.encode(request.getPassword());
 
-        LocalDateTime timestamp = LocalDateTime.now();
+        if (request.getRole() == null) {
+            request.setRole("user");
+        }
         User user = new User(
                 id,
                 request.getName(),
                 request.getEmail().toLowerCase(),
                 hashedPassword,
-                request.getRole(),
-                timestamp);
+                request.getRole());
 
         User savedUser = userRepository.save(user);
 
@@ -89,9 +106,6 @@ public class UserService {
 
     public void deleteUser(String id) {
         userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
-        // i need to make it like this
-        // .orElseThrow(() -> new UserNotFoundException("User not found with id: " +
-        // id));
 
         userRepository.deleteById(id);
     }

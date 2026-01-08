@@ -2,12 +2,13 @@ package com.zone.zone01blog.entity;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.ManyToAny;
-
-import com.zone.zone01blog.dto.UserDTO;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -17,6 +18,7 @@ import lombok.Data;
 
 @Entity
 @Table(name = "posts")
+@EntityListeners(AuditingEntityListener.class)
 @Data
 public class Post {
 
@@ -32,24 +34,31 @@ public class Post {
     @Column(nullable = false)
     private Integer likes;
 
-    // fetch = FetchType.LAZY, what it means: "Don't load the author until I access it"
+    // fetch = FetchType.LAZY, what it means: "Don't load the author until I access
+    // it"
     // LAZY (default for @ManyToOne, recommended):
 
     // in case of author use those:
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private UserDTO author;
+    private User author;
 
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
     @Column(nullable = false)
-    private LocalDateTime timestamp;
+    private LocalDateTime updatedAt;
 
-    public Post(String id, String title, String description, Integer likes, UserDTO author, LocalDateTime timestamp) {
+    public Post(String id, String title, String description, Integer likes, User author) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.likes = likes;
         this.author = author;
-        this.timestamp = timestamp;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public Post() {

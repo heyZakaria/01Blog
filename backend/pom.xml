@@ -85,7 +85,7 @@
             <version>0.13.0</version>
             <scope>runtime</scope>
         </dependency>
-<!-- jwt -->
+
 
 
 
@@ -104,12 +104,13 @@
      <!-- <version>3.2.0</version> !!!!  -->
     </dependency>
 
-
+<!-- waaaaaaaaaaaaaa33333333333333 don't use it a 3ibad lah -->
+<!-- 
     <dependency>
         <groupId>jakarta.persistence</groupId>
         <artifactId>jakarta.persistence-api</artifactId>
         <version>3.2.0</version>
-    </dependency>
+    </dependency> -->
 
 
     </dependencies>
