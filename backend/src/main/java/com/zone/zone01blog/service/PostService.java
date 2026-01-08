@@ -1,6 +1,5 @@
 package com.zone.zone01blog.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -17,30 +16,33 @@ import com.zone.zone01blog.exception.PostNotFoundException;
 import com.zone.zone01blog.exception.UnauthorizedAccessException;
 import com.zone.zone01blog.repository.PostRepository;
 
+import jakarta.transaction.Transactional;
+
+@Transactional
 @Service
 public class PostService {
 
     private UserService userService;
     private PostRepository postRepository;
+    private final CommentService commentService;
 
-    public PostService(UserService userService, PostRepository postRepository) {
+    public PostService(UserService userService, PostRepository postRepository, CommentService commentService) {
         this.postRepository = postRepository;
         this.userService = userService;
+        this.commentService = commentService;
     }
 
     public PostDTO createPost(String userId, CreatePostRequest request) {
-        UserDTO u = userService.getUserById(userId);
+        User author = userService.getUserEntityById(userId);
 
         String postId = UUID.randomUUID().toString();
-        LocalDateTime timestamp = LocalDateTime.now();
 
         Post post = new Post(
                 postId,
                 request.getTitle(),
                 request.getDescription(),
                 0,
-                u,
-                timestamp);
+                author);
 
         Post savedPost = postRepository.save(post);
 
@@ -70,29 +72,20 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    private PostDTO convertToDTO(Post post) {
-        // Fetch author info
-        UserDTO author = userService.getUserById(post.getAuthor().getId());
-
-        return new PostDTO(
-                post.getId(),
-                post.getTitle(),
-                post.getDescription(),
-                post.getLikes(),
-                author);
-    }
-
     public PostDTO updatePost(String userId, String postId, UpdatePostRequest request) {
-        UserDTO u = userService.getUserById(userId);
+        // UserDTO author = userService.getUserById(userId);
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new PostNotFoundException("Post not found with id: " + postId));
-    
-        // no need
-        /*
-         * if (!post.getUserId().equals(userId)) {
-         * throw new UnauthorizedAccessException("You cannot edit someone else's post");
-         * }
-         */
+                .orElseThrow(() -> new PostNotFoundException("Post not found with id: " +
+                        postId));
+        // Post post = postRepository.findByIdWithAuthor(postId);
+        // if (post == null){
+        // throw new PostNotFoundException("Post not found with id: " + postId);
+        // }
+
+        if (!post.getAuthor().getId().equals(userId)) {
+            throw new UnauthorizedAccessException("You cannot edit someone else's post");
+        }
+
         post.setTitle(request.getTitle());
         post.setDescription(request.getDescription());
 
@@ -102,14 +95,36 @@ public class PostService {
     }
 
     public void deletePost(String userId, String postId) {
-        userService.getUserById(userId);
+        // we can also use this
+        // Post post = postRepository.findByIdWithAuthor(postId);
+        // if (post == null) {
+        // throw new UnauthorizedAccessException("You can only delete your own posts");
+        // }
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new PostNotFoundException("Post not found with id: " + postId));
+                .orElseThrow(() -> new PostNotFoundException("Post not found with id: " +
+                        postId));
 
         if (!post.getAuthor().getId().equals(userId)) {
             throw new UnauthorizedAccessException("You cannot edit someone else's post");
         }
 
         postRepository.deleteById(postId);
+    }
+
+    private PostDTO convertToDTO(Post post) {
+        // Fetch author info
+        UserDTO author = userService.getUserById(post.getAuthor().getId());
+
+        long commentCount = commentService.getCommentCount(post.getId());
+
+        return new PostDTO(
+                post.getId(),
+                post.getTitle(),
+                post.getDescription(),
+                post.getLikes(),
+                author,
+                post.getCreatedAt(),
+                post.getUpdatedAt(),
+                commentCount);
     }
 }

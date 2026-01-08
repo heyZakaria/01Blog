@@ -4,10 +4,12 @@ import lombok.Data;
 
 @Data
 public class CreateCommentRequest {
-    private String comment;
+    private String content;
 
-    public CreateCommentRequest(){};
-    public CreateCommentRequest(String comment){
-        this.comment = comment;
+    public CreateCommentRequest() {
+    }
+
+    public CreateCommentRequest(String content) {
+        this.content = content;
     }
 }
