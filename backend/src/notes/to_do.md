@@ -4,6 +4,7 @@
 - read the Talents articles
 - comments + likes
 - reports
+- check why /me does not work
 ## To Search about:
     - HikariCP (Hibernate)
     - JTA

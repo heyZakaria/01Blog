@@ -92,4 +92,13 @@ public class GlobalExceptionHandler {
         error.put("timestamp", LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
+
+    @ExceptionHandler(CannotFollowSelfException.class)
+    public ResponseEntity<Map<String, Object>> handleCannotFollowSelf(CannotFollowSelfException e) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("message", e.getMessage());
+        error.put("status", 400);
+        error.put("timestamp", LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
 }

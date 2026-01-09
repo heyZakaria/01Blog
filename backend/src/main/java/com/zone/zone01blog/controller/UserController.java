@@ -5,6 +5,7 @@ import com.zone.zone01blog.dto.UpdateUserRequest;
 import com.zone.zone01blog.dto.UserDTO;
 import com.zone.zone01blog.exception.UnauthorizedAccessException;
 import com.zone.zone01blog.security.JwtAuthenticationToken;
+import com.zone.zone01blog.service.SubscriptionService;
 import com.zone.zone01blog.service.UserService;
 
 import org.springframework.http.HttpStatus;
@@ -19,17 +20,32 @@ import java.util.*;
 public class UserController {
 
     private final UserService userService;
+    private final SubscriptionService subscriptionService;
 
     // Constructor injection
-    public UserController(UserService userService) {
+    public UserController(UserService userService, SubscriptionService subscriptionService) {
         this.userService = userService;
+        this.subscriptionService = subscriptionService;
     }
 
     // choooooof any profile
     @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.userId")
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable String id) {
-        return ResponseEntity.ok(userService.getUserById(id));
+    public ResponseEntity<UserDTO> getUserById(@PathVariable String id,
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        UserDTO user = userService.getUserById(id);
+
+        user.setFollowersCount(subscriptionService.getFollowersCount(id));
+        user.setFollowingCount(subscriptionService.getFollowingCount(id));
+
+        if (auth != null) {
+            String currentUserId = auth.getUserId();
+            if (!currentUserId.equals(id)) {
+                user.setIsFollowedByCurrentUser(
+                        subscriptionService.isFollowing(currentUserId, id));
+            }
+        }
+        return ResponseEntity.ok(user);
     }
 
     // admiiiiiiin
@@ -40,13 +56,17 @@ public class UserController {
     }
 
     // check this later @PreAuthorize
-    @PreAuthorize("#id == authentication.principal.userId")
+    // @PreAuthorize("#id == authentication.principal.userId")
     @GetMapping("/me")
     public ResponseEntity<UserDTO> getCurrentUser(
-        @AuthenticationPrincipal JwtAuthenticationToken auth
-    ) {
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         UserDTO user = userService.getUserById(userId);
+
+        // Add follower counts
+        user.setFollowersCount(subscriptionService.getFollowersCount(userId));
+        user.setFollowingCount(subscriptionService.getFollowingCount(userId));
+
         return ResponseEntity.ok(user);
     }
 
@@ -65,7 +85,8 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.userId")
     @PutMapping("/{id}")
-    public UserDTO updateUser(@PathVariable String id, @RequestBody UpdateUserRequest request, @AuthenticationPrincipal JwtAuthenticationToken auth) {
+    public UserDTO updateUser(@PathVariable String id, @RequestBody UpdateUserRequest request,
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
         UserDTO updateUser = userService.updateUser(request, id);
         return updateUser;
     }
@@ -73,10 +94,9 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.userId")
     @DeleteMapping("/{id}")
     public ResponseEntity<UserDTO> deleteUser(@PathVariable String id) {
-    
+
         userService.deleteUser(id);
 
         return ResponseEntity.noContent().build();
     }
-
 }

@@ -1,0 +1,3 @@
+00:00:02 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+00:00:03 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+00:00:03 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
