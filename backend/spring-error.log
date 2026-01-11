@@ -1,3 +1,642 @@
-00:00:02 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-00:00:03 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
-00:00:03 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+22:15:32 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:15:32 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+22:15:32 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk2jovqhqo324cubdomovkex03b" of relation "likes" does not exist, skipping
+22:15:32 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+22:15:32 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "ukfh93un31i9nqpr9t1lionn9a8" of relation "subscriptions" does not exist, skipping
+22:15:32 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+22:15:32 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
+22:35:42 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:36:52 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:36:59 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:37:07 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:37:10 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:38:00 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:38:07 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:38:38 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:38:38 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+22:38:38 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error, insert ";" to complete FieldDeclaration
+22:38:40 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:38:40 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+22:38:40 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error, insert ";" to complete FieldDeclaration
+22:38:45 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:38:45 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+22:38:45 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token "finale", final expected
+22:38:51 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:38:51 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+22:38:51 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token "finale", final expected
+	Syntax error on token ",", SingleVariableDeclarator expected after this token
+	Syntax error on tokens, delete these tokens
+	Syntax error, insert "}" to complete BlockStatements
+22:38:54 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:38:54 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+22:38:54 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token "finale", final expected
+	Syntax error on token ",", invalid (
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token "{", invalid AssignmentOperator
+22:38:55 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:38:56 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+22:38:56 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token "finale", final expected
+22:38:57 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:38:58 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+22:38:58 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token "finale", final expected
+22:39:01 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:39:01 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+22:39:01 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token "finale", final expected
+	Syntax error, insert "AssignmentOperator Expression" to complete Assignment
+	Syntax error, insert ";" to complete Statement
+22:39:03 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:39:03 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+22:39:03 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token "finale", final expected
+	Syntax error, insert "AssignmentOperator Expression" to complete Expression
+	Syntax error, insert ";" to complete Statement
+22:39:05 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:39:05 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+22:39:05 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token "finale", final expected
+	Syntax error, insert "AssignmentOperator Expression" to complete Expression
+	Syntax error, insert ";" to complete Statement
+22:39:09 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:39:09 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+22:39:09 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token "finale", final expected
+22:39:10 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:39:11 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+22:39:11 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postService' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/service/PostService.class]: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.service.PostService]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token "finale", final expected
+22:39:20 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:39:53 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:39:55 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:40:03 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:40:05 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:40:08 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:40:15 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:40:19 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:40:29 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:40:38 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:40:54 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:40:56 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:41:19 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:42:06 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:42:06 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Failed to instantiate [com.zone.zone01blog.controller.PostController]: Constructor threw exception
+22:42:06 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Failed to instantiate [com.zone.zone01blog.controller.PostController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.PostController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token(s), misplaced construct(s)
+	Syntax error on tokens, delete these tokens
+	Syntax error on token(s), misplaced construct(s)
+	Syntax error on token "followed", , expected
+	Syntax error, insert ";" to complete ConstructorDeclaration
+22:42:12 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:42:12 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Failed to instantiate [com.zone.zone01blog.controller.PostController]: Constructor threw exception
+22:42:12 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'postController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/PostController.class]: Failed to instantiate [com.zone.zone01blog.controller.PostController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.PostController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token(s), misplaced construct(s)
+	Syntax error on tokens, delete these tokens
+	Syntax error on token(s), misplaced construct(s)
+	Syntax error on token "followed", , expected
+	Syntax error, insert ";" to complete ConstructorDeclaration
+22:42:15 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:42:24 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:42:29 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:44:38 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:44:42 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:44:53 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:44:53 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:44:53 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+22:44:54 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:44:55 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:44:55 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token "public", delete this token
+22:44:56 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:44:56 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:44:56 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token "public", delete this token
+22:44:58 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:44:58 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:44:58 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+22:45:00 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:45:00 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:45:00 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+22:45:04 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:45:04 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:45:04 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problem: 
+22:45:08 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:45:08 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:45:08 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", SingleVariableDeclarator expected after this token
+	Syntax error on tokens, delete these tokens
+	Syntax error, insert "}" to complete BlockStatements
+22:45:10 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:45:10 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:45:10 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", invalid (
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token "{", invalid AssignmentOperator
+22:45:16 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:45:16 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:45:16 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", invalid (
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token "{", invalid AssignmentOperator
+22:45:19 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:45:19 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:45:19 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problem: 
+22:45:21 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:45:21 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:45:22 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problem: 
+22:45:37 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:45:37 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:45:37 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error, insert "AssignmentOperator Expression" to complete Assignment
+	Syntax error, insert ";" to complete Statement
+22:45:39 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:45:39 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:45:39 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error, insert ":: IdentifierOrNew" to complete Expression
+	Syntax error, insert ";" to complete Statement
+22:45:41 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:45:41 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+22:45:41 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/controller/UserController.class]: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.controller.UserController]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error, insert ":: IdentifierOrNew" to complete Expression
+	Syntax error, insert ";" to complete Statement
+22:45:43 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:45:44 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+22:45:48 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:23:34 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:23:36 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:23:39 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:23:59 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:24:09 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:24:16 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:24:22 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:34:11 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:34:17 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:34:23 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:34:56 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:34:59 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:35:01 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:35:06 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:35:08 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:35:10 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:35:15 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:35:19 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:35:21 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:35:36 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:35:40 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:35:42 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:35:47 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:35:50 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:35:58 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:36:07 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:36:12 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:36:43 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:36:47 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:36:57 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:37:02 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:37:06 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:37:09 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:40:08 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:40:13 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:40:14 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:40:30 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:40:34 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:40:36 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:40:38 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:40:49 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:40:56 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:40:58 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:41:10 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:41:13 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:41:14 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:41:49 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:41:54 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:41:58 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:42:04 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: java.lang.NoClassDefFoundError: ReportStatus
+23:42:04 ERROR o.s.boot.SpringApplication - Application run failed
+java.lang.NoClassDefFoundError: ReportStatus
+Caused by: java.lang.ClassNotFoundException: ReportStatus
+Exception in thread "restartedMain" java.lang.reflect.InvocationTargetException
+Caused by: java.lang.IllegalStateException: java.lang.NoClassDefFoundError: ReportStatus
+Caused by: java.lang.NoClassDefFoundError: ReportStatus
+Caused by: java.lang.ClassNotFoundException: ReportStatus
+23:42:07 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:43:24 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:43:26 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:43:27 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:43:30 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:43:40 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:44:01 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:44:05 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:44:05 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'reportService': Lookup method resolution failed
+23:44:05 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'reportService': Lookup method resolution failed
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.zone.zone01blog.service.ReportService] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@7da762ac]
+Caused by: java.lang.NoClassDefFoundError: ResolveReportRequest
+Caused by: java.lang.ClassNotFoundException: ResolveReportRequest
+23:44:13 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:44:13 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'reportService': Lookup method resolution failed
+23:44:13 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'reportService': Lookup method resolution failed
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.zone.zone01blog.service.ReportService] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@47d4677]
+Caused by: java.lang.NoClassDefFoundError: ResolveReportRequest
+Caused by: java.lang.ClassNotFoundException: ResolveReportRequest
+23:44:25 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:44:29 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:44:32 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:44:38 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:44:42 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:44:50 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:44:52 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:45:01 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:45:09 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:45:13 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:45:15 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:45:34 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:45:36 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:45:39 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:45:41 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:45:43 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:45:49 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:46:00 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:46:12 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:46:39 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:46:47 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:46:55 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:46:58 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:47:05 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:47:15 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:47:47 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:47:51 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:47:56 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:47:57 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:48:03 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:48:09 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:49:01 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:49:01 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:49:01 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problem: 
+23:49:09 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:49:09 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:49:09 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problem: 
+23:49:12 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:49:12 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:49:12 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", SingleVariableDeclarator expected after this token
+	Syntax error on tokens, delete these tokens
+	Syntax error, insert "}" to complete BlockStatements
+23:49:15 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:49:15 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:49:15 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", invalid (
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token "{", invalid AssignmentOperator
+23:50:08 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:50:08 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:50:08 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", invalid (
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token "{", invalid AssignmentOperator
+23:50:13 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:50:13 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:50:13 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", invalid (
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token "{", invalid AssignmentOperator
+23:50:16 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:50:16 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:50:16 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", byte expected
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error, insert "}" to complete Block
+23:50:19 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:50:19 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:50:19 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", byte expected
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error, insert "}" to complete Block
+23:50:36 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:50:36 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:50:36 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:50:36 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+23:50:47 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:50:47 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:50:47 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:50:47 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error, insert "AssignmentOperator Expression" to complete Expression
+	Syntax error, insert ";" to complete Statement
+23:50:49 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:50:49 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:50:49 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:50:49 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error, insert "AssignmentOperator Expression" to complete Expression
+	Syntax error, insert ";" to complete Statement
+23:50:53 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:50:53 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:50:53 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:50:53 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+23:50:55 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:50:55 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:50:55 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:50:55 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+23:51:05 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:51:05 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:51:05 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", invalid (
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token "{", invalid AssignmentOperator
+23:51:08 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:51:08 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:51:08 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", byte expected
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error, insert "}" to complete Block
+23:51:11 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:51:11 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:51:11 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", byte expected
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error, insert "}" to complete Block
+23:51:14 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:51:14 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:51:14 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", byte expected
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error, insert "}" to complete Block
+23:51:27 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:51:27 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:51:27 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", byte expected
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token ",", ; expected
+	Syntax error on token ")", ; expected
+	Syntax error, insert "}" to complete Block
+23:51:28 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:51:28 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:51:28 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", invalid (
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token "{", invalid AssignmentOperator
+23:51:31 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:51:31 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:51:31 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", invalid (
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token "{", invalid AssignmentOperator
+23:51:35 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:51:35 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:51:35 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	Syntax error on token ",", invalid (
+	Syntax error, insert "... VariableDeclaratorId" to complete SingleVariableDeclarator
+	Syntax error on token "{", invalid AssignmentOperator
+23:51:38 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:51:38 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+23:51:38 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+23:51:38 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [/home/zabdelal/Desktop/01Blog/backend/target/classes/com/zone/zone01blog/filter/JwtAuthenticationFilter.class]: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zone.zone01blog.filter.JwtAuthenticationFilter]: Constructor threw exception
+Caused by: java.lang.Error: Unresolved compilation problems: 
+23:51:47 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:51:49 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:51:52 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:51:57 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:52:01 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:52:13 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:52:35 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:52:39 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:52:40 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'reportController': Lookup method resolution failed
+23:52:40 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'reportController': Lookup method resolution failed
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.zone.zone01blog.controller.ReportController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@37e4c2c]
+Caused by: java.lang.NoClassDefFoundError: CreateReportRequest
+Caused by: java.lang.ClassNotFoundException: CreateReportRequest
+23:52:42 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:52:42 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'reportController': Lookup method resolution failed
+23:52:42 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'reportController': Lookup method resolution failed
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.zone.zone01blog.controller.ReportController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@5f635606]
+Caused by: java.lang.NoClassDefFoundError: CreateReportRequest
+Caused by: java.lang.ClassNotFoundException: CreateReportRequest
+23:52:51 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:52:58 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:53:00 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:53:02 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:53:04 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+23:53:13 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database inf

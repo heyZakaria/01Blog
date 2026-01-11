@@ -101,4 +101,31 @@ public class GlobalExceptionHandler {
         error.put("timestamp", LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
+
+    @ExceptionHandler(ReportNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleReportNotFound(ReportNotFoundException e) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("message", e.getMessage());
+        error.put("status", 404);
+        error.put("timestamp", LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(CannotReportSelfException.class)
+    public ResponseEntity<Map<String, Object>> handleCannotReportSelf(CannotReportSelfException e) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("message", e.getMessage());
+        error.put("status", 400);
+        error.put("timestamp", LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(UserBannedException.class)
+    public ResponseEntity<Map<String, Object>> handleUserBanned(UserBannedException e) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("message", e.getMessage());
+        error.put("status", 403);
+        error.put("timestamp", LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
 }

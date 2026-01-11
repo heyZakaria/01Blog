@@ -1,5 +1,6 @@
 package com.zone.zone01blog.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -26,15 +27,18 @@ public class PostService {
     private final UserService userService;
     private final CommentService commentService;
     private final LikeService likeService;
+    private final SubscriptionService subscriptionService;
 
     public PostService(PostRepository postRepository,
             UserService userService,
             CommentService commentService,
-            LikeService likeService) {
+            LikeService likeService,
+            SubscriptionService subscriptionService) {
         this.postRepository = postRepository;
         this.userService = userService;
         this.commentService = commentService;
         this.likeService = likeService;
+        this.subscriptionService = subscriptionService;
     }
 
     public List<PostDTO> getAllPosts(String currentUserId) {
@@ -52,6 +56,30 @@ public class PostService {
         return convertToDTO(post, currentUserId);
     }
 
+    public List<PostDTO> getFeed(String currentUserId) {
+        List<String> followingIds = subscriptionService.getFollowingIds(currentUserId);
+
+        if (followingIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        List<Post> feedPosts = postRepository.findFeedPostsByFollowingIds(followingIds);
+
+        return feedPosts.stream()
+                .map(post -> convertToDTO(post, currentUserId))
+                .collect(Collectors.toList());
+    }
+
+    public List<PostDTO> getPostsByUserId(String userId, String currentUserId) {
+        userService.getUserEntityById(userId);
+
+        List<Post> userPosts = postRepository.findByAuthorIdWithAuthor(userId);
+
+        return userPosts.stream()
+                .map(post -> convertToDTO(post, currentUserId))
+                .collect(Collectors.toList());
+    }
+
     public PostDTO createPost(CreatePostRequest request, String userId) {
         User author = userService.getUserEntityById(userId);
 
@@ -59,8 +87,7 @@ public class PostService {
                 UUID.randomUUID().toString(),
                 request.getTitle(),
                 request.getDescription(),
-                author
-        );
+                author);
 
         Post savedPost = postRepository.save(post);
         return convertToDTO(savedPost, userId);
@@ -123,7 +150,6 @@ public class PostService {
                 post.getCreatedAt(),
                 post.getUpdatedAt(),
                 commentCount,
-                likedByCurrentUser
-        );
+                likedByCurrentUser);
     }
 }

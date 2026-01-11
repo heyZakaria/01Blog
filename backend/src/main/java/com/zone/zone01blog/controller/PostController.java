@@ -51,6 +51,15 @@ public class PostController {
         PostDTO post = postService.getPostById(id, userId);
         return ResponseEntity.ok(post);
     }
+    
+    @GetMapping("/feed")
+    public ResponseEntity<List<PostDTO>> getFeed(
+        @AuthenticationPrincipal JwtAuthenticationToken auth
+    ) {
+        String userId = auth.getUserId();
+        List<PostDTO> feed = postService.getFeed(userId);
+        return ResponseEntity.ok(feed);
+    }
 
     @PostMapping
     public ResponseEntity<PostDTO> createPost(

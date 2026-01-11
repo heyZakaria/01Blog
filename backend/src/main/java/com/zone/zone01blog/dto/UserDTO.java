@@ -3,7 +3,6 @@ package com.zone.zone01blog.dto;
 import java.time.LocalDateTime;
 
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 public class UserDTO {
@@ -13,6 +12,7 @@ public class UserDTO {
     private String role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    
     private Long followersCount;
     private Long followingCount;
     private Boolean isFollowedByCurrentUser;

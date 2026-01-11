@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/users/api/v1")
 public class SubscriptionController {
 
     private final SubscriptionService subscriptionService;
@@ -21,7 +21,7 @@ public class SubscriptionController {
         this.subscriptionService = subscriptionService;
     }
 
-    @PostMapping("/users/{userId}/follow")
+    @PostMapping("/{userId}/follow")
     public ResponseEntity<Map<String, Object>> toggleFollow(
             @PathVariable String userId,
             @AuthenticationPrincipal JwtAuthenticationToken auth) {
@@ -36,7 +36,7 @@ public class SubscriptionController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/users/me/following")
+    @GetMapping("/me/following")
     public ResponseEntity<List<UserDTO>> getMyFollowing(
             @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
@@ -44,7 +44,7 @@ public class SubscriptionController {
         return ResponseEntity.ok(following);
     }
 
-    @GetMapping("/users/me/followers")
+    @GetMapping("/me/followers")
     public ResponseEntity<List<UserDTO>> getMyFollowers(
             @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
@@ -52,13 +52,13 @@ public class SubscriptionController {
         return ResponseEntity.ok(followers);
     }
 
-    @GetMapping("/users/{userId}/following")
+    @GetMapping("/{userId}/following")
     public ResponseEntity<List<UserDTO>> getUserFollowing(@PathVariable String userId) {
         List<UserDTO> following = subscriptionService.getFollowing(userId);
         return ResponseEntity.ok(following);
     }
 
-    @GetMapping("/users/{userId}/followers")
+    @GetMapping("/{userId}/followers")
     public ResponseEntity<List<UserDTO>> getUserFollowers(@PathVariable String userId) {
         List<UserDTO> followers = subscriptionService.getFollowers(userId);
         return ResponseEntity.ok(followers);

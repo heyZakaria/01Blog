@@ -1,10 +1,11 @@
 package com.zone.zone01blog.controller;
 
 import com.zone.zone01blog.dto.CreateUserRequest;
+import com.zone.zone01blog.dto.PostDTO;
 import com.zone.zone01blog.dto.UpdateUserRequest;
 import com.zone.zone01blog.dto.UserDTO;
-import com.zone.zone01blog.exception.UnauthorizedAccessException;
 import com.zone.zone01blog.security.JwtAuthenticationToken;
+import com.zone.zone01blog.service.PostService;
 import com.zone.zone01blog.service.SubscriptionService;
 import com.zone.zone01blog.service.UserService;
 
@@ -19,13 +20,18 @@ import java.util.*;
 @RequestMapping("/api/v1/users")
 public class UserController {
 
+    // /profile
+    // /feed ==> just who you following + your posts ==> posts from the following
+
     private final UserService userService;
     private final SubscriptionService subscriptionService;
+    private final PostService postService;
 
     // Constructor injection
-    public UserController(UserService userService, SubscriptionService subscriptionService) {
+    public UserController(UserService userService, SubscriptionService subscriptionService, PostService postService) {
         this.userService = userService;
         this.subscriptionService = subscriptionService;
+        this.postService = postService;
     }
 
     // choooooof any profile
@@ -46,6 +52,15 @@ public class UserController {
             }
         }
         return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<PostDTO>> getUserPosts(
+            @PathVariable String id,
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        String currentUserId = auth.getUserId();
+        List<PostDTO> posts = postService.getPostsByUserId(id, currentUserId);
+        return ResponseEntity.ok(posts);
     }
 
     // admiiiiiiin

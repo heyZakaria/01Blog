@@ -11,19 +11,27 @@ import com.zone.zone01blog.entity.User;
 @Repository
 public interface PostRepository extends JpaRepository<Post, String> {
 
-    // Find posts by author
     List<Post> findByAuthor(User author);
 
     // Find posts by author ID (more efficient if you only have ID)
     List<Post> findByAuthorId(String authorId);
 
-    //  SOLUTION TO N+1 PROBLEM: Join fetch
+    // SOLUTION TO N+1 PROBLEM: Join fetch
     @Query("SELECT p FROM Post p JOIN FETCH p.author")
     List<Post> findAllWithAuthors();
 
-    // Find single post with author
     @Query("SELECT p FROM Post p JOIN FETCH p.author WHERE p.id = :id")
     Post findByIdWithAuthor(String id);
+
+    // feed
+    @Query("SELECT p FROM Post p JOIN FETCH p.author " +
+            "WHERE p.author.id IN :followingIds " +
+            "ORDER BY p.createdAt DESC")
+    List<Post> findFeedPostsByFollowingIds(List<String> followingIds);
+
+    // chi profile 
+    @Query("SELECT p FROM Post p JOIN FETCH p.author WHERE p.author.id = :userId ORDER BY p.createdAt DESC")
+    List<Post> findByAuthorIdWithAuthor(String userId);
 
     // private List<Post> posts = new ArrayList<>();
 

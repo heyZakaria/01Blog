@@ -109,4 +109,11 @@ public class UserService {
 
         userRepository.deleteById(id);
     }
+
+    public UserDTO toggleBan(String userId) {
+        User user = getUserEntityById(userId);
+        user.setBanned(!user.isBanned());
+        User updatedUser = userRepository.save(user);
+        return convertToDTO(updatedUser);
+    }
 }
