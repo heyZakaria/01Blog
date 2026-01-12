@@ -8,6 +8,7 @@ import com.zone.zone01blog.dto.CreateCommentRequest;
 import com.zone.zone01blog.dto.UpdateCommentRequest;
 import com.zone.zone01blog.dto.UserDTO;
 import com.zone.zone01blog.entity.Comment;
+import com.zone.zone01blog.entity.NotificationType;
 import com.zone.zone01blog.entity.Post;
 import com.zone.zone01blog.entity.User;
 import com.zone.zone01blog.exception.CommentNotFoundException;
@@ -27,13 +28,16 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final UserService userService;
+    private final NotificationService notificationService;
 
     public CommentService(CommentRepository commentRepository,
             PostRepository postRepository,
-            UserService userService) {
+            UserService userService,
+            NotificationService notificationService) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
         this.userService = userService;
+        this.notificationService = notificationService;
     }
 
     public List<CommentDTO> getCommentsByPostId(String postId) {
@@ -53,17 +57,24 @@ public class CommentService {
 
         User author = userService.getUserEntityById(userId);
 
-        // 3. Create comment
         Comment comment = new Comment(
                 UUID.randomUUID().toString(),
                 request.getContent(),
                 post,
                 author);
 
-        // 4. Save
         Comment savedComment = commentRepository.save(comment);
 
-        // 5. Convert to DTO
+        if (!post.getAuthor().getId().equals(userId)) {
+            String message = author.getName() + " commented on your post: " + post.getTitle();
+            notificationService.createNotification(
+                    post.getAuthor(),
+                    NotificationType.POST_COMMENT,
+                    message,
+                    author,
+                    post);
+        }
+
         return convertToDTO(savedComment);
     }
 
@@ -94,16 +105,13 @@ public class CommentService {
             throw new UnauthorizedAccessException("You can only delete your own comments");
         }
 
-        // 3. Delete
         commentRepository.deleteById(commentId);
     }
 
-    // Get comment count for a post
     public long getCommentCount(String postId) {
         return commentRepository.countByPostId(postId);
     }
 
-    // Convert Comment entity to CommentDTO
     private CommentDTO convertToDTO(Comment comment) {
         User author = comment.getAuthor();
 

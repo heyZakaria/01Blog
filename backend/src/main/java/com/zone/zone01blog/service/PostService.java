@@ -11,6 +11,7 @@ import com.zone.zone01blog.dto.CreatePostRequest;
 import com.zone.zone01blog.dto.PostDTO;
 import com.zone.zone01blog.dto.UpdatePostRequest;
 import com.zone.zone01blog.dto.UserDTO;
+import com.zone.zone01blog.entity.NotificationType;
 import com.zone.zone01blog.entity.Post;
 import com.zone.zone01blog.entity.User;
 import com.zone.zone01blog.exception.PostNotFoundException;
@@ -28,17 +29,20 @@ public class PostService {
     private final CommentService commentService;
     private final LikeService likeService;
     private final SubscriptionService subscriptionService;
+    private final NotificationService notificationService;
 
     public PostService(PostRepository postRepository,
             UserService userService,
             CommentService commentService,
             LikeService likeService,
-            SubscriptionService subscriptionService) {
+            SubscriptionService subscriptionService,
+            NotificationService notificationService) {
         this.postRepository = postRepository;
         this.userService = userService;
         this.commentService = commentService;
         this.likeService = likeService;
         this.subscriptionService = subscriptionService;
+        this.notificationService = notificationService;
     }
 
     public List<PostDTO> getAllPosts(String currentUserId) {
@@ -90,6 +94,21 @@ public class PostService {
                 author);
 
         Post savedPost = postRepository.save(post);
+
+        List<User> followers = subscriptionService.getFollowers(userId).stream()
+                .map(dto -> userService.getUserEntityById(dto.getId()))
+                .collect(Collectors.toList());
+
+        for (User follower : followers) {
+            String message = author.getName() + " created a new post: " + savedPost.getTitle();
+            notificationService.createNotification(
+                    follower,
+                    NotificationType.NEW_POST,
+                    message,
+                    author,
+                    savedPost);
+        }
+
         return convertToDTO(savedPost, userId);
     }
 

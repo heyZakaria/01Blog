@@ -42,7 +42,6 @@ public class Report {
     @Column
     private LocalDateTime resolvedAt;
 
-    // Constructors
     public Report(String id, User reporter, User reportedUser, String reason) {
         this.id = id;
         this.reporter = reporter;

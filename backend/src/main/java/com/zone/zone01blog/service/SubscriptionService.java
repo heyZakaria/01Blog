@@ -1,6 +1,7 @@
 package com.zone.zone01blog.service;
 
 import com.zone.zone01blog.dto.UserDTO;
+import com.zone.zone01blog.entity.NotificationType;
 import com.zone.zone01blog.entity.Subscription;
 import com.zone.zone01blog.entity.User;
 import com.zone.zone01blog.exception.CannotFollowSelfException;
@@ -19,11 +20,14 @@ public class SubscriptionService {
 
     private final SubscriptionRepository subscriptionRepository;
     private final UserService userService;
+    private final NotificationService notificationService;
 
     public SubscriptionService(SubscriptionRepository subscriptionRepository,
-            UserService userService) {
+            UserService userService,
+            NotificationService notificationService) {
         this.subscriptionRepository = subscriptionRepository;
         this.userService = userService;
+        this.notificationService = notificationService;
     }
 
     public boolean toggleFollow(String followingId, String followerId) {
@@ -47,6 +51,15 @@ public class SubscriptionService {
                     following);
 
             subscriptionRepository.save(subscription);
+
+            String message = follower.getName() + " started following you";
+            notificationService.createNotification(
+                    following,
+                    NotificationType.NEW_FOLLOWER,
+                    message,
+                    follower,
+                    null);
+
             return true;
         }
     }
