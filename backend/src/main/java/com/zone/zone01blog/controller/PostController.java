@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.zone.zone01blog.dto.CreatePostRequest;
 import com.zone.zone01blog.dto.PostDTO;
@@ -51,11 +53,10 @@ public class PostController {
         PostDTO post = postService.getPostById(id, userId);
         return ResponseEntity.ok(post);
     }
-    
+
     @GetMapping("/feed")
     public ResponseEntity<List<PostDTO>> getFeed(
-        @AuthenticationPrincipal JwtAuthenticationToken auth
-    ) {
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         List<PostDTO> feed = postService.getFeed(userId);
         return ResponseEntity.ok(feed);
@@ -102,5 +103,24 @@ public class PostController {
         response.put("likeCount", likeCount);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/{id}/media")
+    public ResponseEntity<PostDTO> uploadMedia(
+            @PathVariable String id,
+            @RequestParam("file") MultipartFile file,
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        String userId = auth.getUserId();
+        PostDTO post = postService.uploadMedia(id, file, userId);
+        return ResponseEntity.ok(post);
+    }
+
+    @DeleteMapping("/{id}/media")
+    public ResponseEntity<PostDTO> deleteMedia(
+            @PathVariable String id,
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        String userId = auth.getUserId();
+        PostDTO post = postService.deleteMedia(id, userId);
+        return ResponseEntity.ok(post);
     }
 }

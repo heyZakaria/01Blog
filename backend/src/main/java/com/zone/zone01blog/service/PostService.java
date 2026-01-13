@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.zone.zone01blog.dto.CreatePostRequest;
 import com.zone.zone01blog.dto.PostDTO;
@@ -30,19 +31,23 @@ public class PostService {
     private final LikeService likeService;
     private final SubscriptionService subscriptionService;
     private final NotificationService notificationService;
+    private final FileStorageService fileStorageService;
 
     public PostService(PostRepository postRepository,
             UserService userService,
             CommentService commentService,
             LikeService likeService,
             SubscriptionService subscriptionService,
-            NotificationService notificationService) {
+            NotificationService notificationService,
+            FileStorageService fileStorageService) {
         this.postRepository = postRepository;
         this.userService = userService;
         this.commentService = commentService;
         this.likeService = likeService;
         this.subscriptionService = subscriptionService;
         this.notificationService = notificationService;
+        this.fileStorageService = fileStorageService;
+
     }
 
     public List<PostDTO> getAllPosts(String currentUserId) {
@@ -139,7 +144,59 @@ public class PostService {
             throw new UnauthorizedAccessException("You can only delete your own posts");
         }
 
+        if (post.getMediaUrl() != null) {
+            String filename = extractFilenameFromUrl(post.getMediaUrl());
+            fileStorageService.deleteFile(filename);
+        }
+
         postRepository.deleteById(id);
+    }
+
+    public PostDTO uploadMedia(String postId, MultipartFile file, String userId) {
+        Post post = postRepository.findByIdWithAuthor(postId);
+        if (post == null) {
+            throw new PostNotFoundException("Post not found with id: " + postId);
+        }
+
+        if (!post.getAuthor().getId().equals(userId)) {
+            throw new UnauthorizedAccessException("You can only upload media to your own posts");
+        }
+
+        if (post.getMediaUrl() != null) {
+            String oldFilename = extractFilenameFromUrl(post.getMediaUrl());
+            fileStorageService.deleteFile(oldFilename);
+        }
+
+        String filename = fileStorageService.storeFile(file);
+        String mediaType = fileStorageService.getMediaType(file.getContentType());
+
+        post.setMediaUrl("/api/v1/media/" + filename);
+        post.setMediaType(mediaType);
+
+        Post updatedPost = postRepository.save(post);
+        return convertToDTO(updatedPost, userId);
+    }
+
+    public PostDTO deleteMedia(String postId, String userId) {
+        Post post = postRepository.findByIdWithAuthor(postId);
+        if (post == null) {
+            throw new PostNotFoundException("Post not found with id: " + postId);
+        }
+
+        if (!post.getAuthor().getId().equals(userId)) {
+            throw new UnauthorizedAccessException("You can only delete media from your own posts");
+        }
+
+        if (post.getMediaUrl() != null) {
+            String filename = extractFilenameFromUrl(post.getMediaUrl());
+            fileStorageService.deleteFile(filename);
+
+            post.setMediaUrl(null);
+            post.setMediaType(null);
+        }
+
+        Post updatedPost = postRepository.save(post);
+        return convertToDTO(updatedPost, userId);
     }
 
     private PostDTO convertToDTO(Post post, String currentUserId) {
@@ -154,7 +211,6 @@ public class PostService {
                 author.getUpdatedAt());
 
         long likeCount = likeService.getLikeCount(post.getId());
-
         long commentCount = commentService.getCommentCount(post.getId());
 
         boolean likedByCurrentUser = currentUserId != null &&
@@ -169,6 +225,13 @@ public class PostService {
                 post.getCreatedAt(),
                 post.getUpdatedAt(),
                 commentCount,
-                likedByCurrentUser);
+                likedByCurrentUser,
+                post.getMediaUrl(),
+                post.getMediaType());
     }
+
+    private String extractFilenameFromUrl(String url) {
+        return url.substring(url.lastIndexOf('/') + 1);
+    }
+
 }

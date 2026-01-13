@@ -128,4 +128,22 @@ public class GlobalExceptionHandler {
         error.put("timestamp", LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
     }
+
+    @ExceptionHandler(InvalidFileException.class)
+    public ResponseEntity<Map<String, Object>> handleInvalidFile(InvalidFileException e) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("message", e.getMessage());
+        error.put("status", 400);
+        error.put("timestamp", LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(FileStorageException.class)
+    public ResponseEntity<Map<String, Object>> handleFileStorage(FileStorageException e) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("message", e.getMessage());
+        error.put("status", 500);
+        error.put("timestamp", LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+    }
 }

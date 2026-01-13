@@ -33,12 +33,15 @@ public class Post {
 
     // fetch = FetchType.LAZY, what it means: "Don't load the author until I access
     // it"
-    // LAZY (default for @ManyToOne, recommended):
-
-    // in case of author use those:
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User author;
+
+    @Column(name = "media_url")
+    private String mediaUrl;
+
+    @Column(name = "media_type")
+    private String mediaType;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
