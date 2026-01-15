@@ -1,0 +1,3298 @@
+{
+	"info": {
+		"_postman_id": "4e4b44af-fab9-43d6-bcd4-53f4f0faaa00",
+		"name": "01blog-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35999397"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "v1",
+					"item": [
+						{
+							"name": "users",
+							"item": [
+								{
+									"name": "{id}",
+									"item": [
+										{
+											"name": "posts",
+											"item": [
+												{
+													"name": "get User Posts",
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/users/:id/posts",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"users",
+																":id",
+																"posts"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/users/:id/posts",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"users",
+																		":id",
+																		"posts"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "[\n  {\n    \"id\": \"string\",\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"likes\": 4833,\n    \"author\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1961-11-06T23:28:07.640Z\",\n      \"updatedAt\": \"2024-11-11T21:19:11.772Z\",\n      \"followersCount\": 6290,\n      \"followingCount\": 5777,\n      \"isFollowedByCurrentUser\": true\n    },\n    \"createdAt\": \"2022-05-03T05:38:36.466Z\",\n    \"updatedAt\": \"1950-01-30T01:53:03.740Z\",\n    \"commentCount\": 9092,\n    \"likedByCurrentUser\": true,\n    \"mediaUrl\": \"string\",\n    \"mediaType\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"likes\": 9053,\n    \"author\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1978-07-10T16:03:26.202Z\",\n      \"updatedAt\": \"1946-02-24T09:12:07.682Z\",\n      \"followersCount\": 9400,\n      \"followingCount\": 70,\n      \"isFollowedByCurrentUser\": true\n    },\n    \"createdAt\": \"1963-01-29T08:34:43.169Z\",\n    \"updatedAt\": \"1995-01-12T12:11:22.064Z\",\n    \"commentCount\": 6270,\n    \"likedByCurrentUser\": true,\n    \"mediaUrl\": \"string\",\n    \"mediaType\": \"string\"\n  }\n]"
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "get User By Id",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/users/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"users",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "string"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/users/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"users",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"role\": \"string\",\n  \"createdAt\": \"1954-03-25T00:40:42.880Z\",\n  \"updatedAt\": \"2004-02-14T18:21:29.796Z\",\n  \"followersCount\": 4614,\n  \"followingCount\": 578,\n  \"isFollowedByCurrentUser\": false\n}"
+												}
+											]
+										},
+										{
+											"name": "update User",
+											"request": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"password\": \"string\",\n  \"role\": \"string\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/users/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"users",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "string"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"password\": \"string\",\n  \"role\": \"string\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/users/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"users",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"role\": \"string\",\n  \"createdAt\": \"1954-03-25T00:40:42.880Z\",\n  \"updatedAt\": \"2004-02-14T18:21:29.796Z\",\n  \"followersCount\": 4614,\n  \"followingCount\": 578,\n  \"isFollowedByCurrentUser\": false\n}"
+												}
+											]
+										},
+										{
+											"name": "delete User",
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/users/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"users",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "string"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/users/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"users",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"role\": \"string\",\n  \"createdAt\": \"1954-03-25T00:40:42.880Z\",\n  \"updatedAt\": \"2004-02-14T18:21:29.796Z\",\n  \"followersCount\": 4614,\n  \"followingCount\": 578,\n  \"isFollowedByCurrentUser\": false\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "{userId}",
+									"item": [
+										{
+											"name": "report",
+											"item": [
+												{
+													"name": "report User",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"reason\": \"string\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/users/:userId/report",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"users",
+																":userId",
+																"report"
+															],
+															"variable": [
+																{
+																	"key": "userId",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "POST",
+																"header": [
+																	{
+																		"key": "Content-Type",
+																		"value": "application/json"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\n  \"reason\": \"string\"\n}",
+																	"options": {
+																		"raw": {
+																			"headerFamily": "json",
+																			"language": "json"
+																		}
+																	}
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/users/:userId/report",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"users",
+																		":userId",
+																		"report"
+																	],
+																	"variable": [
+																		{
+																			"key": "userId",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"id\": \"string\",\n  \"reporter\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1979-04-18T01:12:58.512Z\",\n    \"updatedAt\": \"1977-01-03T15:55:55.753Z\",\n    \"followersCount\": 3484,\n    \"followingCount\": 571,\n    \"isFollowedByCurrentUser\": false\n  },\n  \"reportedUser\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1974-02-17T18:15:19.570Z\",\n    \"updatedAt\": \"1990-02-09T01:02:58.552Z\",\n    \"followersCount\": 8999,\n    \"followingCount\": 7465,\n    \"isFollowedByCurrentUser\": false\n  },\n  \"reason\": \"string\",\n  \"status\": \"string\",\n  \"adminNotes\": \"string\",\n  \"createdAt\": \"1967-12-13T05:02:28.603Z\",\n  \"resolvedAt\": \"1983-10-21T21:25:51.689Z\"\n}"
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "me",
+									"item": [
+										{
+											"name": "get Current User",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/users/me",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"users",
+														"me"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/users/me",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"users",
+																"me"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"role\": \"string\",\n  \"createdAt\": \"1954-03-25T00:40:42.880Z\",\n  \"updatedAt\": \"2004-02-14T18:21:29.796Z\",\n  \"followersCount\": 4614,\n  \"followingCount\": 578,\n  \"isFollowedByCurrentUser\": false\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "get All Users",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"users"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/users",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"users"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1963-06-26T00:06:04.159Z\",\n    \"updatedAt\": \"2012-06-03T16:41:34.682Z\",\n    \"followersCount\": 574,\n    \"followingCount\": 366,\n    \"isFollowedByCurrentUser\": false\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"2013-06-11T20:00:27.324Z\",\n    \"updatedAt\": \"1953-04-21T00:45:49.984Z\",\n    \"followersCount\": 2953,\n    \"followingCount\": 6472,\n    \"isFollowedByCurrentUser\": true\n  }\n]"
+										}
+									]
+								},
+								{
+									"name": "create User",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"password\": \"string\",\n  \"role\": \"string\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"users"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"password\": \"string\",\n  \"role\": \"string\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/users",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"users"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"email\": \"string\",\n  \"role\": \"string\",\n  \"createdAt\": \"1954-03-25T00:40:42.880Z\",\n  \"updatedAt\": \"2004-02-14T18:21:29.796Z\",\n  \"followersCount\": 4614,\n  \"followingCount\": 578,\n  \"isFollowedByCurrentUser\": false\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "posts",
+							"item": [
+								{
+									"name": "{postId}",
+									"item": [
+										{
+											"name": "comments",
+											"item": [
+												{
+													"name": "{commentId}",
+													"item": [
+														{
+															"name": "update Comment",
+															"request": {
+																"method": "PUT",
+																"header": [
+																	{
+																		"key": "Content-Type",
+																		"value": "application/json"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\n  \"content\": \"string\"\n}",
+																	"options": {
+																		"raw": {
+																			"headerFamily": "json",
+																			"language": "json"
+																		}
+																	}
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/posts/:postId/comments/:commentId",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"posts",
+																		":postId",
+																		"comments",
+																		":commentId"
+																	],
+																	"variable": [
+																		{
+																			"key": "postId",
+																			"value": "string"
+																		},
+																		{
+																			"key": "commentId",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"response": [
+																{
+																	"name": "OK",
+																	"originalRequest": {
+																		"method": "PUT",
+																		"header": [
+																			{
+																				"key": "Content-Type",
+																				"value": "application/json"
+																			},
+																			{
+																				"key": "Accept",
+																				"value": "*/*"
+																			}
+																		],
+																		"body": {
+																			"mode": "raw",
+																			"raw": "{\n  \"content\": \"string\"\n}",
+																			"options": {
+																				"raw": {
+																					"headerFamily": "json",
+																					"language": "json"
+																				}
+																			}
+																		},
+																		"url": {
+																			"raw": "{{baseUrl}}/api/v1/posts/:postId/comments/:commentId",
+																			"host": [
+																				"{{baseUrl}}"
+																			],
+																			"path": [
+																				"api",
+																				"v1",
+																				"posts",
+																				":postId",
+																				"comments",
+																				":commentId"
+																			],
+																			"variable": [
+																				{
+																					"key": "postId",
+																					"value": "string"
+																				},
+																				{
+																					"key": "commentId",
+																					"value": "string"
+																				}
+																			]
+																		}
+																	},
+																	"status": "OK",
+																	"code": 200,
+																	"_postman_previewlanguage": "text",
+																	"header": [
+																		{
+																			"key": "Content-Type",
+																			"value": "*/*"
+																		}
+																	],
+																	"cookie": [],
+																	"body": "{\n  \"id\": \"string\",\n  \"content\": \"string\",\n  \"author\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1994-01-28T14:42:35.919Z\",\n    \"updatedAt\": \"2006-06-01T07:11:17.486Z\",\n    \"followersCount\": 6007,\n    \"followingCount\": 8947,\n    \"isFollowedByCurrentUser\": true\n  },\n  \"createdAt\": \"1978-03-25T14:52:57.487Z\",\n  \"updatedAt\": \"1994-06-13T11:24:32.281Z\"\n}"
+																}
+															]
+														},
+														{
+															"name": "delete Comment",
+															"request": {
+																"method": "DELETE",
+																"header": [],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/posts/:postId/comments/:commentId",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"posts",
+																		":postId",
+																		"comments",
+																		":commentId"
+																	],
+																	"variable": [
+																		{
+																			"key": "postId",
+																			"value": "string"
+																		},
+																		{
+																			"key": "commentId",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"response": [
+																{
+																	"name": "OK",
+																	"originalRequest": {
+																		"method": "DELETE",
+																		"header": [],
+																		"url": {
+																			"raw": "{{baseUrl}}/api/v1/posts/:postId/comments/:commentId",
+																			"host": [
+																				"{{baseUrl}}"
+																			],
+																			"path": [
+																				"api",
+																				"v1",
+																				"posts",
+																				":postId",
+																				"comments",
+																				":commentId"
+																			],
+																			"variable": [
+																				{
+																					"key": "postId",
+																					"value": "string"
+																				},
+																				{
+																					"key": "commentId",
+																					"value": "string"
+																				}
+																			]
+																		}
+																	},
+																	"status": "OK",
+																	"code": 200,
+																	"_postman_previewlanguage": "text",
+																	"header": [],
+																	"cookie": [],
+																	"body": ""
+																}
+															]
+														}
+													]
+												},
+												{
+													"name": "get Comments By Post",
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/posts/:postId/comments",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"posts",
+																":postId",
+																"comments"
+															],
+															"variable": [
+																{
+																	"key": "postId",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/posts/:postId/comments",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"posts",
+																		":postId",
+																		"comments"
+																	],
+																	"variable": [
+																		{
+																			"key": "postId",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "[\n  {\n    \"id\": \"string\",\n    \"content\": \"string\",\n    \"author\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"2025-07-20T19:52:10.221Z\",\n      \"updatedAt\": \"2013-01-30T07:38:17.874Z\",\n      \"followersCount\": 8120,\n      \"followingCount\": 2047,\n      \"isFollowedByCurrentUser\": false\n    },\n    \"createdAt\": \"1968-02-03T15:26:02.093Z\",\n    \"updatedAt\": \"2022-05-16T22:33:59.190Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"content\": \"string\",\n    \"author\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1970-04-17T21:08:50.383Z\",\n      \"updatedAt\": \"2000-03-12T17:17:27.516Z\",\n      \"followersCount\": 2632,\n      \"followingCount\": 4659,\n      \"isFollowedByCurrentUser\": false\n    },\n    \"createdAt\": \"1998-02-21T19:28:01.612Z\",\n    \"updatedAt\": \"1971-11-17T13:32:46.009Z\"\n  }\n]"
+														}
+													]
+												},
+												{
+													"name": "create Comment",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"content\": \"string\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/posts/:postId/comments",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"posts",
+																":postId",
+																"comments"
+															],
+															"variable": [
+																{
+																	"key": "postId",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "POST",
+																"header": [
+																	{
+																		"key": "Content-Type",
+																		"value": "application/json"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\n  \"content\": \"string\"\n}",
+																	"options": {
+																		"raw": {
+																			"headerFamily": "json",
+																			"language": "json"
+																		}
+																	}
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/posts/:postId/comments",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"posts",
+																		":postId",
+																		"comments"
+																	],
+																	"variable": [
+																		{
+																			"key": "postId",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"id\": \"string\",\n  \"content\": \"string\",\n  \"author\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1994-01-28T14:42:35.919Z\",\n    \"updatedAt\": \"2006-06-01T07:11:17.486Z\",\n    \"followersCount\": 6007,\n    \"followingCount\": 8947,\n    \"isFollowedByCurrentUser\": true\n  },\n  \"createdAt\": \"1978-03-25T14:52:57.487Z\",\n  \"updatedAt\": \"1994-06-13T11:24:32.281Z\"\n}"
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "{id}",
+									"item": [
+										{
+											"name": "media",
+											"item": [
+												{
+													"name": "upload Media",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"file\": \"string\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/posts/:id/media",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"posts",
+																":id",
+																"media"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "POST",
+																"header": [
+																	{
+																		"key": "Content-Type",
+																		"value": "application/json"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\n  \"file\": \"string\"\n}",
+																	"options": {
+																		"raw": {
+																			"headerFamily": "json",
+																			"language": "json"
+																		}
+																	}
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/posts/:id/media",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"posts",
+																		":id",
+																		"media"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"id\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"likes\": 5014,\n  \"author\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1946-10-29T23:06:31.782Z\",\n    \"updatedAt\": \"1969-08-10T18:12:00.697Z\",\n    \"followersCount\": 9357,\n    \"followingCount\": 2578,\n    \"isFollowedByCurrentUser\": false\n  },\n  \"createdAt\": \"1998-11-03T03:49:46.647Z\",\n  \"updatedAt\": \"1989-08-12T06:23:02.818Z\",\n  \"commentCount\": 3125,\n  \"likedByCurrentUser\": false,\n  \"mediaUrl\": \"string\",\n  \"mediaType\": \"string\"\n}"
+														}
+													]
+												},
+												{
+													"name": "delete Media",
+													"request": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/posts/:id/media",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"posts",
+																":id",
+																"media"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "DELETE",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/posts/:id/media",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"posts",
+																		":id",
+																		"media"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"id\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"likes\": 5014,\n  \"author\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1946-10-29T23:06:31.782Z\",\n    \"updatedAt\": \"1969-08-10T18:12:00.697Z\",\n    \"followersCount\": 9357,\n    \"followingCount\": 2578,\n    \"isFollowedByCurrentUser\": false\n  },\n  \"createdAt\": \"1998-11-03T03:49:46.647Z\",\n  \"updatedAt\": \"1989-08-12T06:23:02.818Z\",\n  \"commentCount\": 3125,\n  \"likedByCurrentUser\": false,\n  \"mediaUrl\": \"string\",\n  \"mediaType\": \"string\"\n}"
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "like",
+											"item": [
+												{
+													"name": "toggle Like",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/posts/:id/like",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"posts",
+																":id",
+																"like"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "POST",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/posts/:id/like",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"posts",
+																		":id",
+																		"like"
+																	],
+																	"variable": [
+																		{
+																			"key": "id",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"key_0\": {},\n  \"key_1\": {},\n  \"key_2\": {},\n  \"key_3\": {}\n}"
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "get Post By Id",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/posts/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"posts",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "string"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/posts/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"posts",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"id\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"likes\": 5014,\n  \"author\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1946-10-29T23:06:31.782Z\",\n    \"updatedAt\": \"1969-08-10T18:12:00.697Z\",\n    \"followersCount\": 9357,\n    \"followingCount\": 2578,\n    \"isFollowedByCurrentUser\": false\n  },\n  \"createdAt\": \"1998-11-03T03:49:46.647Z\",\n  \"updatedAt\": \"1989-08-12T06:23:02.818Z\",\n  \"commentCount\": 3125,\n  \"likedByCurrentUser\": false,\n  \"mediaUrl\": \"string\",\n  \"mediaType\": \"string\"\n}"
+												}
+											]
+										},
+										{
+											"name": "update Post",
+											"request": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"title\": \"string\",\n  \"description\": \"string\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/posts/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"posts",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "string"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"title\": \"string\",\n  \"description\": \"string\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/posts/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"posts",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"id\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"likes\": 5014,\n  \"author\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1946-10-29T23:06:31.782Z\",\n    \"updatedAt\": \"1969-08-10T18:12:00.697Z\",\n    \"followersCount\": 9357,\n    \"followingCount\": 2578,\n    \"isFollowedByCurrentUser\": false\n  },\n  \"createdAt\": \"1998-11-03T03:49:46.647Z\",\n  \"updatedAt\": \"1989-08-12T06:23:02.818Z\",\n  \"commentCount\": 3125,\n  \"likedByCurrentUser\": false,\n  \"mediaUrl\": \"string\",\n  \"mediaType\": \"string\"\n}"
+												}
+											]
+										},
+										{
+											"name": "delete Post",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/posts/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"posts",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "string"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/posts/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"posts",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "feed",
+									"item": [
+										{
+											"name": "get Feed",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/posts/feed",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"posts",
+														"feed"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/posts/feed",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"posts",
+																"feed"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "[\n  {\n    \"id\": \"string\",\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"likes\": 4833,\n    \"author\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1961-11-06T23:28:07.640Z\",\n      \"updatedAt\": \"2024-11-11T21:19:11.772Z\",\n      \"followersCount\": 6290,\n      \"followingCount\": 5777,\n      \"isFollowedByCurrentUser\": true\n    },\n    \"createdAt\": \"2022-05-03T05:38:36.466Z\",\n    \"updatedAt\": \"1950-01-30T01:53:03.740Z\",\n    \"commentCount\": 9092,\n    \"likedByCurrentUser\": true,\n    \"mediaUrl\": \"string\",\n    \"mediaType\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"likes\": 9053,\n    \"author\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1978-07-10T16:03:26.202Z\",\n      \"updatedAt\": \"1946-02-24T09:12:07.682Z\",\n      \"followersCount\": 9400,\n      \"followingCount\": 70,\n      \"isFollowedByCurrentUser\": true\n    },\n    \"createdAt\": \"1963-01-29T08:34:43.169Z\",\n    \"updatedAt\": \"1995-01-12T12:11:22.064Z\",\n    \"commentCount\": 6270,\n    \"likedByCurrentUser\": true,\n    \"mediaUrl\": \"string\",\n    \"mediaType\": \"string\"\n  }\n]"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "get All Posts",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/posts",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"posts"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/posts",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"posts"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"id\": \"string\",\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"likes\": 4833,\n    \"author\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1961-11-06T23:28:07.640Z\",\n      \"updatedAt\": \"2024-11-11T21:19:11.772Z\",\n      \"followersCount\": 6290,\n      \"followingCount\": 5777,\n      \"isFollowedByCurrentUser\": true\n    },\n    \"createdAt\": \"2022-05-03T05:38:36.466Z\",\n    \"updatedAt\": \"1950-01-30T01:53:03.740Z\",\n    \"commentCount\": 9092,\n    \"likedByCurrentUser\": true,\n    \"mediaUrl\": \"string\",\n    \"mediaType\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"likes\": 9053,\n    \"author\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1978-07-10T16:03:26.202Z\",\n      \"updatedAt\": \"1946-02-24T09:12:07.682Z\",\n      \"followersCount\": 9400,\n      \"followingCount\": 70,\n      \"isFollowedByCurrentUser\": true\n    },\n    \"createdAt\": \"1963-01-29T08:34:43.169Z\",\n    \"updatedAt\": \"1995-01-12T12:11:22.064Z\",\n    \"commentCount\": 6270,\n    \"likedByCurrentUser\": true,\n    \"mediaUrl\": \"string\",\n    \"mediaType\": \"string\"\n  }\n]"
+										}
+									]
+								},
+								{
+									"name": "create Post",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"title\": \"string\",\n  \"description\": \"string\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/posts",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"posts"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"title\": \"string\",\n  \"description\": \"string\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/posts",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"posts"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"string\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"likes\": 5014,\n  \"author\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1946-10-29T23:06:31.782Z\",\n    \"updatedAt\": \"1969-08-10T18:12:00.697Z\",\n    \"followersCount\": 9357,\n    \"followingCount\": 2578,\n    \"isFollowedByCurrentUser\": false\n  },\n  \"createdAt\": \"1998-11-03T03:49:46.647Z\",\n  \"updatedAt\": \"1989-08-12T06:23:02.818Z\",\n  \"commentCount\": 3125,\n  \"likedByCurrentUser\": false,\n  \"mediaUrl\": \"string\",\n  \"mediaType\": \"string\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "notifications",
+							"item": [
+								{
+									"name": "{notificationId}",
+									"item": [
+										{
+											"name": "read",
+											"item": [
+												{
+													"name": "mark As Read",
+													"request": {
+														"method": "PUT",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/notifications/:notificationId/read",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"notifications",
+																":notificationId",
+																"read"
+															],
+															"variable": [
+																{
+																	"key": "notificationId",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "PUT",
+																"header": [],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/notifications/:notificationId/read",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"notifications",
+																		":notificationId",
+																		"read"
+																	],
+																	"variable": [
+																		{
+																			"key": "notificationId",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [],
+															"cookie": [],
+															"body": ""
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "delete Notification",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/notifications/:notificationId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"notifications",
+														":notificationId"
+													],
+													"variable": [
+														{
+															"key": "notificationId",
+															"value": "string"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/notifications/:notificationId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"notifications",
+																":notificationId"
+															],
+															"variable": [
+																{
+																	"key": "notificationId",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "read-all",
+									"item": [
+										{
+											"name": "mark All As Read",
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/notifications/read-all",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"notifications",
+														"read-all"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "PUT",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/notifications/read-all",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"notifications",
+																"read-all"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "unread",
+									"item": [
+										{
+											"name": "count",
+											"item": [
+												{
+													"name": "get Unread Count",
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/notifications/unread/count",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"notifications",
+																"unread",
+																"count"
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/notifications/unread/count",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"notifications",
+																		"unread",
+																		"count"
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"key_0\": {},\n  \"key_1\": {},\n  \"key_2\": {},\n  \"key_3\": {}\n}"
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "get Unread Notifications",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/notifications/unread",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"notifications",
+														"unread"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/notifications/unread",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"notifications",
+																"unread"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "[\n  {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"relatedUser\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1959-11-06T04:38:31.085Z\",\n      \"updatedAt\": \"1971-10-24T03:22:54.965Z\",\n      \"followersCount\": 8763,\n      \"followingCount\": 1095,\n      \"isFollowedByCurrentUser\": false\n    },\n    \"relatedPostId\": \"string\",\n    \"createdAt\": \"2018-10-10T10:55:47.816Z\",\n    \"read\": true\n  },\n  {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"relatedUser\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"2006-05-09T07:26:58.768Z\",\n      \"updatedAt\": \"2011-11-27T05:34:02.351Z\",\n      \"followersCount\": 6591,\n      \"followingCount\": 9724,\n      \"isFollowedByCurrentUser\": true\n    },\n    \"relatedPostId\": \"string\",\n    \"createdAt\": \"2018-12-27T17:58:59.168Z\",\n    \"read\": true\n  }\n]"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "get Notifications",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/notifications",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"notifications"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/notifications",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"notifications"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"relatedUser\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1959-11-06T04:38:31.085Z\",\n      \"updatedAt\": \"1971-10-24T03:22:54.965Z\",\n      \"followersCount\": 8763,\n      \"followingCount\": 1095,\n      \"isFollowedByCurrentUser\": false\n    },\n    \"relatedPostId\": \"string\",\n    \"createdAt\": \"2018-10-10T10:55:47.816Z\",\n    \"read\": true\n  },\n  {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"relatedUser\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"2006-05-09T07:26:58.768Z\",\n      \"updatedAt\": \"2011-11-27T05:34:02.351Z\",\n      \"followersCount\": 6591,\n      \"followingCount\": 9724,\n      \"isFollowedByCurrentUser\": true\n    },\n    \"relatedPostId\": \"string\",\n    \"createdAt\": \"2018-12-27T17:58:59.168Z\",\n    \"read\": true\n  }\n]"
+										}
+									]
+								},
+								{
+									"name": "delete All Notifications",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/notifications",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"notifications"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/notifications",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"notifications"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "admin",
+							"item": [
+								{
+									"name": "users",
+									"item": [
+										{
+											"name": "{userId}",
+											"item": [
+												{
+													"name": "ban",
+													"item": [
+														{
+															"name": "toggle Ban User",
+															"request": {
+																"method": "PUT",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/admin/users/:userId/ban",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"admin",
+																		"users",
+																		":userId",
+																		"ban"
+																	],
+																	"variable": [
+																		{
+																			"key": "userId",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"response": [
+																{
+																	"name": "OK",
+																	"originalRequest": {
+																		"method": "PUT",
+																		"header": [
+																			{
+																				"key": "Accept",
+																				"value": "*/*"
+																			}
+																		],
+																		"url": {
+																			"raw": "{{baseUrl}}/api/v1/admin/users/:userId/ban",
+																			"host": [
+																				"{{baseUrl}}"
+																			],
+																			"path": [
+																				"api",
+																				"v1",
+																				"admin",
+																				"users",
+																				":userId",
+																				"ban"
+																			],
+																			"variable": [
+																				{
+																					"key": "userId",
+																					"value": "string"
+																				}
+																			]
+																		}
+																	},
+																	"status": "OK",
+																	"code": 200,
+																	"_postman_previewlanguage": "text",
+																	"header": [
+																		{
+																			"key": "Content-Type",
+																			"value": "*/*"
+																		}
+																	],
+																	"cookie": [],
+																	"body": "{\n  \"key_0\": {},\n  \"key_1\": {},\n  \"key_2\": {},\n  \"key_3\": {}\n}"
+																}
+															]
+														}
+													]
+												},
+												{
+													"name": "delete User 1",
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/admin/users/:userId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"admin",
+																"users",
+																":userId"
+															],
+															"variable": [
+																{
+																	"key": "userId",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "DELETE",
+																"header": [],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/admin/users/:userId",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"admin",
+																		"users",
+																		":userId"
+																	],
+																	"variable": [
+																		{
+																			"key": "userId",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [],
+															"cookie": [],
+															"body": ""
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "get All Users 1",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/admin/users",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"admin",
+														"users"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/admin/users",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"admin",
+																"users"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1963-06-26T00:06:04.159Z\",\n    \"updatedAt\": \"2012-06-03T16:41:34.682Z\",\n    \"followersCount\": 574,\n    \"followingCount\": 366,\n    \"isFollowedByCurrentUser\": false\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"2013-06-11T20:00:27.324Z\",\n    \"updatedAt\": \"1953-04-21T00:45:49.984Z\",\n    \"followersCount\": 2953,\n    \"followingCount\": 6472,\n    \"isFollowedByCurrentUser\": true\n  }\n]"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "reports",
+									"item": [
+										{
+											"name": "{reportId}",
+											"item": [
+												{
+													"name": "resolve",
+													"item": [
+														{
+															"name": "resolve Report",
+															"request": {
+																"method": "PUT",
+																"header": [
+																	{
+																		"key": "Content-Type",
+																		"value": "application/json"
+																	},
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"body": {
+																	"mode": "raw",
+																	"raw": "{\n  \"status\": \"string\",\n  \"adminNotes\": \"string\",\n  \"banUser\": true\n}",
+																	"options": {
+																		"raw": {
+																			"headerFamily": "json",
+																			"language": "json"
+																		}
+																	}
+																},
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/admin/reports/:reportId/resolve",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"admin",
+																		"reports",
+																		":reportId",
+																		"resolve"
+																	],
+																	"variable": [
+																		{
+																			"key": "reportId",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"response": [
+																{
+																	"name": "OK",
+																	"originalRequest": {
+																		"method": "PUT",
+																		"header": [
+																			{
+																				"key": "Content-Type",
+																				"value": "application/json"
+																			},
+																			{
+																				"key": "Accept",
+																				"value": "*/*"
+																			}
+																		],
+																		"body": {
+																			"mode": "raw",
+																			"raw": "{\n  \"status\": \"string\",\n  \"adminNotes\": \"string\",\n  \"banUser\": true\n}",
+																			"options": {
+																				"raw": {
+																					"headerFamily": "json",
+																					"language": "json"
+																				}
+																			}
+																		},
+																		"url": {
+																			"raw": "{{baseUrl}}/api/v1/admin/reports/:reportId/resolve",
+																			"host": [
+																				"{{baseUrl}}"
+																			],
+																			"path": [
+																				"api",
+																				"v1",
+																				"admin",
+																				"reports",
+																				":reportId",
+																				"resolve"
+																			],
+																			"variable": [
+																				{
+																					"key": "reportId",
+																					"value": "string"
+																				}
+																			]
+																		}
+																	},
+																	"status": "OK",
+																	"code": 200,
+																	"_postman_previewlanguage": "text",
+																	"header": [
+																		{
+																			"key": "Content-Type",
+																			"value": "*/*"
+																		}
+																	],
+																	"cookie": [],
+																	"body": "{\n  \"id\": \"string\",\n  \"reporter\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1979-04-18T01:12:58.512Z\",\n    \"updatedAt\": \"1977-01-03T15:55:55.753Z\",\n    \"followersCount\": 3484,\n    \"followingCount\": 571,\n    \"isFollowedByCurrentUser\": false\n  },\n  \"reportedUser\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1974-02-17T18:15:19.570Z\",\n    \"updatedAt\": \"1990-02-09T01:02:58.552Z\",\n    \"followersCount\": 8999,\n    \"followingCount\": 7465,\n    \"isFollowedByCurrentUser\": false\n  },\n  \"reason\": \"string\",\n  \"status\": \"string\",\n  \"adminNotes\": \"string\",\n  \"createdAt\": \"1967-12-13T05:02:28.603Z\",\n  \"resolvedAt\": \"1983-10-21T21:25:51.689Z\"\n}"
+																}
+															]
+														}
+													]
+												},
+												{
+													"name": "delete Report",
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/admin/reports/:reportId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"admin",
+																"reports",
+																":reportId"
+															],
+															"variable": [
+																{
+																	"key": "reportId",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "DELETE",
+																"header": [],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/admin/reports/:reportId",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"admin",
+																		"reports",
+																		":reportId"
+																	],
+																	"variable": [
+																		{
+																			"key": "reportId",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [],
+															"cookie": [],
+															"body": ""
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "status",
+											"item": [
+												{
+													"name": "{status}",
+													"item": [
+														{
+															"name": "get Reports By Status",
+															"request": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/api/v1/admin/reports/status/:status",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"api",
+																		"v1",
+																		"admin",
+																		"reports",
+																		"status",
+																		":status"
+																	],
+																	"variable": [
+																		{
+																			"key": "status",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"response": [
+																{
+																	"name": "OK",
+																	"originalRequest": {
+																		"method": "GET",
+																		"header": [
+																			{
+																				"key": "Accept",
+																				"value": "*/*"
+																			}
+																		],
+																		"url": {
+																			"raw": "{{baseUrl}}/api/v1/admin/reports/status/:status",
+																			"host": [
+																				"{{baseUrl}}"
+																			],
+																			"path": [
+																				"api",
+																				"v1",
+																				"admin",
+																				"reports",
+																				"status",
+																				":status"
+																			],
+																			"variable": [
+																				{
+																					"key": "status",
+																					"value": "string"
+																				}
+																			]
+																		}
+																	},
+																	"status": "OK",
+																	"code": 200,
+																	"_postman_previewlanguage": "text",
+																	"header": [
+																		{
+																			"key": "Content-Type",
+																			"value": "*/*"
+																		}
+																	],
+																	"cookie": [],
+																	"body": "[\n  {\n    \"id\": \"string\",\n    \"reporter\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1951-11-27T12:06:27.099Z\",\n      \"updatedAt\": \"1951-10-14T16:33:49.670Z\",\n      \"followersCount\": 2403,\n      \"followingCount\": 6591,\n      \"isFollowedByCurrentUser\": true\n    },\n    \"reportedUser\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1947-12-11T22:52:23.144Z\",\n      \"updatedAt\": \"1954-12-26T19:21:05.966Z\",\n      \"followersCount\": 1460,\n      \"followingCount\": 8784,\n      \"isFollowedByCurrentUser\": false\n    },\n    \"reason\": \"string\",\n    \"status\": \"string\",\n    \"adminNotes\": \"string\",\n    \"createdAt\": \"2021-07-09T23:10:32.074Z\",\n    \"resolvedAt\": \"1970-02-23T12:58:09.088Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"reporter\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1987-09-14T02:10:10.436Z\",\n      \"updatedAt\": \"1980-11-22T20:22:56.732Z\",\n      \"followersCount\": 6752,\n      \"followingCount\": 6380,\n      \"isFollowedByCurrentUser\": false\n    },\n    \"reportedUser\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1969-07-07T14:47:10.092Z\",\n      \"updatedAt\": \"2004-03-05T01:43:07.961Z\",\n      \"followersCount\": 2846,\n      \"followingCount\": 4345,\n      \"isFollowedByCurrentUser\": true\n    },\n    \"reason\": \"string\",\n    \"status\": \"string\",\n    \"adminNotes\": \"string\",\n    \"createdAt\": \"1967-01-18T11:37:08.198Z\",\n    \"resolvedAt\": \"1954-07-27T01:23:16.634Z\"\n  }\n]"
+																}
+															]
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "get All Reports",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/admin/reports",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"admin",
+														"reports"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/admin/reports",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"admin",
+																"reports"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "[\n  {\n    \"id\": \"string\",\n    \"reporter\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1951-11-27T12:06:27.099Z\",\n      \"updatedAt\": \"1951-10-14T16:33:49.670Z\",\n      \"followersCount\": 2403,\n      \"followingCount\": 6591,\n      \"isFollowedByCurrentUser\": true\n    },\n    \"reportedUser\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1947-12-11T22:52:23.144Z\",\n      \"updatedAt\": \"1954-12-26T19:21:05.966Z\",\n      \"followersCount\": 1460,\n      \"followingCount\": 8784,\n      \"isFollowedByCurrentUser\": false\n    },\n    \"reason\": \"string\",\n    \"status\": \"string\",\n    \"adminNotes\": \"string\",\n    \"createdAt\": \"2021-07-09T23:10:32.074Z\",\n    \"resolvedAt\": \"1970-02-23T12:58:09.088Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"reporter\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1987-09-14T02:10:10.436Z\",\n      \"updatedAt\": \"1980-11-22T20:22:56.732Z\",\n      \"followersCount\": 6752,\n      \"followingCount\": 6380,\n      \"isFollowedByCurrentUser\": false\n    },\n    \"reportedUser\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role\": \"string\",\n      \"createdAt\": \"1969-07-07T14:47:10.092Z\",\n      \"updatedAt\": \"2004-03-05T01:43:07.961Z\",\n      \"followersCount\": 2846,\n      \"followingCount\": 4345,\n      \"isFollowedByCurrentUser\": true\n    },\n    \"reason\": \"string\",\n    \"status\": \"string\",\n    \"adminNotes\": \"string\",\n    \"createdAt\": \"1967-01-18T11:37:08.198Z\",\n    \"resolvedAt\": \"1954-07-27T01:23:16.634Z\"\n  }\n]"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "analytics",
+									"item": [
+										{
+											"name": "get Analytics",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/admin/analytics",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"admin",
+														"analytics"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/admin/analytics",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"admin",
+																"analytics"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"key_0\": {},\n  \"key_1\": {},\n  \"key_2\": {},\n  \"key_3\": {}\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "media",
+							"item": [
+								{
+									"name": "{filename}",
+									"item": [
+										{
+											"name": "get File",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/media/:filename",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"media",
+														":filename"
+													],
+													"variable": [
+														{
+															"key": "filename",
+															"value": "string"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/media/:filename",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"media",
+																":filename"
+															],
+															"variable": [
+																{
+																	"key": "filename",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "string"
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "api",
+					"item": [
+						{
+							"name": "v1",
+							"item": [
+								{
+									"name": "{userId}",
+									"item": [
+										{
+											"name": "follow",
+											"item": [
+												{
+													"name": "toggle Follow",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/users/api/v1/:userId/follow",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"users",
+																"api",
+																"v1",
+																":userId",
+																"follow"
+															],
+															"variable": [
+																{
+																	"key": "userId",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "POST",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/users/api/v1/:userId/follow",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"users",
+																		"api",
+																		"v1",
+																		":userId",
+																		"follow"
+																	],
+																	"variable": [
+																		{
+																			"key": "userId",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"key_0\": {},\n  \"key_1\": {},\n  \"key_2\": {},\n  \"key_3\": {}\n}"
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "following",
+											"item": [
+												{
+													"name": "get User Following",
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/users/api/v1/:userId/following",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"users",
+																"api",
+																"v1",
+																":userId",
+																"following"
+															],
+															"variable": [
+																{
+																	"key": "userId",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/users/api/v1/:userId/following",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"users",
+																		"api",
+																		"v1",
+																		":userId",
+																		"following"
+																	],
+																	"variable": [
+																		{
+																			"key": "userId",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1963-06-26T00:06:04.159Z\",\n    \"updatedAt\": \"2012-06-03T16:41:34.682Z\",\n    \"followersCount\": 574,\n    \"followingCount\": 366,\n    \"isFollowedByCurrentUser\": false\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"2013-06-11T20:00:27.324Z\",\n    \"updatedAt\": \"1953-04-21T00:45:49.984Z\",\n    \"followersCount\": 2953,\n    \"followingCount\": 6472,\n    \"isFollowedByCurrentUser\": true\n  }\n]"
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "followers",
+											"item": [
+												{
+													"name": "get User Followers",
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/users/api/v1/:userId/followers",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"users",
+																"api",
+																"v1",
+																":userId",
+																"followers"
+															],
+															"variable": [
+																{
+																	"key": "userId",
+																	"value": "string"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/users/api/v1/:userId/followers",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"users",
+																		"api",
+																		"v1",
+																		":userId",
+																		"followers"
+																	],
+																	"variable": [
+																		{
+																			"key": "userId",
+																			"value": "string"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1963-06-26T00:06:04.159Z\",\n    \"updatedAt\": \"2012-06-03T16:41:34.682Z\",\n    \"followersCount\": 574,\n    \"followingCount\": 366,\n    \"isFollowedByCurrentUser\": false\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"2013-06-11T20:00:27.324Z\",\n    \"updatedAt\": \"1953-04-21T00:45:49.984Z\",\n    \"followersCount\": 2953,\n    \"followingCount\": 6472,\n    \"isFollowedByCurrentUser\": true\n  }\n]"
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "me",
+									"item": [
+										{
+											"name": "following",
+											"item": [
+												{
+													"name": "get My Following",
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/users/api/v1/me/following",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"users",
+																"api",
+																"v1",
+																"me",
+																"following"
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/users/api/v1/me/following",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"users",
+																		"api",
+																		"v1",
+																		"me",
+																		"following"
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1963-06-26T00:06:04.159Z\",\n    \"updatedAt\": \"2012-06-03T16:41:34.682Z\",\n    \"followersCount\": 574,\n    \"followingCount\": 366,\n    \"isFollowedByCurrentUser\": false\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"2013-06-11T20:00:27.324Z\",\n    \"updatedAt\": \"1953-04-21T00:45:49.984Z\",\n    \"followersCount\": 2953,\n    \"followingCount\": 6472,\n    \"isFollowedByCurrentUser\": true\n  }\n]"
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "followers",
+											"item": [
+												{
+													"name": "get My Followers",
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/users/api/v1/me/followers",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"users",
+																"api",
+																"v1",
+																"me",
+																"followers"
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "*/*"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/users/api/v1/me/followers",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"users",
+																		"api",
+																		"v1",
+																		"me",
+																		"followers"
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "*/*"
+																}
+															],
+															"cookie": [],
+															"body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"1963-06-26T00:06:04.159Z\",\n    \"updatedAt\": \"2012-06-03T16:41:34.682Z\",\n    \"followersCount\": 574,\n    \"followingCount\": 366,\n    \"isFollowedByCurrentUser\": false\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"role\": \"string\",\n    \"createdAt\": \"2013-06-11T20:00:27.324Z\",\n    \"updatedAt\": \"1953-04-21T00:45:49.984Z\",\n    \"followersCount\": 2953,\n    \"followingCount\": 6472,\n    \"isFollowedByCurrentUser\": true\n  }\n]"
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}

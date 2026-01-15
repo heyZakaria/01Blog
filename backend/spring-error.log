@@ -1,9 +1,0 @@
-03:02:23 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-03:02:24 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-03:02:24 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk2jovqhqo324cubdomovkex03b" of relation "likes" does not exist, skipping
-03:02:24 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-03:02:24 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "ukfh93un31i9nqpr9t1lionn9a8" of relation "subscriptions" does not exist, skipping
-03:02:24 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
-03:02:24 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk6dotkott2kjsp8vw4d0m25fb7" of relation "users" does not exist, skipping
-03:02:24 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
-03:02:24 ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
