@@ -2,8 +2,8 @@ package com.zone.zone01blog.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.zone.zone01blog.dto.CreateUserRequest;
 import com.zone.zone01blog.dto.LoginRequest;
@@ -12,7 +12,7 @@ import com.zone.zone01blog.service.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
@@ -21,7 +21,6 @@ public class AuthController {
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
-
 
     @PostMapping("/register")
     public ResponseEntity<LoginResponse> register(@RequestBody CreateUserRequest request) {
