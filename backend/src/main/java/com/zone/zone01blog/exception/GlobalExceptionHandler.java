@@ -13,11 +13,32 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
 @Hidden
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Spring Security: Access Denied (403)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, Object>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, Object> errors = new HashMap<>();
+        Map<String, String> fieldErrors = new HashMap<>();
+
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            fieldErrors.put(fieldName, errorMessage);
+        });
+
+        errors.put("message", "Validation Failed");
+        errors.put("errors", fieldErrors);
+        errors.put("status", 400);
+        errors.put("timestamp", LocalDateTime.now());
+
+        return ResponseEntity.badRequest().body(errors);
+    }
+
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Map<String, Object>> handleAccessDenied(AccessDeniedException e) {
         Map<String, Object> error = new HashMap<>();

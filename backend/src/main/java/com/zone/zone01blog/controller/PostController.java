@@ -24,6 +24,7 @@ import com.zone.zone01blog.dto.UpdatePostRequest;
 import com.zone.zone01blog.security.JwtAuthenticationToken;
 import com.zone.zone01blog.service.LikeService;
 import com.zone.zone01blog.service.PostService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/posts")
@@ -64,7 +65,7 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<PostDTO> createPost(
-            @RequestBody CreatePostRequest request,
+            @Valid @RequestBody CreatePostRequest request,
             @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         PostDTO post = postService.createPost(request, userId);
