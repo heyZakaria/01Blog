@@ -1,0 +1,22 @@
+.create-post-container {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+mat-card {
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}

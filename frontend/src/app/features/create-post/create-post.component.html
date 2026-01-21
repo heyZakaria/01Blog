@@ -1,0 +1,30 @@
+<div class="create-post-container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Create New Post</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Title</mat-label>
+                    <input matInput formControlName="title" placeholder="Ex. My First Blog Post">
+                    <mat-error *ngIf="postForm.get('title')?.hasError('required')">Title is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Content</mat-label>
+                    <textarea matInput formControlName="description" rows="5"
+                        placeholder="Write something amazing..."></textarea>
+                    <mat-error *ngIf="postForm.get('description')?.hasError('required')">Content is required</mat-error>
+                </mat-form-field>
+
+                <div class="actions">
+                    <button mat-raised-button color="primary" type="submit"
+                        [disabled]="postForm.invalid || isSubmitting">
+                        {{ isSubmitting ? 'Publishing...' : 'Publish' }}
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

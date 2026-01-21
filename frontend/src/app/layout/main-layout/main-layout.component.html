@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button>
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Zone01 Blog</span>
+    <span class="spacer"></span>
+    <a mat-button routerLink="/create-post">Create Post</a>
+    <a mat-button routerLink="/login">Login</a>
+    <a mat-raised-button color="accent" routerLink="/register">Get Started</a>
+</mat-toolbar>
+
+<main class="content">
+    <router-outlet></router-outlet>
+</main>

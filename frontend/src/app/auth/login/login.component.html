@@ -1,0 +1,79 @@
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="logo">
+                <span class="logo-icon">📝</span>
+                <span class="logo-text">Zone01 Blog</span>
+            </div>
+            <h1>Welcome back</h1>
+            <p>Sign in to continue to your account</p>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+            <div class="form-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" type="email" placeholder="you@example.com">
+                    <mat-icon matPrefix>email</mat-icon>
+                    @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
+                    <mat-error>Email is required</mat-error>
+                    }
+                    @if (loginForm.get('email')?.hasError('email')) {
+                    <mat-error>Please enter a valid email</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+            <div class="form-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" type="password" placeholder="••••••••">
+                    <mat-icon matPrefix>lock</mat-icon>
+                    @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
+                    <mat-error>Password is required</mat-error>
+                    }
+                    @if (loginForm.get('password')?.hasError('minlength')) {
+                    <mat-error>Password must be at least 6 characters</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+            @if (errorMessage) {
+            <div class="error-alert">
+                <mat-icon>error</mat-icon>
+                <span>{{ errorMessage }}</span>
+            </div>
+            }
+
+            <button mat-flat-button class="submit-btn" type="submit" [disabled]="loginForm.invalid">
+                Sign In
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <span>Don't have an account?</span>
+            <a routerLink="/register">Create one</a>
+        </div>
+    </div>
+
+    <div class="auth-side">
+        <div class="side-content">
+            <h2>Share Your Ideas</h2>
+            <p>Join our community of students sharing knowledge, experiences, and creative insights.</p>
+            <div class="features">
+                <div class="feature">
+                    <mat-icon>edit_note</mat-icon>
+                    <span>Write posts</span>
+                </div>
+                <div class="feature">
+                    <mat-icon>people</mat-icon>
+                    <span>Connect with peers</span>
+                </div>
+                <div class="feature">
+                    <mat-icon>trending_up</mat-icon>
+                    <span>Grow your audience</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
