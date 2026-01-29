@@ -4,9 +4,11 @@
     </button>
     <span>Zone01 Blog</span>
     <span class="spacer"></span>
-    <a mat-button routerLink="/create-post">Create Post</a>
-    <a mat-button routerLink="/login">Login</a>
-    <a mat-raised-button color="accent" routerLink="/register">Get Started</a>
+    <a mat-button routerLink="/create-post" *ngIf="isAuthenticated$ | async">Create Post</a>
+    <a mat-button [routerLink]="['/profile', (currentUser$ | async)?.id]" *ngIf="isAuthenticated$ | async">Profile</a>
+    <button mat-button (click)="logout()" *ngIf="isAuthenticated$ | async">Logout</button>
+    <a mat-button routerLink="/login" *ngIf="!(isAuthenticated$ | async)">Login</a>
+    <a mat-raised-button color="accent" routerLink="/register" *ngIf="!(isAuthenticated$ | async)">Get Started</a>
 </mat-toolbar>
 
 <main class="content">

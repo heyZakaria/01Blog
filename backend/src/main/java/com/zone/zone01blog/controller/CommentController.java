@@ -11,6 +11,7 @@ import com.zone.zone01blog.dto.UpdateCommentRequest;
 import com.zone.zone01blog.security.JwtAuthenticationToken;
 import com.zone.zone01blog.service.CommentService;
 
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,7 +33,7 @@ public class CommentController {
     @PostMapping
     public ResponseEntity<CommentDTO> createComment(
             @PathVariable String postId,
-            @RequestBody CreateCommentRequest request,
+            @Valid @RequestBody CreateCommentRequest request,
             @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         CommentDTO comment = commentService.createComment(postId, request, userId);
@@ -43,7 +44,7 @@ public class CommentController {
     public ResponseEntity<CommentDTO> updateComment(
             @PathVariable String postId,
             @PathVariable String commentId,
-            @RequestBody UpdateCommentRequest request,
+            @Valid @RequestBody UpdateCommentRequest request,
             @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         CommentDTO comment = commentService.updateComment(commentId, request, userId);

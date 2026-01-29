@@ -69,15 +69,16 @@ public class UserService {
         String id = UUID.randomUUID().toString();
         String hashedPassword = this.passwordEncoder.encode(request.getPassword());
 
-        if (request.getRole() == null) {
-            request.setRole("user");
+        String role = normalizeRole(request.getRole());
+        if (role == null) {
+            role = "USER";
         }
         User user = new User(
                 id,
                 request.getName(),
                 request.getEmail().toLowerCase(),
                 hashedPassword,
-                request.getRole());
+                role);
 
         User savedUser = userRepository.save(user);
 
@@ -97,7 +98,9 @@ public class UserService {
             existingUser.setPassword(hashed);
         }
 
-        existingUser.setRole(request.getRole());
+        if (request.getRole() != null && !request.getRole().isBlank()) {
+            existingUser.setRole(normalizeRole(request.getRole()));
+        }
 
         User updated = userRepository.save(existingUser);
 
@@ -115,5 +118,13 @@ public class UserService {
         user.setBanned(!user.isBanned());
         User updatedUser = userRepository.save(user);
         return convertToDTO(updatedUser);
+    }
+
+    private String normalizeRole(String role) {
+        if (role == null) {
+            return null;
+        }
+        String trimmed = role.trim();
+        return trimmed.isEmpty() ? null : trimmed.toUpperCase();
     }
 }

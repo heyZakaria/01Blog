@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -22,7 +23,7 @@ public class ReportController {
     @PostMapping("/users/{userId}/report")
     public ResponseEntity<ReportDTO> reportUser(
             @PathVariable String userId,
-            @RequestBody CreateReportRequest request,
+            @Valid @RequestBody CreateReportRequest request,
             @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String reporterId = auth.getUserId();
         ReportDTO report = reportService.createReport(userId, request, reporterId);

@@ -9,6 +9,7 @@ import com.zone.zone01blog.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +47,7 @@ public class AdminController {
     @PutMapping("/reports/{reportId}/resolve")
     public ResponseEntity<ReportDTO> resolveReport(
             @PathVariable String reportId,
-            @RequestBody ResolveReportRequest request) {
+            @Valid @RequestBody ResolveReportRequest request) {
         ReportDTO report = reportService.resolveReport(reportId, request);
         return ResponseEntity.ok(report);
     }

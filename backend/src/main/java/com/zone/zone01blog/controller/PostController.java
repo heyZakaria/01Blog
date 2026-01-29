@@ -75,7 +75,7 @@ public class PostController {
     @PutMapping("/{id}")
     public ResponseEntity<PostDTO> updatePost(
             @PathVariable String id,
-            @RequestBody UpdatePostRequest request,
+            @Valid @RequestBody UpdatePostRequest request,
             @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         PostDTO post = postService.updatePost(id, request, userId);

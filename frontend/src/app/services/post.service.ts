@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface PostDTO {
     id: string;
     title: string;
     description: string;
-    likes: number;
+    likeCount: number;
     author: any;
     createdAt: string;
+    updatedAt?: string;
     commentCount: number;
     likedByCurrentUser: boolean;
     mediaUrl?: string;
@@ -24,7 +26,7 @@ export interface CreatePostRequest {
     providedIn: 'root'
 })
 export class PostService {
-    private apiUrl = 'http://localhost:8080/api/v1/posts';
+    private apiUrl = `${environment.apiBaseUrl}/api/v1/posts`;
 
     constructor(private http: HttpClient) { }
 
@@ -37,6 +39,6 @@ export class PostService {
     }
 
     getUserPosts(userId: string): Observable<PostDTO[]> {
-        return this.http.get<PostDTO[]>(`http://localhost:8080/api/v1/users/${userId}/posts`);
+        return this.http.get<PostDTO[]>(`${environment.apiBaseUrl}/api/v1/users/${userId}/posts`);
     }
 }

@@ -1,15 +1,15 @@
 <configuration>
 
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
         </encoder>
-    </appender>
+    </appender> -->
 
     <!-- ROOT = فقط WARN + ERROR -->
-    <root level="WARN">
+    <!-- <root level="WARN">
         <appender-ref ref="CONSOLE"/>
-    </root>
+    </root> -->
 
     <!-- DB info -->
     <logger name="org.hibernate.orm.connections.pooling" level="INFO"/>
@@ -17,5 +17,5 @@
     <logger name="org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl" level="INFO"/>
 
     <!-- Logs ديالك -->
-    <logger name="com.zone.zone01blog" level="DEBUG"/>
+    <!-- <logger name="com.zone.zone01blog" level="DEBUG"/> -->
 </configuration>
