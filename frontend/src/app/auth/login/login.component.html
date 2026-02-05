@@ -1,79 +1,33 @@
-<div class="auth-page">
+<div class="auth-container">
     <div class="auth-card">
-        <div class="auth-header">
-            <div class="logo">
-                <span class="logo-icon">📝</span>
-                <span class="logo-text">Zone01 Blog</span>
-            </div>
-            <h1>Welcome back</h1>
-            <p>Sign in to continue to your account</p>
-        </div>
+        <header class="auth-header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to continue to 01Blog</p>
+        </header>
 
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+        <form class="auth-form" (ngSubmit)="login()">
             <div class="form-group">
-                <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" type="email" placeholder="you@example.com">
-                    <mat-icon matPrefix>email</mat-icon>
-                    @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
-                    <mat-error>Email is required</mat-error>
-                    }
-                    @if (loginForm.get('email')?.hasError('email')) {
-                    <mat-error>Please enter a valid email</mat-error>
-                    }
-                </mat-form-field>
+                <label class="form-label">Email</label>
+                <input type="email" [(ngModel)]="email" name="email" class="form-input"
+                    placeholder="your.email@example.com" [disabled]="loading" required>
             </div>
 
             <div class="form-group">
-                <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
-                    <input matInput formControlName="password" type="password" placeholder="••••••••">
-                    <mat-icon matPrefix>lock</mat-icon>
-                    @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
-                    <mat-error>Password is required</mat-error>
-                    }
-                    @if (loginForm.get('password')?.hasError('minlength')) {
-                    <mat-error>Password must be at least 6 characters</mat-error>
-                    }
-                </mat-form-field>
+                <label class="form-label">Password</label>
+                <input type="password" [(ngModel)]="password" name="password" class="form-input" placeholder="••••••••"
+                    [disabled]="loading" required>
             </div>
 
-            @if (errorMessage) {
-            <div class="error-alert">
-                <mat-icon>error</mat-icon>
-                <span>{{ errorMessage }}</span>
-            </div>
-            }
+            <p class="form-error" *ngIf="error">{{ error }}</p>
 
-            <button mat-flat-button class="submit-btn" type="submit" [disabled]="loginForm.invalid">
-                Sign In
+            <button type="submit" class="btn btn-primary btn-full" [disabled]="loading || !email || !password">
+                <span *ngIf="!loading">Sign In</span>
+                <span *ngIf="loading">Signing in...</span>
             </button>
         </form>
 
         <div class="auth-footer">
-            <span>Don't have an account?</span>
-            <a routerLink="/register">Create one</a>
-        </div>
-    </div>
-
-    <div class="auth-side">
-        <div class="side-content">
-            <h2>Share Your Ideas</h2>
-            <p>Join our community of students sharing knowledge, experiences, and creative insights.</p>
-            <div class="features">
-                <div class="feature">
-                    <mat-icon>edit_note</mat-icon>
-                    <span>Write posts</span>
-                </div>
-                <div class="feature">
-                    <mat-icon>people</mat-icon>
-                    <span>Connect with peers</span>
-                </div>
-                <div class="feature">
-                    <mat-icon>trending_up</mat-icon>
-                    <span>Grow your audience</span>
-                </div>
-            </div>
+            <p>Don't have an account? <a routerLink="/register">Sign up</a></p>
         </div>
     </div>
 </div>

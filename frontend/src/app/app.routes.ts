@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { guestGuard } from './core/guards/guest.guard';
+import { adminGuard } from './core/guards/admin.guard';
 
 export const routes: Routes = [
     { path: 'login', canActivate: [guestGuard], loadComponent: () => import('./auth/login/login.component').then(m => m.LoginComponent) },
@@ -13,7 +14,8 @@ export const routes: Routes = [
         children: [
             { path: '', loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent) },
             { path: 'profile/:id', loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent) },
-            { path: 'create-post', loadComponent: () => import('./features/create-post/create-post.component').then(m => m.CreatePostComponent) }
+            { path: 'create-post', loadComponent: () => import('./features/create-post/create-post.component').then(m => m.CreatePostComponent) },
+            { path: 'admin', canActivate: [adminGuard], loadComponent: () => import('./features/admin/admin-dashboard.component').then(m => m.AdminDashboardComponent) }
         ]
     },
 

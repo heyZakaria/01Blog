@@ -27,4 +27,8 @@ export class UserService {
     getCurrentUser(): Observable<UserDTO> {
         return this.http.get<UserDTO>(`${this.apiUrl}/me`);
     }
+
+    updateProfile(data: Partial<UserDTO>): Observable<UserDTO> {
+        return this.http.put<UserDTO>(`${this.apiUrl}/me`, data);
+    }
 }

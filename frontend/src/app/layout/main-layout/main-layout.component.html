@@ -1,16 +1,71 @@
-<mat-toolbar color="primary">
-    <button mat-icon-button>
-        <mat-icon>menu</mat-icon>
-    </button>
-    <span>Zone01 Blog</span>
-    <span class="spacer"></span>
-    <a mat-button routerLink="/create-post" *ngIf="isAuthenticated$ | async">Create Post</a>
-    <a mat-button [routerLink]="['/profile', (currentUser$ | async)?.id]" *ngIf="isAuthenticated$ | async">Profile</a>
-    <button mat-button (click)="logout()" *ngIf="isAuthenticated$ | async">Logout</button>
-    <a mat-button routerLink="/login" *ngIf="!(isAuthenticated$ | async)">Login</a>
-    <a mat-raised-button color="accent" routerLink="/register" *ngIf="!(isAuthenticated$ | async)">Get Started</a>
-</mat-toolbar>
+<header class="main-header">
+    <div class="container">
+        <nav class="navbar">
+            <!-- Logo -->
+            <a routerLink="/" class="logo">
+                <h1>01Blog</h1>
+            </a>
 
-<main class="content">
+            <!-- Navigation Links -->
+            <div class="nav-links">
+                <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    Feed
+                </a>
+                <a routerLink="/create-post" class="nav-link" routerLinkActive="active">
+                    Write
+                </a>
+            </div>
+
+            <!-- Right Section -->
+            <div class="nav-actions">
+                <!-- Notifications -->
+                <app-notification-dropdown></app-notification-dropdown>
+
+                <!-- User Menu -->
+                <div class="user-menu">
+                    <button class="user-avatar" (click)="toggleUserMenu()" type="button">
+                        {{ getUserInitials() }}
+                    </button>
+
+                    <div class="dropdown-menu" *ngIf="showUserMenu">
+                        <a [routerLink]="['/profile', currentUser?.id]" class="dropdown-item"
+                            (click)="showUserMenu = false">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 3C11.66 3 13 4.34 13 6C13 7.66 11.66 9 10 9C8.34 9 7 7.66 7 6C7 4.34 8.34 3 10 3ZM10 17.2C7.5 17.2 5.29 15.92 4 13.98C4.03 11.99 8 10.9 10 10.9C11.99 10.9 15.97 11.99 16 13.98C14.71 15.92 12.5 17.2 10 17.2Z"
+                                    fill="currentColor" />
+                            </svg>
+                            My Profile
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item" (click)="logout()" type="button">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M7.5 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V4.16667C2.5 3.72464 2.67559 3.30072 2.98816 2.98816C3.30072 2.67559 3.72464 2.5 4.16667 2.5H7.5"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M13.3333 14.1667L17.5 10L13.3333 5.83333" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M17.5 10H7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
     <router-outlet></router-outlet>
 </main>
+
+<footer class="main-footer">
+    <div class="container">
+        <p>&copy; 2026 01Blog. A platform for students to share their learning journey.</p>
+    </div>
+</footer>

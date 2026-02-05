@@ -41,4 +41,30 @@ export class PostService {
     getUserPosts(userId: string): Observable<PostDTO[]> {
         return this.http.get<PostDTO[]>(`${environment.apiBaseUrl}/api/v1/users/${userId}/posts`);
     }
+
+    getPostById(postId: string): Observable<PostDTO> {
+        return this.http.get<PostDTO>(`${this.apiUrl}/${postId}`);
+    }
+
+    updatePost(postId: string, data: CreatePostRequest): Observable<PostDTO> {
+        return this.http.put<PostDTO>(`${this.apiUrl}/${postId}`, data);
+    }
+
+    deletePost(postId: string): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${postId}`);
+    }
+
+    toggleLike(postId: string): Observable<{ liked: boolean; likeCount: number }> {
+        return this.http.post<{ liked: boolean; likeCount: number }>(`${this.apiUrl}/${postId}/like`, {});
+    }
+
+    uploadMedia(postId: string, file: File): Observable<PostDTO> {
+        const formData = new FormData();
+        formData.append('file', file);
+        return this.http.post<PostDTO>(`${this.apiUrl}/${postId}/media`, formData);
+    }
+
+    deleteMedia(postId: string): Observable<PostDTO> {
+        return this.http.delete<PostDTO>(`${this.apiUrl}/${postId}/media`);
+    }
 }

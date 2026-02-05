@@ -1,30 +1,79 @@
 <div class="create-post-container">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Create New Post</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Title</mat-label>
-                    <input matInput formControlName="title" placeholder="Ex. My First Blog Post">
-                    <mat-error *ngIf="postForm.get('title')?.hasError('required')">Title is required</mat-error>
-                </mat-form-field>
+    <div class="container container-sm">
+        <header class="page-header">
+            <h1>Create New Post</h1>
+            <p>Share your learning journey with the community</p>
+        </header>
 
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Content</mat-label>
-                    <textarea matInput formControlName="description" rows="5"
-                        placeholder="Write something amazing..."></textarea>
-                    <mat-error *ngIf="postForm.get('description')?.hasError('required')">Content is required</mat-error>
-                </mat-form-field>
+        <form class="create-post-form" (ngSubmit)="createPost()">
+            <!-- Title -->
+            <div class="form-group">
+                <label class="form-label">Title</label>
+                <input type="text" [(ngModel)]="title" name="title" class="form-input"
+                    placeholder="Give your post a compelling title" [disabled]="loading" required>
+            </div>
 
-                <div class="actions">
-                    <button mat-raised-button color="primary" type="submit"
-                        [disabled]="postForm.invalid || isSubmitting">
-                        {{ isSubmitting ? 'Publishing...' : 'Publish' }}
+            <!-- Description -->
+            <div class="form-group">
+                <label class="form-label">Content</label>
+                <textarea [(ngModel)]="description" name="description" class="form-textarea"
+                    placeholder="Share your thoughts, insights, and experiences..." rows="12" [disabled]="loading"
+                    required>
+                </textarea>
+            </div>
+
+            <!-- Media Upload -->
+            <div class="form-group">
+                <label class="form-label">Media (Optional)</label>
+
+                <div class="file-upload-area" *ngIf="!filePreview">
+                    <input type="file" id="file-input" accept="image/*,video/*" (change)="onFileSelected($event)"
+                        [disabled]="loading" hidden>
+                    <label for="file-input" class="file-upload-label">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M17 8L12 3L7 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M12 3V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span>Click to upload image or video</span>
+                        <span class="hint">Supports JPG, PNG, GIF, MP4, WebM</span>
+                    </label>
+                </div>
+
+                <!-- File Preview -->
+                <div class="file-preview" *ngIf="filePreview">
+                    <img *ngIf="fileType === 'image'" [src]="filePreview" alt="Preview">
+                    <video *ngIf="fileType === 'video'" [src]="filePreview" controls></video>
+                    <button type="button" class="remove-file-btn" (click)="removeFile()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
                     </button>
                 </div>
-            </form>
-        </mat-card-content>
-    </mat-card>
+            </div>
+
+            <!-- Error Message -->
+            <p class="form-error" *ngIf="error">{{ error }}</p>
+
+            <!-- Actions -->
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" routerLink="/" [disabled]="loading">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-primary"
+                    [disabled]="loading || !title.trim() || !description.trim()">
+                    <span *ngIf="!loading">Publish Post</span>
+                    <span *ngIf="loading" class="flex items-center gap-2">
+                        <span class="spinner"></span>
+                        Publishing...
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
 </div>

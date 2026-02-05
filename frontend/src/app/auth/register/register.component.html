@@ -1,90 +1,39 @@
-<div class="auth-page">
-    <div class="auth-side">
-        <div class="side-content">
-            <h2>Join Our Community</h2>
-            <p>Create an account and start sharing your ideas with fellow students and learners.</p>
-            <div class="features">
-                <div class="feature">
-                    <mat-icon>article</mat-icon>
-                    <span>Publish articles</span>
-                </div>
-                <div class="feature">
-                    <mat-icon>comment</mat-icon>
-                    <span>Engage in discussions</span>
-                </div>
-                <div class="feature">
-                    <mat-icon>star</mat-icon>
-                    <span>Build your reputation</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
+<div class="auth-container">
     <div class="auth-card">
-        <div class="auth-header">
-            <div class="logo">
-                <span class="logo-icon">📝</span>
-                <span class="logo-text">Zone01 Blog</span>
-            </div>
-            <h1>Create an account</h1>
-            <p>Get started with your free account</p>
-        </div>
+        <header class="auth-header">
+            <h1>Join 01Blog</h1>
+            <p>Create an account to start sharing your learning journey</p>
+        </header>
 
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+        <form class="auth-form" (ngSubmit)="register()">
             <div class="form-group">
-                <mat-form-field appearance="outline">
-                    <mat-label>Username</mat-label>
-                    <input matInput formControlName="username" placeholder="johndoe">
-                    <mat-icon matPrefix>person</mat-icon>
-                    @if (registerForm.get('username')?.hasError('required') && registerForm.get('username')?.touched) {
-                    <mat-error>Username is required</mat-error>
-                    }
-                </mat-form-field>
+                <label class="form-label">Name</label>
+                <input type="text" [(ngModel)]="name" name="name" class="form-input" placeholder="Your full name"
+                    [disabled]="loading" required>
             </div>
 
             <div class="form-group">
-                <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" type="email" placeholder="you@example.com">
-                    <mat-icon matPrefix>email</mat-icon>
-                    @if (registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched) {
-                    <mat-error>Email is required</mat-error>
-                    }
-                    @if (registerForm.get('email')?.hasError('email')) {
-                    <mat-error>Please enter a valid email</mat-error>
-                    }
-                </mat-form-field>
+                <label class="form-label">Email</label>
+                <input type="email" [(ngModel)]="email" name="email" class="form-input"
+                    placeholder="your.email@example.com" [disabled]="loading" required>
             </div>
 
             <div class="form-group">
-                <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
-                    <input matInput formControlName="password" type="password" placeholder="••••••••">
-                    <mat-icon matPrefix>lock</mat-icon>
-                    @if (registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched) {
-                    <mat-error>Password is required</mat-error>
-                    }
-                    @if (registerForm.get('password')?.hasError('minlength')) {
-                    <mat-error>Password must be at least 6 characters</mat-error>
-                    }
-                </mat-form-field>
+                <label class="form-label">Password</label>
+                <input type="password" [(ngModel)]="password" name="password" class="form-input" placeholder="••••••••"
+                    [disabled]="loading" required>
             </div>
 
-            @if (errorMessage) {
-            <div class="error-alert">
-                <mat-icon>error</mat-icon>
-                <span>{{ errorMessage }}</span>
-            </div>
-            }
+            <p class="form-error" *ngIf="error">{{ error }}</p>
 
-            <button mat-flat-button class="submit-btn" type="submit" [disabled]="registerForm.invalid">
-                Create Account
+            <button type="submit" class="btn btn-primary btn-full" [disabled]="loading || !name || !email || !password">
+                <span *ngIf="!loading">Create Account</span>
+                <span *ngIf="loading">Creating account...</span>
             </button>
         </form>
 
         <div class="auth-footer">
-            <span>Already have an account?</span>
-            <a routerLink="/login">Sign in</a>
+            <p>Already have an account? <a routerLink="/login">Sign in</a></p>
         </div>
     </div>
 </div>

@@ -1,34 +1,60 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { Router, RouterOutlet, RouterLink } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { UserService, UserDTO } from '../../services/user.service';
+import { NotificationDropdownComponent } from '../../shared/notification-dropdown/notification-dropdown.component';
 
 @Component({
     selector: 'app-main-layout',
     standalone: true,
     imports: [
         CommonModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatIconModule,
         RouterOutlet,
-        RouterLink
+        RouterLink,
+        NotificationDropdownComponent
     ],
     templateUrl: './main-layout.component.html',
     styleUrl: './main-layout.component.css'
 })
-export class MainLayoutComponent {
-    private authService = inject(AuthService);
-    private router = inject(Router);
+export class MainLayoutComponent implements OnInit {
+    currentUser: UserDTO | null = null;
+    showUserMenu: boolean = false;
 
-    readonly isAuthenticated$ = this.authService.isAuthenticated$;
-    readonly currentUser$ = this.authService.currentUser$;
+    constructor(
+        private authService: AuthService,
+        private userService: UserService
+    ) { }
 
-    logout(): void {
+    ngOnInit() {
+        this.loadCurrentUser();
+    }
+
+    loadCurrentUser() {
+        this.userService.getCurrentUser().subscribe({
+            next: (user) => {
+                this.currentUser = user;
+            },
+            error: (error) => {
+                console.error('Error loading current user:', error);
+            }
+        });
+    }
+
+    toggleUserMenu() {
+        this.showUserMenu = !this.showUserMenu;
+    }
+
+    logout() {
         this.authService.logout();
-        this.router.navigate(['/login']);
+    }
+
+    getUserInitials(): string {
+        if (!this.currentUser?.name) return '?';
+        const names = this.currentUser.name.split(' ');
+        if (names.length >= 2) {
+            return names[0][0] + names[1][0];
+        }
+        return names[0][0];
     }
 }

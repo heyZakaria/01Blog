@@ -1,62 +1,71 @@
 <div class="profile-container">
-    <div *ngIf="isLoading" class="loading-spinner">
-        <mat-spinner diameter="50"></mat-spinner>
-    </div>
+    <div class="container container-content">
+        <!-- Loading State -->
+        <div *ngIf="loading" class="loading-container">
+            <div class="spinner"></div>
+            <p>Loading profile...</p>
+        </div>
 
-    <div *ngIf="error" class="error-state">
-        <mat-icon color="warn">error</mat-icon>
-        <h3>{{ error }}</h3>
-        <button mat-button routerLink="/">Go Home</button>
-    </div>
-
-    <div *ngIf="!isLoading && user" class="profile-content">
-        <!-- User Header -->
-        <mat-card class="profile-header-card">
-            <div class="profile-header">
-                <div class="avatar-placeholder">
-                    <mat-icon>person</mat-icon>
+        <!-- Profile Content -->
+        <div *ngIf="!loading && user" class="profile-content">
+            <!-- Profile Header -->
+            <header class="profile-header">
+                <div class="profile-avatar-large">
+                    {{ getUserInitials() }}
                 </div>
-                <div class="user-info">
-                    <h1>{{ user.name }}</h1>
-                    <p class="email">{{ user.email }}</p>
-                    <div class="stats">
-                        <span><strong>{{ user.followersCount }}</strong> Followers</span>
-                        <span><strong>{{ user.followingCount }}</strong> Following</span>
+
+                <div class="profile-info">
+                    <h1 class="profile-name">{{ user.name }}</h1>
+                    <p class="profile-email">{{ user.email }}</p>
+
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-value">{{ user.followersCount }}</span>
+                            <span class="stat-label">Followers</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">{{ user.followingCount }}</span>
+                            <span class="stat-label">Following</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">{{ posts.length }}</span>
+                            <span class="stat-label">Posts</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions" *ngIf="!isOwnProfile">
+                        <button class="btn" [class.btn-primary]="!user.isFollowedByCurrentUser"
+                            [class.btn-secondary]="user.isFollowedByCurrentUser" (click)="toggleSubscription()">
+                            {{ user.isFollowedByCurrentUser ? 'Unfollow' : 'Follow' }}
+                        </button>
+                        <button class="btn btn-secondary" (click)="openReportModal()">
+                            Report User
+                        </button>
                     </div>
                 </div>
-                <div class="actions">
-                    <button mat-raised-button color="primary" *ngIf="!user.isFollowedByCurrentUser">Follow</button>
-                    <button mat-stroked-button color="warn" *ngIf="user.isFollowedByCurrentUser">Unfollow</button>
+            </header>
+
+            <div class="divider"></div>
+
+            <!-- User Posts -->
+            <section class="user-posts">
+                <h2 class="section-title">Posts</h2>
+
+                <div *ngIf="posts.length === 0" class="empty-state">
+                    <p>No posts yet</p>
                 </div>
-            </div>
-        </mat-card>
 
-        <h3>Posts</h3>
-
-        <!-- Posts List -->
-        <div class="posts-list">
-            <div *ngIf="posts.length === 0" class="empty-posts">
-                <p>This user hasn't posted anything yet.</p>
-            </div>
-
-            <mat-card *ngFor="let post of posts" class="post-card">
-                <mat-card-header>
-                    <mat-card-title>{{ post.title }}</mat-card-title>
-                    <mat-card-subtitle>{{ post.createdAt | date:'mediumDate' }}</mat-card-subtitle>
-                </mat-card-header>
-                <img mat-card-image *ngIf="post.mediaUrl" [src]="post.mediaUrl" alt="Post image">
-                <mat-card-content>
-                    <p class="post-description">{{ post.description }}</p>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-button>
-                        <mat-icon>favorite_border</mat-icon> {{ post.likeCount }}
-                    </button>
-                    <button mat-button>
-                        <mat-icon>chat_bubble_outline</mat-icon> {{ post.commentCount }}
-                    </button>
-                </mat-card-actions>
-            </mat-card>
+                <div *ngIf="posts.length > 0" class="posts-grid">
+                    <app-post-card *ngFor="let post of posts" [post]="post" (like)="onLike($event)"
+                        (delete)="onDelete($event)">
+                    </app-post-card>
+                </div>
+            </section>
         </div>
     </div>
 </div>
+
+<!-- Report Modal -->
+<app-report-modal *ngIf="showReportModal && user" [userId]="user.id" [userName]="user.name" (close)="closeReportModal()"
+    (reported)="onReported()">
+</app-report-modal>
