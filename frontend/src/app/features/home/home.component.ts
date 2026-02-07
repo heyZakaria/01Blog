@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
         const post = this.posts.find(p => p.id === postId);
         if (post) {
           post.likedByCurrentUser = response.liked;
-          post.likes = response.likeCount;
+          post.likeCount = response.likeCount;
         }
       },
       error: (error) => {

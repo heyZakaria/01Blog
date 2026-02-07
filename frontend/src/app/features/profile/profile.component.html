@@ -1,10 +1,7 @@
 <div class="profile-container">
     <div class="container container-content">
         <!-- Loading State -->
-        <div *ngIf="loading" class="loading-container">
-            <div class="spinner"></div>
-            <p>Loading profile...</p>
-        </div>
+        <!-- Loading State Removed -->
 
         <!-- Profile Content -->
         <div *ngIf="!loading && user" class="profile-content">
@@ -15,8 +12,26 @@
                 </div>
 
                 <div class="profile-info">
-                    <h1 class="profile-name">{{ user.name }}</h1>
-                    <p class="profile-email">{{ user.email }}</p>
+                    <!-- View Mode -->
+                    <div *ngIf="!isEditMode">
+                        <h1 class="profile-name">{{ user.name }}</h1>
+                        <p class="profile-email">{{ user.email }}</p>
+                    </div>
+
+                    <!-- Edit Mode -->
+                    <div *ngIf="isEditMode" class="edit-form">
+                        <div class="form-group">
+                            <label class="form-label">Name</label>
+                            <input type="text" [(ngModel)]="editForm.name" class="form-input" placeholder="Your name"
+                                [disabled]="saving">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" [(ngModel)]="editForm.email" class="form-input"
+                                placeholder="your.email@example.com" [disabled]="saving">
+                        </div>
+                        <p class="form-error" *ngIf="editError">{{ editError }}</p>
+                    </div>
 
                     <div class="profile-stats">
                         <div class="stat">
@@ -30,6 +45,21 @@
                         <div class="stat">
                             <span class="stat-value">{{ posts.length }}</span>
                             <span class="stat-label">Posts</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions" *ngIf="isOwnProfile">
+                        <button *ngIf="!isEditMode" class="btn btn-primary" (click)="toggleEditMode()">
+                            Edit Profile
+                        </button>
+                        <div *ngIf="isEditMode" class="edit-actions">
+                            <button class="btn btn-secondary" (click)="cancelEdit()" [disabled]="saving">
+                                Cancel
+                            </button>
+                            <button class="btn btn-primary" (click)="saveProfile()" [disabled]="saving">
+                                <span *ngIf="!saving">Save Changes</span>
+                                <span *ngIf="saving">Saving...</span>
+                            </button>
                         </div>
                     </div>
 

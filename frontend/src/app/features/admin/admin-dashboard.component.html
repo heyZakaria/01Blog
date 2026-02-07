@@ -1,0 +1,118 @@
+<div class="admin-container">
+    <div class="container">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <h1>Admin Dashboard</h1>
+            <p>Manage users, posts, and reports</p>
+        </header>
+
+        <!-- Analytics Cards -->
+        <div class="analytics-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-label">Total Users</span>
+                    <span class="stat-value">{{ analytics.totalUsers }}</span>
+                </div>
+            </div>
+
+            <div class="stat-card warning">
+                <div class="stat-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-label">Pending Reports</span>
+                    <span class="stat-value">{{ analytics.pendingReports }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-button" [class.active]="activeTab === 'users'" (click)="setActiveTab('users')">
+                Users
+            </button>
+            <button class="tab-button" [class.active]="activeTab === 'reports'" (click)="setActiveTab('reports')">
+                Reports
+            </button>
+        </div>
+
+        <!-- Users Tab -->
+        <div class="tab-content" *ngIf="activeTab === 'users'">
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Followers</th>
+                            <th>Following</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users">
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.followersCount }}</td>
+                            <td>{{ user.followingCount }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-action" (click)="toggleBanUser(user.id)">
+                                        Ban
+                                    </button>
+                                    <button class="btn-action danger" (click)="deleteUser(user.id)">
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Reports Tab -->
+        <div class="tab-content" *ngIf="activeTab === 'reports'">
+            <div class="reports-list">
+                <div *ngIf="reports.length === 0" class="empty-state">
+                    <p>No reports to review</p>
+                </div>
+
+                <div *ngFor="let report of reports" class="report-card">
+                    <div class="report-header">
+                        <div class="report-info">
+                            <span class="badge" [class.badge-error]="report.status === 'PENDING'">
+                                {{ report.status }}
+                            </span>
+                            <span class="report-date">{{ report.createdAt | date:'short' }}</span>
+                        </div>
+                    </div>
+                    <div class="report-body">
+                        <p><strong>Reporter:</strong> {{ report.reporterName }}</p>
+                        <p><strong>Reported User:</strong> {{ report.reportedUserName }}</p>
+                        <p><strong>Reason:</strong> {{ report.reason }}</p>
+                    </div>
+                    <div class="report-actions">
+                        <button class="btn btn-sm btn-primary" (click)="resolveReport(report.id, 'RESOLVED')">
+                            Resolve
+                        </button>
+                        <button class="btn btn-sm btn-secondary" (click)="deleteReport(report.id)">
+                            Dismiss
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

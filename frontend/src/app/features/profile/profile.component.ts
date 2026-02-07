@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UserService, UserDTO } from '../../services/user.service';
 import { PostService, PostDTO } from '../../services/post.service';
@@ -10,7 +11,7 @@ import { ReportModalComponent } from '../../shared/report-modal/report-modal.com
 @Component({
     selector: 'app-profile',
     standalone: true,
-    imports: [CommonModule, PostCardComponent, ReportModalComponent],
+    imports: [CommonModule, FormsModule, PostCardComponent, ReportModalComponent],
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.css']
 })
@@ -20,12 +21,20 @@ export class ProfileComponent implements OnInit {
     loading: boolean = false;
     isOwnProfile: boolean = false;
     showReportModal: boolean = false;
+    isEditMode: boolean = false;
+    editForm = {
+        name: '',
+        email: ''
+    };
+    saving: boolean = false;
+    editError: string = '';
 
     constructor(
         private route: ActivatedRoute,
         private userService: UserService,
         private postService: PostService,
-        private subscriptionService: SubscriptionService
+        private subscriptionService: SubscriptionService,
+        private cdr: ChangeDetectorRef
     ) { }
 
     ngOnInit() {
@@ -43,10 +52,12 @@ export class ProfileComponent implements OnInit {
             next: (user) => {
                 this.user = user;
                 this.loading = false;
+                this.cdr.detectChanges(); // Force view update
             },
             error: (error) => {
                 console.error('Error loading profile:', error);
                 this.loading = false;
+                this.cdr.detectChanges();
             }
         });
     }
@@ -55,19 +66,23 @@ export class ProfileComponent implements OnInit {
         this.postService.getUserPosts(userId).subscribe({
             next: (posts) => {
                 this.posts = posts;
+                this.cdr.detectChanges();
             },
             error: (error) => {
-                console.error('Error loading posts:', error);
+                console.error('Error loading user posts:', error);
+                this.cdr.detectChanges();
             }
         });
     }
 
     checkIfOwnProfile(userId: string) {
-        this.userService.getCurrentUser().subscribe({
+        this.userService.getCurrentUserObservable().subscribe({
             next: (currentUser) => {
                 this.isOwnProfile = currentUser.id === userId;
+                this.cdr.detectChanges();
             },
-            error: () => {
+            error: (error) => {
+                console.error('Error checking own profile:', error);
                 this.isOwnProfile = false;
             }
         });
@@ -76,31 +91,18 @@ export class ProfileComponent implements OnInit {
     toggleSubscription() {
         if (!this.user) return;
 
-        if (this.user.isFollowedByCurrentUser) {
-            this.subscriptionService.unsubscribe(this.user.id).subscribe({
-                next: () => {
-                    if (this.user) {
-                        this.user.isFollowedByCurrentUser = false;
-                        this.user.followersCount--;
-                    }
-                },
-                error: (error) => {
-                    console.error('Error unsubscribing:', error);
+        this.subscriptionService.toggleFollow(this.user.id).subscribe({
+            next: (response: { following: boolean, followersCount: number }) => {
+                if (this.user) {
+                    this.user.isFollowedByCurrentUser = response.following;
+                    this.user.followersCount = response.followersCount;
+                    this.cdr.detectChanges();
                 }
-            });
-        } else {
-            this.subscriptionService.subscribe(this.user.id).subscribe({
-                next: () => {
-                    if (this.user) {
-                        this.user.isFollowedByCurrentUser = true;
-                        this.user.followersCount++;
-                    }
-                },
-                error: (error) => {
-                    console.error('Error subscribing:', error);
-                }
-            });
-        }
+            },
+            error: (error: any) => {
+                console.error('Error toggling subscription:', error);
+            }
+        });
     }
 
     openReportModal() {
@@ -115,13 +117,65 @@ export class ProfileComponent implements OnInit {
         alert('Report submitted successfully');
     }
 
+    toggleEditMode() {
+        this.isEditMode = !this.isEditMode;
+        if (this.isEditMode && this.user) {
+            // Populate form with current values
+            this.editForm.name = this.user.name;
+            this.editForm.email = this.user.email;
+            this.editError = '';
+        }
+    }
+
+    saveProfile() {
+        if (!this.editForm.name.trim() || !this.editForm.email.trim()) {
+            this.editError = 'Name and email are required';
+            return;
+        }
+
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(this.editForm.email)) {
+            this.editError = 'Please enter a valid email address';
+            return;
+        }
+
+        this.saving = true;
+        this.editError = '';
+
+        this.userService.updateProfile({
+            name: this.editForm.name,
+            email: this.editForm.email
+        }).subscribe({
+            next: (updatedUser) => {
+                this.user = updatedUser;
+                this.isEditMode = false;
+                this.saving = false;
+                alert('Profile updated successfully!');
+                this.cdr.detectChanges();
+            },
+            error: (error) => {
+                console.error('Error updating profile:', error);
+                this.editError = error.error?.message || 'Failed to update profile';
+                this.saving = false;
+                this.cdr.detectChanges();
+            }
+        });
+    }
+
+    cancelEdit() {
+        this.isEditMode = false;
+        this.editError = '';
+    }
+
     onLike(postId: string) {
         this.postService.toggleLike(postId).subscribe({
             next: (response) => {
                 const post = this.posts.find(p => p.id === postId);
                 if (post) {
                     post.likedByCurrentUser = response.liked;
-                    post.likes = response.likeCount;
+                    post.likeCount = response.likeCount;
+                    this.cdr.detectChanges();
                 }
             },
             error: (error) => {
@@ -131,9 +185,12 @@ export class ProfileComponent implements OnInit {
     }
 
     onDelete(postId: string) {
+        if (!confirm('Are you sure you want to delete this post?')) return;
+
         this.postService.deletePost(postId).subscribe({
             next: () => {
                 this.posts = this.posts.filter(p => p.id !== postId);
+                this.cdr.detectChanges();
             },
             error: (error) => {
                 console.error('Error deleting post:', error);

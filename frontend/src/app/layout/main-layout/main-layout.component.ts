@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UserService, UserDTO } from '../../services/user.service';
 import { NotificationDropdownComponent } from '../../shared/notification-dropdown/notification-dropdown.component';
@@ -12,6 +12,7 @@ import { NotificationDropdownComponent } from '../../shared/notification-dropdow
         CommonModule,
         RouterOutlet,
         RouterLink,
+        RouterLinkActive,
         NotificationDropdownComponent
     ],
     templateUrl: './main-layout.component.html',
@@ -23,15 +24,20 @@ export class MainLayoutComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
-        private userService: UserService
+        private userService: UserService,
+        private router: Router
     ) { }
 
     ngOnInit() {
+        // Try to get user from local storage first for immediate display
+        this.currentUser = this.userService.getCurrentUser();
+
+        // Then fetch fresh data from API
         this.loadCurrentUser();
     }
 
     loadCurrentUser() {
-        this.userService.getCurrentUser().subscribe({
+        this.userService.getCurrentUserObservable().subscribe({
             next: (user) => {
                 this.currentUser = user;
             },
@@ -47,6 +53,7 @@ export class MainLayoutComponent implements OnInit {
 
     logout() {
         this.authService.logout();
+        window.location.href = '/login';
     }
 
     getUserInitials(): string {
@@ -56,5 +63,12 @@ export class MainLayoutComponent implements OnInit {
             return names[0][0] + names[1][0];
         }
         return names[0][0];
+    }
+
+    navigateToProfile() {
+        this.showUserMenu = false;
+        if (this.currentUser?.id) {
+            this.router.navigate(['/profile', this.currentUser.id]);
+        }
     }
 }

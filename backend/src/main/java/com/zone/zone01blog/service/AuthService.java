@@ -26,7 +26,12 @@ public class AuthService {
     }
 
     public LoginResponse login(LoginRequest request) {
-        User user = userService.getUserEntityByEmail(request.getEmail());
+        User user;
+        try {
+            user = userService.getUserEntityByEmail(request.getEmail());
+        } catch (com.zone.zone01blog.exception.UserNotFoundException e) {
+            throw new InvalidCredentialsException("Invalid email or password");
+        }
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new InvalidCredentialsException("Invalid email or password");
@@ -34,7 +39,7 @@ public class AuthService {
 
         String token = jwtUtil.generateToken(user.getId(), user.getRole());
 
-        UserDTO userDTO = userService.convertToDTO(user); // Need to make this public!
+        UserDTO userDTO = userService.convertToDTO(user);
 
         return new LoginResponse(token, userDTO);
     }

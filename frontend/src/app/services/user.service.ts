@@ -7,6 +7,7 @@ export interface UserDTO {
     id: string;
     name: string;
     email: string;
+    role?: string;
     followersCount: number;
     followingCount: number;
     isFollowedByCurrentUser: boolean;
@@ -24,11 +25,23 @@ export class UserService {
         return this.http.get<UserDTO>(`${this.apiUrl}/${id}`);
     }
 
-    getCurrentUser(): Observable<UserDTO> {
+    getCurrentUser(): UserDTO | null {
+        if (typeof localStorage !== 'undefined') {
+            const raw = localStorage.getItem('auth_user');
+            return raw ? JSON.parse(raw) : null;
+        }
+        return null;
+    }
+
+    getCurrentUserObservable(): Observable<UserDTO> {
         return this.http.get<UserDTO>(`${this.apiUrl}/me`);
     }
 
     updateProfile(data: Partial<UserDTO>): Observable<UserDTO> {
-        return this.http.put<UserDTO>(`${this.apiUrl}/me`, data);
+        const currentUser = this.getCurrentUser();
+        if (!currentUser?.id) {
+            throw new Error('User not authenticated');
+        }
+        return this.http.put<UserDTO>(`${this.apiUrl}/${currentUser.id}`, data);
     }
 }
