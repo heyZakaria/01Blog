@@ -48,7 +48,8 @@
         </div>
 
         <!-- Users Tab -->
-        <div class="tab-content" *ngIf="activeTab === 'users'">
+        @if (activeTab === 'users') {
+        <div class="tab-content">
             <div class="table-container">
                 <table class="data-table">
                     <thead>
@@ -61,7 +62,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of users">
+                        @for (user of users; track user.id) {
+                        <tr>
                             <td>{{ user.name }}</td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.followersCount }}</td>
@@ -77,19 +79,25 @@
                                 </div>
                             </td>
                         </tr>
+                        }
                     </tbody>
                 </table>
             </div>
         </div>
+        }
 
         <!-- Reports Tab -->
-        <div class="tab-content" *ngIf="activeTab === 'reports'">
+        @if (activeTab === 'reports') {
+        <div class="tab-content">
             <div class="reports-list">
-                <div *ngIf="reports.length === 0" class="empty-state">
+                @if (reports.length === 0) {
+                <div class="empty-state">
                     <p>No reports to review</p>
                 </div>
+                }
 
-                <div *ngFor="let report of reports" class="report-card">
+                @for (report of reports; track report.id) {
+                <div class="report-card">
                     <div class="report-header">
                         <div class="report-info">
                             <span class="badge" [class.badge-error]="report.status === 'PENDING'">
@@ -112,7 +120,9 @@
                         </button>
                     </div>
                 </div>
+                }
             </div>
         </div>
+        }
     </div>
 </div>

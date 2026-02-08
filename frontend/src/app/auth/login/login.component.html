@@ -18,11 +18,17 @@
                     [disabled]="loading" required>
             </div>
 
-            <p class="form-error" *ngIf="error">{{ error }}</p>
+            @if (error) {
+            <p class="form-error">{{ error }}</p>
+            }
 
             <button type="submit" class="btn btn-primary btn-full" [disabled]="loading || !email || !password">
-                <span *ngIf="!loading">Sign In</span>
-                <span *ngIf="loading">Signing in...</span>
+                @if (!loading) {
+                <span>Sign In</span>
+                }
+                @if (loading) {
+                <span>Signing in...</span>
+                }
             </button>
         </form>
 

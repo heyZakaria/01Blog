@@ -26,7 +26,8 @@
             <div class="form-group">
                 <label class="form-label">Media (Optional)</label>
 
-                <div class="file-upload-area" *ngIf="!filePreview">
+                @if (!filePreview) {
+                <div class="file-upload-area">
                     <input type="file" id="file-input" accept="image/*,video/*" (change)="onFileSelected($event)"
                         [disabled]="loading" hidden>
                     <label for="file-input" class="file-upload-label">
@@ -43,11 +44,17 @@
                         <span class="hint">Supports JPG, PNG, GIF, MP4, WebM</span>
                     </label>
                 </div>
+                }
 
                 <!-- File Preview -->
-                <div class="file-preview" *ngIf="filePreview">
-                    <img *ngIf="fileType === 'image'" [src]="filePreview" alt="Preview">
-                    <video *ngIf="fileType === 'video'" [src]="filePreview" controls></video>
+                @if (filePreview) {
+                <div class="file-preview">
+                    @if (fileType === 'image') {
+                    <img [src]="filePreview" alt="Preview">
+                    }
+                    @if (fileType === 'video') {
+                    <video [src]="filePreview" controls></video>
+                    }
                     <button type="button" class="remove-file-btn" (click)="removeFile()">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -55,10 +62,13 @@
                         </svg>
                     </button>
                 </div>
+                }
             </div>
 
             <!-- Error Message -->
-            <p class="form-error" *ngIf="error">{{ error }}</p>
+            @if (error) {
+            <p class="form-error">{{ error }}</p>
+            }
 
             <!-- Actions -->
             <div class="form-actions">
@@ -67,11 +77,15 @@
                 </button>
                 <button type="submit" class="btn btn-primary"
                     [disabled]="loading || !title.trim() || !description.trim()">
-                    <span *ngIf="!loading">Publish Post</span>
-                    <span *ngIf="loading" class="flex items-center gap-2">
+                    @if (!loading) {
+                    <span>Publish Post</span>
+                    }
+                    @if (loading) {
+                    <span class="flex items-center gap-2">
                         <span class="spinner"></span>
                         Publishing...
                     </span>
+                    }
                 </button>
             </div>
         </form>

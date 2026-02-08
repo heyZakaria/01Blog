@@ -20,14 +20,21 @@
         <p class="post-description">{{ post.description }}</p>
 
         <!-- Media Preview -->
-        <div class="post-media" *ngIf="post.mediaUrl">
-            <img *ngIf="post.mediaType === 'IMAGE'" [src]="post.mediaUrl" [alt]="post.title" />
-            <video *ngIf="post.mediaType === 'VIDEO'" [src]="post.mediaUrl" controls></video>
+        @if (post.mediaUrl) {
+        <div class="post-media">
+            @if (post.mediaType === 'IMAGE') {
+            <img [src]="post.mediaUrl" [alt]="post.title" />
+            }
+            @if (post.mediaType === 'VIDEO') {
+            <video [src]="post.mediaUrl" controls></video>
+            }
         </div>
+        }
     </div>
 
     <!-- Post Footer -->
-    <div class="post-footer" *ngIf="showActions">
+    @if (showActions) {
+    <div class="post-footer">
         <div class="post-stats">
             <button class="stat-button" [class.liked]="post.likedByCurrentUser" (click)="onLike()" type="button">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -49,4 +56,5 @@
             </a>
         </div>
     </div>
+    }
 </article>

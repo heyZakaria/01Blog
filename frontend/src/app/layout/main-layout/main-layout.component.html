@@ -14,9 +14,11 @@
                 <a routerLink="/create-post" class="nav-link" routerLinkActive="active">
                     Write
                 </a>
-                <a *ngIf="currentUser?.role === 'ADMIN'" routerLink="/admin" class="nav-link" routerLinkActive="active">
+                @if (currentUser?.role === 'ADMIN') {
+                <a routerLink="/admin" class="nav-link" routerLinkActive="active">
                     Admin
                 </a>
+                }
             </div>
 
             <!-- Right Section -->
@@ -30,8 +32,10 @@
                         {{ getUserInitials() }}
                     </button>
 
-                    <div class="dropdown-menu" *ngIf="showUserMenu">
-                        <button *ngIf="currentUser?.id" (click)="navigateToProfile()" class="dropdown-item"
+                    @if (showUserMenu) {
+                    <div class="dropdown-menu">
+                        @if (currentUser?.id) {
+                        <button (click)="navigateToProfile()" class="dropdown-item"
                             type="button">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -41,6 +45,7 @@
                             </svg>
                             My Profile
                         </button>
+                        }
                         <div class="dropdown-divider"></div>
                         <button class="dropdown-item" (click)="logout()" type="button">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -57,6 +62,7 @@
                             Logout
                         </button>
                     </div>
+                    }
                 </div>
             </div>
         </nav>

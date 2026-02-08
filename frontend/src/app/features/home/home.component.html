@@ -10,13 +10,16 @@
         <!-- Loading State Removed -->
 
         <!-- Error State -->
-        <div *ngIf="error && !loading" class="error-container">
+        @if (error && !loading) {
+        <div class="error-container">
             <p>{{ error }}</p>
             <button class="btn btn-primary" (click)="loadFeed()">Try Again</button>
         </div>
+        }
 
         <!-- Empty State -->
-        <div *ngIf="!loading && !error && posts.length === 0" class="empty-state">
+        @if (!loading && !error && posts.length === 0) {
+        <div class="empty-state">
             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19ZM17 12H7V10H17V12ZM13 16H7V14H13V16ZM17 8H7V6H17V8Z"
@@ -25,11 +28,16 @@
             <h3>No posts yet</h3>
             <p>Follow other users to see their posts in your feed</p>
         </div>
+        }
 
         <!-- Posts Feed -->
-        <div *ngIf="!loading && !error && posts.length > 0" class="posts-feed">
-            <app-post-card *ngFor="let post of posts" [post]="post" (like)="onLike($event)" (delete)="onDelete($event)">
+        @if (!loading && !error && posts.length > 0) {
+        <div class="posts-feed">
+            @for (post of posts; track post.id) {
+            <app-post-card [post]="post" (like)="onLike($event)" (delete)="onDelete($event)">
             </app-post-card>
+            }
         </div>
+        }
     </div>
 </div>

@@ -4,7 +4,8 @@
         <!-- Loading State Removed -->
 
         <!-- Profile Content -->
-        <div *ngIf="!loading && user" class="profile-content">
+        @if (!loading && user) {
+        <div class="profile-content">
             <!-- Profile Header -->
             <header class="profile-header">
                 <div class="profile-avatar-large">
@@ -13,13 +14,16 @@
 
                 <div class="profile-info">
                     <!-- View Mode -->
-                    <div *ngIf="!isEditMode">
+                    @if (!isEditMode) {
+                    <div>
                         <h1 class="profile-name">{{ user.name }}</h1>
                         <p class="profile-email">{{ user.email }}</p>
                     </div>
+                    }
 
                     <!-- Edit Mode -->
-                    <div *ngIf="isEditMode" class="edit-form">
+                    @if (isEditMode) {
+                    <div class="edit-form">
                         <div class="form-group">
                             <label class="form-label">Name</label>
                             <input type="text" [(ngModel)]="editForm.name" class="form-input" placeholder="Your name"
@@ -30,8 +34,11 @@
                             <input type="email" [(ngModel)]="editForm.email" class="form-input"
                                 placeholder="your.email@example.com" [disabled]="saving">
                         </div>
-                        <p class="form-error" *ngIf="editError">{{ editError }}</p>
+                        @if (editError) {
+                        <p class="form-error">{{ editError }}</p>
+                        }
                     </div>
+                    }
 
                     <div class="profile-stats">
                         <div class="stat">
@@ -48,22 +55,33 @@
                         </div>
                     </div>
 
-                    <div class="profile-actions" *ngIf="isOwnProfile">
-                        <button *ngIf="!isEditMode" class="btn btn-primary" (click)="toggleEditMode()">
+                    @if (isOwnProfile) {
+                    <div class="profile-actions">
+                        @if (!isEditMode) {
+                        <button class="btn btn-primary" (click)="toggleEditMode()">
                             Edit Profile
                         </button>
-                        <div *ngIf="isEditMode" class="edit-actions">
+                        }
+                        @if (isEditMode) {
+                        <div class="edit-actions">
                             <button class="btn btn-secondary" (click)="cancelEdit()" [disabled]="saving">
                                 Cancel
                             </button>
                             <button class="btn btn-primary" (click)="saveProfile()" [disabled]="saving">
-                                <span *ngIf="!saving">Save Changes</span>
-                                <span *ngIf="saving">Saving...</span>
+                                @if (!saving) {
+                                <span>Save Changes</span>
+                                }
+                                @if (saving) {
+                                <span>Saving...</span>
+                                }
                             </button>
                         </div>
+                        }
                     </div>
+                    }
 
-                    <div class="profile-actions" *ngIf="!isOwnProfile">
+                    @if (!isOwnProfile) {
+                    <div class="profile-actions">
                         <button class="btn" [class.btn-primary]="!user.isFollowedByCurrentUser"
                             [class.btn-secondary]="user.isFollowedByCurrentUser" (click)="toggleSubscription()">
                             {{ user.isFollowedByCurrentUser ? 'Unfollow' : 'Follow' }}
@@ -72,6 +90,7 @@
                             Report User
                         </button>
                     </div>
+                    }
                 </div>
             </header>
 
@@ -81,21 +100,30 @@
             <section class="user-posts">
                 <h2 class="section-title">Posts</h2>
 
-                <div *ngIf="posts.length === 0" class="empty-state">
+                @if (posts.length === 0) {
+                <div class="empty-state">
                     <p>No posts yet</p>
                 </div>
+                }
 
-                <div *ngIf="posts.length > 0" class="posts-grid">
-                    <app-post-card *ngFor="let post of posts" [post]="post" (like)="onLike($event)"
+                @if (posts.length > 0) {
+                <div class="posts-grid">
+                    @for (post of posts; track post.id) {
+                    <app-post-card [post]="post" (like)="onLike($event)"
                         (delete)="onDelete($event)">
                     </app-post-card>
+                    }
                 </div>
+                }
             </section>
         </div>
+        }
     </div>
 </div>
 
 <!-- Report Modal -->
-<app-report-modal *ngIf="showReportModal && user" [userId]="user.id" [userName]="user.name" (close)="closeReportModal()"
+@if (showReportModal && user) {
+<app-report-modal [userId]="user.id" [userName]="user.name" (close)="closeReportModal()"
     (reported)="onReported()">
 </app-report-modal>
+}

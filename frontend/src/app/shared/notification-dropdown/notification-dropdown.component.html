@@ -5,23 +5,31 @@
                 d="M12 22C13.1 22 14 21.1 14 20H10C10 21.1 10.9 22 12 22ZM18 16V11C18 7.93 16.37 5.36 13.5 4.68V4C13.5 3.17 12.83 2.5 12 2.5C11.17 2.5 10.5 3.17 10.5 4V4.68C7.64 5.36 6 7.92 6 11V16L4 18V19H20V18L18 16Z"
                 fill="currentColor" />
         </svg>
-        <span class="notification-badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
+        @if (unreadCount > 0) {
+        <span class="notification-badge">{{ unreadCount }}</span>
+        }
     </button>
 
-    <div class="dropdown-menu" *ngIf="isOpen">
+    @if (isOpen) {
+    <div class="dropdown-menu">
         <div class="dropdown-header">
             <h3>Notifications</h3>
-            <button class="mark-all-read" (click)="markAllAsRead()" *ngIf="unreadCount > 0" type="button">
+            @if (unreadCount > 0) {
+            <button class="mark-all-read" (click)="markAllAsRead()" type="button">
                 Mark all read
             </button>
+            }
         </div>
 
         <div class="dropdown-body">
-            <div *ngIf="loading" class="loading-state">
+            @if (loading) {
+            <div class="loading-state">
                 <div class="spinner"></div>
             </div>
+            }
 
-            <div *ngIf="!loading && notifications.length === 0" class="empty-state">
+            @if (!loading && notifications.length === 0) {
+            <div class="empty-state">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M12 22C13.1 22 14 21.1 14 20H10C10 21.1 10.9 22 12 22ZM18 16V11C18 7.93 16.37 5.36 13.5 4.68V4C13.5 3.17 12.83 2.5 12 2.5C11.17 2.5 10.5 3.17 10.5 4V4.68C7.64 5.36 6 7.92 6 11V16L4 18V19H20V18L18 16Z"
@@ -29,9 +37,12 @@
                 </svg>
                 <p>No notifications yet</p>
             </div>
+            }
 
-            <div class="notification-list" *ngIf="!loading && notifications.length > 0">
-                <div *ngFor="let notification of notifications" class="notification-item"
+            @if (!loading && notifications.length > 0) {
+            <div class="notification-list">
+                @for (notification of notifications; track notification.id) {
+                <div class="notification-item"
                     [class.unread]="!notification.read" (click)="markAsRead(notification)">
                     <div class="notification-content">
                         <p class="notification-message">{{ notification.message }}</p>
@@ -41,7 +52,10 @@
                         ×
                     </button>
                 </div>
+                }
             </div>
+            }
         </div>
     </div>
+    }
 </div>

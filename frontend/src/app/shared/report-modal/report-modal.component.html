@@ -17,7 +17,9 @@
                     placeholder="Describe the issue (inappropriate content, harassment, spam, etc.)" rows="5"
                     [disabled]="loading">
                 </textarea>
-                <p class="form-error" *ngIf="error">{{ error }}</p>
+                @if (error) {
+                <p class="form-error">{{ error }}</p>
+                }
             </div>
 
             <div class="warning-box">
@@ -35,11 +37,15 @@
                 Cancel
             </button>
             <button class="btn btn-primary" (click)="submitReport()" [disabled]="loading || !reason.trim()">
-                <span *ngIf="!loading">Submit Report</span>
-                <span *ngIf="loading" class="flex items-center gap-2">
+                @if (!loading) {
+                <span>Submit Report</span>
+                }
+                @if (loading) {
+                <span class="flex items-center gap-2">
                     <span class="spinner"></span>
                     Submitting...
                 </span>
+                }
             </button>
         </div>
     </div>
