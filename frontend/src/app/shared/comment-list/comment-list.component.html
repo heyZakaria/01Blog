@@ -1,0 +1,73 @@
+<div class="comment-section">
+    <h4 class="comment-title">Comments</h4>
+
+    <!-- Add Comment Form -->
+    <div class="comment-form">
+        <textarea [(ngModel)]="newComment" placeholder="Share your thoughts..." class="form-textarea" rows="3"
+            (keydown.enter)="onKeyDown($event)">
+        </textarea>
+        <div class="comment-form-actions">
+            <span class="hint">Press Ctrl+Enter to post</span>
+            <button class="btn btn-primary btn-sm" (click)="addComment()" [disabled]="!newComment.trim()">
+                Post Comment
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+        <div class="spinner"></div>
+        <span>Loading comments...</span>
+    </div>
+
+    <!-- Comments List -->
+    <div class="comments-list" *ngIf="!loading">
+        <div *ngIf="comments.length === 0" class="empty-state">
+            <p>No comments yet. Be the first to share your thoughts!</p>
+        </div>
+
+        <div *ngFor="let comment of comments" class="comment-item">
+            <div class="comment-header">
+                <div class="comment-author">
+                    <div class="avatar avatar-sm">
+                        {{ getAuthorInitials(comment.author.name) }}
+                    </div>
+                    <div class="comment-meta">
+                        <span class="author-name">{{ comment.author.name }}</span>
+                        <span class="comment-date">{{ formatDate(comment.createdAt) }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comment-body">
+                <p *ngIf="editingCommentId !== comment.id" class="comment-content">
+                    {{ comment.content }}
+                </p>
+
+                <!-- Edit Mode -->
+                <div *ngIf="editingCommentId === comment.id" class="comment-edit">
+                    <textarea [(ngModel)]="editContent" class="form-textarea" rows="3">
+                    </textarea>
+                    <div class="comment-edit-actions">
+                        <button class="btn btn-secondary btn-sm" (click)="cancelEdit()">
+                            Cancel
+                        </button>
+                        <button class="btn btn-primary btn-sm" (click)="saveEdit(comment.id)">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comment Actions -->
+            <div class="comment-actions">
+                <button class="action-btn" (click)="startEdit(comment)">
+                    Edit
+                </button>
+                <button class="action-btn delete" (click)="deleteComment(comment.id)">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

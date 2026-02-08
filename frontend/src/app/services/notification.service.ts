@@ -1,0 +1,51 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+
+export interface NotificationDTO {
+    id: string;
+    type: string;
+    message: string;
+    read: boolean;
+    createdAt: string;
+    relatedPostId?: string;
+    relatedUserId?: string;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class NotificationService {
+    private apiUrl = `${environment.apiBaseUrl}/api/v1/notifications`;
+
+    constructor(private http: HttpClient) { }
+
+    getNotifications(): Observable<NotificationDTO[]> {
+        return this.http.get<NotificationDTO[]>(this.apiUrl);
+    }
+
+    getUnreadNotifications(): Observable<NotificationDTO[]> {
+        return this.http.get<NotificationDTO[]>(`${this.apiUrl}/unread`);
+    }
+
+    getUnreadCount(): Observable<{ count: number }> {
+        return this.http.get<{ count: number }>(`${this.apiUrl}/unread/count`);
+    }
+
+    markAsRead(notificationId: string): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/${notificationId}/read`, {});
+    }
+
+    markAllAsRead(): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/read-all`, {});
+    }
+
+    deleteNotification(notificationId: string): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${notificationId}`);
+    }
+
+    deleteAllNotifications(): Observable<void> {
+        return this.http.delete<void>(this.apiUrl);
+    }
+}
