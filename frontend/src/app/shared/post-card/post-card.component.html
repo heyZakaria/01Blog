@@ -22,11 +22,11 @@
         <!-- Media Preview -->
         @if (post.mediaUrl) {
         <div class="post-media">
-            @if (post.mediaType === 'IMAGE') {
-            <img [src]="post.mediaUrl" [alt]="post.title" />
+            @if (isImageMedia()) {
+            <img [src]="getMediaUrl(post.mediaUrl)" [alt]="post.title" />
             }
-            @if (post.mediaType === 'VIDEO') {
-            <video [src]="post.mediaUrl" controls></video>
+            @if (isVideoMedia()) {
+            <video [src]="getMediaUrl(post.mediaUrl)" controls></video>
             }
         </div>
         }
@@ -54,7 +54,14 @@
                 </svg>
                 <span>{{ post.commentCount }}</span>
             </a>
+            <button class="stat-button" type="button" (click)="toggleComments()">
+                <span>{{ showComments ? 'Hide' : 'Comments' }}</span>
+            </button>
         </div>
     </div>
+    }
+
+    @if (showComments) {
+    <app-comment-list [postId]="post.id"></app-comment-list>
     }
 </article>

@@ -73,6 +73,18 @@
     gap: var(--space-3);
 }
 
+/* Success Message */
+.success-message {
+    margin-bottom: var(--space-5);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    background: #e7f7ef;
+    color: #0f5132;
+    border: 1px solid #bfe9d0;
+    font-size: var(--text-sm);
+    font-weight: 600;
+}
+
 /* Edit Form */
 .edit-form {
     margin-bottom: var(--space-6);

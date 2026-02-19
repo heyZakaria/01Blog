@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommentService, CommentDTO, CreateCommentRequest } from '../../services/comment.service';
@@ -18,7 +18,10 @@ export class CommentListComponent implements OnInit {
     editingCommentId: string | null = null;
     editContent: string = '';
 
-    constructor(private commentService: CommentService) { }
+    constructor(
+        private commentService: CommentService,
+        private cdr: ChangeDetectorRef
+    ) { }
 
     ngOnInit() {
         this.loadComments();
@@ -30,10 +33,12 @@ export class CommentListComponent implements OnInit {
             next: (comments) => {
                 this.comments = comments;
                 this.loading = false;
+                this.cdr.detectChanges();
             },
             error: (error) => {
                 console.error('Error loading comments:', error);
                 this.loading = false;
+                this.cdr.detectChanges();
             }
         });
     }
@@ -56,9 +61,11 @@ export class CommentListComponent implements OnInit {
             next: (comment) => {
                 this.comments.unshift(comment);
                 this.newComment = '';
+                this.cdr.detectChanges();
             },
             error: (error) => {
                 console.error('Error creating comment:', error);
+                this.cdr.detectChanges();
             }
         });
     }
@@ -76,16 +83,18 @@ export class CommentListComponent implements OnInit {
     saveEdit(commentId: string) {
         if (!this.editContent.trim()) return;
 
-        this.commentService.updateComment(commentId, { content: this.editContent }).subscribe({
+        this.commentService.updateComment(this.postId, commentId, { content: this.editContent }).subscribe({
             next: (updatedComment) => {
                 const index = this.comments.findIndex(c => c.id === commentId);
                 if (index !== -1) {
                     this.comments[index] = updatedComment;
                 }
                 this.cancelEdit();
+                this.cdr.detectChanges();
             },
             error: (error) => {
                 console.error('Error updating comment:', error);
+                this.cdr.detectChanges();
             }
         });
     }
@@ -93,12 +102,14 @@ export class CommentListComponent implements OnInit {
     deleteComment(commentId: string) {
         if (!confirm('Delete this comment?')) return;
 
-        this.commentService.deleteComment(commentId).subscribe({
+        this.commentService.deleteComment(this.postId, commentId).subscribe({
             next: () => {
                 this.comments = this.comments.filter(c => c.id !== commentId);
+                this.cdr.detectChanges();
             },
             error: (error) => {
                 console.error('Error deleting comment:', error);
+                this.cdr.detectChanges();
             }
         });
     }

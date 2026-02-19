@@ -36,7 +36,6 @@ public class UserController {
     }
 
     // choooooof any profile
-    @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.userId")
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable String id,
             @AuthenticationPrincipal JwtAuthenticationToken auth) {
@@ -84,6 +83,13 @@ public class UserController {
         user.setFollowingCount(subscriptionService.getFollowingCount(userId));
 
         return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("/discover")
+    public ResponseEntity<List<UserDTO>> getDiscoverUsers(
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        String userId = auth.getUserId();
+        return ResponseEntity.ok(userService.getDiscoverUsers(userId));
     }
 
     @PreAuthorize("hasRole('ADMIN')")

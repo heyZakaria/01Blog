@@ -37,6 +37,10 @@ export class UserService {
         return this.http.get<UserDTO>(`${this.apiUrl}/me`);
     }
 
+    getDiscoverUsers(): Observable<UserDTO[]> {
+        return this.http.get<UserDTO[]>(`${this.apiUrl}/discover`);
+    }
+
     updateProfile(data: Partial<UserDTO>): Observable<UserDTO> {
         const currentUser = this.getCurrentUser();
         if (!currentUser?.id) {

@@ -40,11 +40,11 @@ export class CommentService {
         return this.http.post<CommentDTO>(`${this.apiUrl}/posts/${postId}/comments`, data);
     }
 
-    updateComment(commentId: string, data: UpdateCommentRequest): Observable<CommentDTO> {
-        return this.http.put<CommentDTO>(`${this.apiUrl}/comments/${commentId}`, data);
+    updateComment(postId: string, commentId: string, data: UpdateCommentRequest): Observable<CommentDTO> {
+        return this.http.put<CommentDTO>(`${this.apiUrl}/posts/${postId}/comments/${commentId}`, data);
     }
 
-    deleteComment(commentId: string): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/comments/${commentId}`);
+    deleteComment(postId: string, commentId: string): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/posts/${postId}/comments/${commentId}`);
     }
 }

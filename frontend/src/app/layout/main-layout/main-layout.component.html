@@ -70,7 +70,59 @@
 </header>
 
 <main class="main-content">
-    <router-outlet></router-outlet>
+    <div class="container layout-grid">
+        <section class="content">
+            <router-outlet></router-outlet>
+        </section>
+
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-header">
+                    <h3>Discover people</h3>
+                </div>
+
+                @if (loadingDiscover) {
+                <div class="sidebar-loading">
+                    <div class="spinner"></div>
+                    <span>Loading...</span>
+                </div>
+                }
+
+                @if (!loadingDiscover && discoverUsers.length === 0) {
+                <div class="sidebar-empty">
+                    <p>No new people right now.</p>
+                </div>
+                }
+
+                @if (!loadingDiscover && discoverUsers.length > 0) {
+                <div class="discover-list">
+                    @for (user of discoverUsers; track user.id) {
+                    <div class="discover-item">
+                        <a [routerLink]="['/profile', user.id]" class="discover-avatar">
+                            {{ getInitials(user.name) }}
+                        </a>
+                        <div class="discover-info">
+                            <a [routerLink]="['/profile', user.id]" class="discover-name">
+                                {{ user.name }}
+                            </a>
+                            <span class="discover-email">{{ user.email }}</span>
+                        </div>
+                        <button class="btn btn-sm btn-primary"
+                            (click)="followUser(user.id)" [disabled]="isFollowLoading(user.id)">
+                            @if (!isFollowLoading(user.id)) {
+                            <span>Follow</span>
+                            }
+                            @if (isFollowLoading(user.id)) {
+                            <span>...</span>
+                            }
+                        </button>
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+        </aside>
+    </div>
 </main>
 
 <footer class="main-footer">

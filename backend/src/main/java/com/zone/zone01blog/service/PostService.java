@@ -66,13 +66,12 @@ public class PostService {
     }
 
     public List<PostDTO> getFeed(String currentUserId) {
-        List<String> followingIds = subscriptionService.getFollowingIds(currentUserId);
-
-        if (followingIds.isEmpty()) {
-            return new ArrayList<>();
+        List<String> authorIds = new ArrayList<>(subscriptionService.getFollowingIds(currentUserId));
+        if (!authorIds.contains(currentUserId)) {
+            authorIds.add(currentUserId);
         }
 
-        List<Post> feedPosts = postRepository.findFeedPostsByFollowingIds(followingIds);
+        List<Post> feedPosts = postRepository.findFeedPostsByFollowingIds(authorIds);
 
         return feedPosts.stream()
                 .map(post -> convertToDTO(post, currentUserId))

@@ -10,7 +10,7 @@ public class PostDTO {
     private String title;
     private String description;
     // private List<Comment> comments;
-    private long likes;
+    private long likeCount;
     private UserDTO author;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -19,13 +19,13 @@ public class PostDTO {
     private String mediaUrl;
     private String mediaType;
 
-    public PostDTO(String id, String title, String description, long likes, UserDTO author,
+    public PostDTO(String id, String title, String description, long likeCount, UserDTO author,
             LocalDateTime createdAt, LocalDateTime updatedAt, long commentCount, boolean likedByCurrentUser,
             String mediaUrl, String mediaType) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.likes = likes;
+        this.likeCount = likeCount;
         this.author = author;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;

@@ -54,6 +54,13 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public List<UserDTO> getDiscoverUsers(String userId) {
+        return userRepository.findUsersNotFollowed(userId)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     // Helper method to convert User -> UserDTO (for outside responce no password)
     public UserDTO convertToDTO(User user) {
         return new UserDTO(

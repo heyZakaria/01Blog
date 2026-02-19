@@ -55,6 +55,12 @@
                         </div>
                     </div>
 
+                    @if (successMessage) {
+                    <div class="success-message" role="status" aria-live="polite">
+                        {{ successMessage }}
+                    </div>
+                    }
+
                     @if (isOwnProfile) {
                     <div class="profile-actions">
                         @if (!isEditMode) {

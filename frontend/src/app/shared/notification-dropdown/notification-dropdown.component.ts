@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NotificationService, NotificationDTO } from '../../services/notification.service';
@@ -18,7 +18,10 @@ export class NotificationDropdownComponent implements OnInit, OnDestroy {
     loading: boolean = false;
     private pollSubscription?: Subscription;
 
-    constructor(private notificationService: NotificationService) { }
+    constructor(
+        private notificationService: NotificationService,
+        private cdr: ChangeDetectorRef
+    ) { }
 
     ngOnInit() {
         this.loadNotifications();
@@ -46,10 +49,12 @@ export class NotificationDropdownComponent implements OnInit, OnDestroy {
             next: (notifications) => {
                 this.notifications = notifications.slice(0, 10); // Show latest 10
                 this.loading = false;
+                this.cdr.detectChanges();
             },
             error: (error) => {
                 console.error('Error loading notifications:', error);
                 this.loading = false;
+                this.cdr.detectChanges();
             }
         });
     }
@@ -58,9 +63,11 @@ export class NotificationDropdownComponent implements OnInit, OnDestroy {
         this.notificationService.getUnreadCount().subscribe({
             next: (response) => {
                 this.unreadCount = response.count;
+                this.cdr.detectChanges();
             },
             error: (error) => {
                 console.error('Error loading unread count:', error);
+                this.cdr.detectChanges();
             }
         });
     }
@@ -72,9 +79,11 @@ export class NotificationDropdownComponent implements OnInit, OnDestroy {
             next: () => {
                 notification.read = true;
                 this.loadUnreadCount();
+                this.cdr.detectChanges();
             },
             error: (error) => {
                 console.error('Error marking notification as read:', error);
+                this.cdr.detectChanges();
             }
         });
     }
@@ -84,9 +93,11 @@ export class NotificationDropdownComponent implements OnInit, OnDestroy {
             next: () => {
                 this.notifications.forEach(n => n.read = true);
                 this.unreadCount = 0;
+                this.cdr.detectChanges();
             },
             error: (error) => {
                 console.error('Error marking all as read:', error);
+                this.cdr.detectChanges();
             }
         });
     }
@@ -97,9 +108,11 @@ export class NotificationDropdownComponent implements OnInit, OnDestroy {
             next: () => {
                 this.notifications = this.notifications.filter(n => n.id !== notificationId);
                 this.loadUnreadCount();
+                this.cdr.detectChanges();
             },
             error: (error) => {
                 console.error('Error deleting notification:', error);
+                this.cdr.detectChanges();
             }
         });
     }

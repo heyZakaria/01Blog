@@ -18,6 +18,14 @@ public interface UserRepository extends JpaRepository<User, String> {
     // @Query("SELECT user FROM users u WHERE u.email = :email") ❌ ❌ 3 errors find them
     @Query("SELECT u FROM User u WHERE u.email = :email")
     Optional<User> findByEmail(@Param("email") String email);
+
+    @Query("SELECT u FROM User u " +
+            "WHERE u.id <> :userId " +
+            "AND u.banned = false " +
+            "AND u.id NOT IN (" +
+            "   SELECT s.following.id FROM Subscription s WHERE s.follower.id = :userId" +
+            ")")
+    List<User> findUsersNotFollowed(@Param("userId") String userId);
     //OR
     // Optional<User> findByEmail(String email);
     // Spring JPA/DATA will create a JPQL ==> SELECT u FROM User u WHERE u.email = ?1

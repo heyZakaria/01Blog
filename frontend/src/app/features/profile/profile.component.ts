@@ -28,6 +28,8 @@ export class ProfileComponent implements OnInit {
     };
     saving: boolean = false;
     editError: string = '';
+    successMessage: string = '';
+    private successTimer: ReturnType<typeof setTimeout> | null = null;
 
     constructor(
         private route: ActivatedRoute,
@@ -142,6 +144,7 @@ export class ProfileComponent implements OnInit {
 
         this.saving = true;
         this.editError = '';
+        this.successMessage = '';
 
         this.userService.updateProfile({
             name: this.editForm.name,
@@ -151,7 +154,7 @@ export class ProfileComponent implements OnInit {
                 this.user = updatedUser;
                 this.isEditMode = false;
                 this.saving = false;
-                alert('Profile updated successfully!');
+                this.showSuccess('Profile updated successfully');
                 this.cdr.detectChanges();
             },
             error: (error) => {
@@ -161,6 +164,17 @@ export class ProfileComponent implements OnInit {
                 this.cdr.detectChanges();
             }
         });
+    }
+
+    private showSuccess(message: string) {
+        this.successMessage = message;
+        if (this.successTimer) {
+            clearTimeout(this.successTimer);
+        }
+        this.successTimer = setTimeout(() => {
+            this.successMessage = '';
+            this.cdr.detectChanges();
+        }, 3000);
     }
 
     cancelEdit() {

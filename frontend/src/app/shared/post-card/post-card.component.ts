@@ -2,11 +2,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PostDTO } from '../../services/post.service';
+import { environment } from '../../../environments/environment';
+import { CommentListComponent } from '../comment-list/comment-list.component';
 
 @Component({
     selector: 'app-post-card',
     standalone: true,
-    imports: [CommonModule, RouterModule],
+    imports: [CommonModule, RouterModule, CommentListComponent],
     templateUrl: './post-card.component.html',
     styleUrls: ['./post-card.component.css']
 })
@@ -15,6 +17,7 @@ export class PostCardComponent {
     @Input() showActions: boolean = true;
     @Output() like = new EventEmitter<string>();
     @Output() delete = new EventEmitter<string>();
+    showComments: boolean = false;
 
     onLike() {
         this.like.emit(this.post.id);
@@ -24,6 +27,10 @@ export class PostCardComponent {
         if (confirm('Are you sure you want to delete this post?')) {
             this.delete.emit(this.post.id);
         }
+    }
+
+    toggleComments() {
+        this.showComments = !this.showComments;
     }
 
     getAuthorInitials(): string {
@@ -52,5 +59,25 @@ export class PostCardComponent {
         } else {
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
+    }
+
+    getMediaUrl(mediaUrl?: string): string {
+        if (!mediaUrl) {
+            return '';
+        }
+
+        if (mediaUrl.startsWith('http://') || mediaUrl.startsWith('https://')) {
+            return mediaUrl;
+        }
+
+        return `${environment.apiBaseUrl}${mediaUrl}`;
+    }
+
+    isImageMedia(): boolean {
+        return this.post.mediaType?.toLowerCase() === 'image';
+    }
+
+    isVideoMedia(): boolean {
+        return this.post.mediaType?.toLowerCase() === 'video';
     }
 }

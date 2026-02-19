@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { PostService, CreatePostRequest } from '../../services/post.service';
+import { catchError, finalize, map, of, switchMap, throwError, timeout } from 'rxjs';
 
 @Component({
     selector: 'app-create-post',
@@ -56,6 +57,9 @@ export class CreatePostComponent {
     }
 
     createPost() {
+        if (this.loading) {
+            return;
+        }
         if (!this.title.trim() || !this.description.trim()) {
             this.error = 'Title and description are required';
             return;
@@ -69,31 +73,31 @@ export class CreatePostComponent {
             description: this.description
         };
 
-        this.postService.createPost(request).subscribe({
-            next: (post) => {
-                // If there's a file, upload it
-                if (this.selectedFile) {
-                    this.postService.uploadMedia(post.id, this.selectedFile).subscribe({
-                        next: () => {
-                            this.loading = false;
-                            this.router.navigate(['/']);
-                        },
-                        error: (error) => {
-                            console.error('Error uploading media:', error);
-                            this.loading = false;
-                            // Still navigate even if media upload fails
-                            this.router.navigate(['/']);
-                        }
-                    });
-                } else {
-                    this.loading = false;
-                    this.router.navigate(['/']);
+        this.postService.createPost(request).pipe(
+            timeout(15000),
+            switchMap((post) => {
+                if (!this.selectedFile) {
+                    return of(post);
                 }
-            },
-            error: (error) => {
+                return this.postService.uploadMedia(post.id, this.selectedFile).pipe(
+                    timeout(15000),
+                    map(() => post)
+                );
+            }),
+            catchError((error) => {
                 console.error('Error creating post:', error);
-                this.error = error.error?.message || 'Failed to create post';
+                this.error = error?.error?.message || error?.message || 'Failed to create post';
+                return throwError(() => error);
+            }),
+            finalize(() => {
                 this.loading = false;
+            })
+        ).subscribe({
+            next: () => {
+                this.router.navigate(['/']);
+            },
+            error: () => {
+                // Error message already set in catchError.
             }
         });
     }
