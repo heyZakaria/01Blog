@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,7 +65,8 @@ public class PostController {
         return ResponseEntity.ok(feed);
     }
 
-    @PostMapping
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PostDTO> createPost(
             @Valid @RequestBody CreatePostRequest request,
             @AuthenticationPrincipal JwtAuthenticationToken auth) {
@@ -72,7 +75,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(post);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PostDTO> updatePost(
             @PathVariable String id,
             @Valid @RequestBody UpdatePostRequest request,

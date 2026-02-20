@@ -43,6 +43,9 @@ public class Post {
     @Column(name = "media_type")
     private String mediaType;
 
+    @Column(nullable = false)
+    private boolean hidden = false;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -56,6 +59,7 @@ public class Post {
         this.title = title;
         this.description = description;
         this.author = author;
+        this.hidden = false;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }

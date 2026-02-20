@@ -2,7 +2,9 @@ package com.zone.zone01blog.dto;
 
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = false)
 @Data
 public class UpdatePostRequest {
     @Size(min = 3, max = 150, message = "Title must be between 3 and 150 characters")

@@ -31,6 +31,9 @@ public class Comment {
     @JoinColumn(name = "user_id", nullable = false)
     private User author;
 
+    @Column(nullable = false)
+    private boolean hidden = false;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -44,6 +47,7 @@ public class Comment {
         this.content = content;
         this.post = post;
         this.author = author;
+        this.hidden = false;
     }
 
     public Comment() {

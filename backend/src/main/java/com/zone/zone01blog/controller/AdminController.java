@@ -3,6 +3,7 @@ package com.zone.zone01blog.controller;
 import com.zone.zone01blog.dto.ReportDTO;
 import com.zone.zone01blog.dto.ResolveReportRequest;
 import com.zone.zone01blog.dto.UserDTO;
+import com.zone.zone01blog.dto.PostDTO;
 import com.zone.zone01blog.service.PostService;
 import com.zone.zone01blog.service.ReportService;
 import com.zone.zone01blog.service.UserService;
@@ -64,14 +65,15 @@ public class AdminController {
         return ResponseEntity.ok(users);
     }
 
+
     @PutMapping("/users/{userId}/ban")
     public ResponseEntity<Map<String, Object>> toggleBanUser(@PathVariable String userId) {
         UserDTO user = userService.toggleBan(userId);
 
         Map<String, Object> response = new HashMap<>();
         response.put("userId", user.getId());
-        response.put("banned", true);
-        response.put("message", "User banned successfully");
+        response.put("banned", Boolean.TRUE.equals(user.getBanned()));
+        response.put("message", Boolean.TRUE.equals(user.getBanned()) ? "User banned successfully" : "User unbanned successfully");
 
         return ResponseEntity.ok(response);
     }
@@ -79,6 +81,27 @@ public class AdminController {
     @DeleteMapping("/users/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable String userId) {
         userService.deleteUser(userId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/posts")
+    public ResponseEntity<List<PostDTO>> getAllPostsForAdmin() {
+        return ResponseEntity.ok(postService.getAllPostsForAdmin());
+    }
+
+    @PutMapping("/posts/{postId}/hide")
+    public ResponseEntity<PostDTO> hidePost(@PathVariable String postId) {
+        return ResponseEntity.ok(postService.setPostHidden(postId, true));
+    }
+
+    @PutMapping("/posts/{postId}/unhide")
+    public ResponseEntity<PostDTO> unhidePost(@PathVariable String postId) {
+        return ResponseEntity.ok(postService.setPostHidden(postId, false));
+    }
+
+    @DeleteMapping("/posts/{postId}")
+    public ResponseEntity<Void> deletePostAsAdmin(@PathVariable String postId) {
+        postService.deletePostAsAdmin(postId);
         return ResponseEntity.noContent().build();
     }
 
@@ -90,7 +113,10 @@ public class AdminController {
 
         analytics.put("pendingReports", pendingReports);
         analytics.put("totalUsers", userService.getAllUsers().size());
+        analytics.put("totalPosts", postService.getTotalPostsCount());
 
         return ResponseEntity.ok(analytics);
     }
+
+
 }

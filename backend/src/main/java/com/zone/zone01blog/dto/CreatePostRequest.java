@@ -3,7 +3,9 @@ package com.zone.zone01blog.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = false)
 @Data
 public class CreatePostRequest {
     @NotBlank(message = "Title is required")

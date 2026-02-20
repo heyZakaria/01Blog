@@ -8,6 +8,7 @@ import com.zone.zone01blog.security.JwtAuthenticationToken;
 import com.zone.zone01blog.service.PostService;
 import com.zone.zone01blog.service.SubscriptionService;
 import com.zone.zone01blog.service.UserService;
+import com.zone.zone01blog.exception.UnauthorizedAccessException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -109,14 +110,22 @@ public class UserController {
     @PutMapping("/{id}")
     public UserDTO updateUser(@PathVariable String id, @Valid @RequestBody UpdateUserRequest request,
             @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        if (request.getRole() != null && !request.getRole().isBlank()
+                && auth != null && auth.getUserId().equals(id)) {
+            throw new UnauthorizedAccessException("Admins cannot modify their own role");
+        }
         UserDTO updateUser = userService.updateUser(request, id);
         return updateUser;
     }
 
     @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.userId")
     @DeleteMapping("/{id}")
-    public ResponseEntity<UserDTO> deleteUser(@PathVariable String id) {
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable String id,
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
 
+        if (auth != null && auth.getUserId().equals(id)) {
+            throw new UnauthorizedAccessException("You cannot delete your own account");
+        }
         userService.deleteUser(id);
 
         return ResponseEntity.noContent().build();

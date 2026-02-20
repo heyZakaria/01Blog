@@ -18,10 +18,11 @@ public class PostDTO {
     private boolean likedByCurrentUser;
     private String mediaUrl;
     private String mediaType;
+    private boolean hidden;
 
     public PostDTO(String id, String title, String description, long likeCount, UserDTO author,
             LocalDateTime createdAt, LocalDateTime updatedAt, long commentCount, boolean likedByCurrentUser,
-            String mediaUrl, String mediaType) {
+            String mediaUrl, String mediaType, boolean hidden) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -33,5 +34,6 @@ public class PostDTO {
         this.likedByCurrentUser = likedByCurrentUser;
         this.mediaUrl = mediaUrl;
         this.mediaType = mediaType;
+        this.hidden = hidden;
     }
 }

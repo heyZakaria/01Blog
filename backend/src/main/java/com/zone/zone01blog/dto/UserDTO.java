@@ -10,6 +10,7 @@ public class UserDTO {
     private String name;
     private String email;
     private String role;
+    private Boolean banned;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     
@@ -17,13 +18,14 @@ public class UserDTO {
     private Long followingCount;
     private Boolean isFollowedByCurrentUser;
 
-    public UserDTO(String id, String name, String email, String role,
+    public UserDTO(String id, String name, String email, String role, Boolean banned,
             LocalDateTime createdAt, LocalDateTime updatedAt, Long followersCount, Long followingCount,
             Boolean isFollowedByCurrentUser) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.role = role;
+        this.banned = banned;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.followersCount = followersCount;
@@ -33,6 +35,11 @@ public class UserDTO {
 
     public UserDTO(String id, String name, String email, String role,
             LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this(id, name, email, role, createdAt, updatedAt, null, null, null);
+        this(id, name, email, role, null, createdAt, updatedAt, null, null, null);
+    }
+
+    public UserDTO(String id, String name, String email, String role, Boolean banned,
+            LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this(id, name, email, role, banned, createdAt, updatedAt, null, null, null);
     }
 }

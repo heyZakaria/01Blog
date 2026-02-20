@@ -40,6 +40,12 @@ public class User {
     @Column(nullable = false)
     private boolean banned = false;
 
+    @Column(nullable = true)
+    private Boolean suspended = false;
+
+    @Column(nullable = true)
+    private Long tokenVersion = 0L;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -57,6 +63,8 @@ public class User {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
         this.banned = false;
+        this.suspended = false;
+        this.tokenVersion = 0L;
     }
 
     // JPA uses it to create objects from database
@@ -66,5 +74,13 @@ public class User {
 
     public boolean isBanned() {
         return banned;
+    }
+
+    public boolean isSuspended() {
+        return Boolean.TRUE.equals(suspended);
+    }
+
+    public long getTokenVersionSafe() {
+        return tokenVersion == null ? 0L : tokenVersion;
     }
 }

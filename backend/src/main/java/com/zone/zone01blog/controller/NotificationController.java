@@ -5,6 +5,7 @@ import com.zone.zone01blog.security.JwtAuthenticationToken;
 import com.zone.zone01blog.service.NotificationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -50,8 +51,26 @@ public class NotificationController {
     }
 
     @PutMapping("/{notificationId}/read")
-    public ResponseEntity<Void> markAsRead(@PathVariable String notificationId) {
-        notificationService.markAsRead(notificationId);
+    public ResponseEntity<Void> markAsRead(
+            @PathVariable String notificationId,
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        if (auth == null) {
+            throw new AuthenticationCredentialsNotFoundException("Authentication required");
+        }
+        String userId = auth.getUserId();
+        notificationService.markAsRead(userId, notificationId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{notificationId}/unread")
+    public ResponseEntity<Void> markAsUnread(
+            @PathVariable String notificationId,
+            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        if (auth == null) {
+            throw new AuthenticationCredentialsNotFoundException("Authentication required");
+        }
+        String userId = auth.getUserId();
+        notificationService.markAsUnread(userId, notificationId);
         return ResponseEntity.noContent().build();
     }
 
