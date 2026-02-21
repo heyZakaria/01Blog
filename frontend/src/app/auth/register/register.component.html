@@ -1,3 +1,4 @@
+<!-- Purpose: Template for the Register page component. -->
 <div class="auth-container">
     <div class="auth-card">
         <header class="auth-header">
@@ -5,34 +6,34 @@
             <p>Create an account to start sharing your learning journey</p>
         </header>
 
-        <form class="auth-form" (ngSubmit)="register()">
+        <form class="auth-form" [formGroup]="form" (ngSubmit)="register()">
             <div class="form-group">
                 <label class="form-label">Name</label>
-                <input type="text" [(ngModel)]="name" name="name" class="form-input" placeholder="Your full name"
-                    [disabled]="loading" required>
+                <input type="text" formControlName="name" name="name" class="form-input" placeholder="Your full name"
+                    [disabled]="loading()" required>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Email</label>
-                <input type="email" [(ngModel)]="email" name="email" class="form-input"
-                    placeholder="your.email@example.com" [disabled]="loading" required>
+                <input type="email" formControlName="email" name="email" class="form-input"
+                    placeholder="your.email@example.com" [disabled]="loading()" required>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Password</label>
-                <input type="password" [(ngModel)]="password" name="password" class="form-input" placeholder="••••••••"
-                    [disabled]="loading" required>
+                <input type="password" formControlName="password" name="password" class="form-input" placeholder="••••••••"
+                    [disabled]="loading()" required>
             </div>
 
-            @if (error) {
-            <p class="form-error">{{ error }}</p>
+            @if (error()) {
+            <p class="form-error">{{ error() }}</p>
             }
 
-            <button type="submit" class="btn btn-primary btn-full" [disabled]="loading || !name || !email || !password">
-                @if (!loading) {
+            <button type="submit" class="btn btn-primary btn-full" [disabled]="loading() || !canSubmit">
+                @if (!loading()) {
                 <span>Create Account</span>
                 }
-                @if (loading) {
+                @if (loading()) {
                 <span>Creating account...</span>
                 }
             </button>

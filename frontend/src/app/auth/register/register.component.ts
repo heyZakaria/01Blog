@@ -1,50 +1,65 @@
-import { Component } from '@angular/core';
+// Purpose: Register page component.
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-register',
-    standalone: true,
-    imports: [CommonModule, FormsModule, RouterModule],
+    imports: [CommonModule, ReactiveFormsModule, RouterModule],
     templateUrl: './register.component.html',
-    styleUrl: './register.component.css'
+    styleUrl: './register.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
+// Class: Component logic.
 export class RegisterComponent {
-    name: string = '';
-    email: string = '';
-    password: string = '';
-    loading: boolean = false;
-    error: string = '';
+    // State: reactive value for the template.
+    readonly loading = signal(false);
+    // State: reactive value for the template.
+    readonly error = signal('');
+    // Form model: groups form controls.
+    readonly form = new FormGroup({
+        name: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+        email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+        password: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+    });
+    // Checks if submit.
+    get canSubmit(): boolean {
+        return this.form.valid;
+    }
 
+    // Constructor: injects dependencies.
     constructor(
         private authService: AuthService,
         private router: Router
     ) { }
 
+    // Handles register.
     register() {
-        if (!this.name || !this.email || !this.password) {
-            this.error = 'All fields are required';
+        if (this.form.invalid) {
+            this.form.markAllAsTouched();
+            this.error.set('All fields are required');
             return;
         }
 
-        this.loading = true;
-        this.error = '';
+        this.loading.set(true);
+        this.error.set('');
 
-        this.authService.register({
-            name: this.name,
-            email: this.email,
-            password: this.password
-        }).subscribe({
+        this.form.disable();
+        const { name, email, password } = this.form.getRawValue();
+
+        this.authService.register({ name, email, password }).subscribe({
             next: () => {
-                this.loading = false;
+                this.loading.set(false);
+                this.form.enable();
                 this.router.navigate(['/']);
             },
             error: (error) => {
                 console.error('Registration error:', error);
-                this.error = error.error?.message || 'Registration failed';
-                this.loading = false;
+                this.error.set(error.error?.message || 'Registration failed');
+                this.loading.set(false);
+                this.form.enable();
             }
         });
     }

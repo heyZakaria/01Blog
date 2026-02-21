@@ -1,8 +1,10 @@
+// Purpose: Route guard for admins.
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 
+// Method: admin guard.
 export const adminGuard = () => {
     const authService = inject(AuthService);
     const userService = inject(UserService);

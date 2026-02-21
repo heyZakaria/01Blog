@@ -1,3 +1,4 @@
+// Purpose: App route table.
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { guestGuard } from './core/guards/guest.guard';
@@ -6,6 +7,7 @@ import { adminGuard } from './core/guards/admin.guard';
 export const routes: Routes = [
     { path: 'login', canActivate: [guestGuard], loadComponent: () => import('./auth/login/login.component').then(m => m.LoginComponent) },
     { path: 'register', canActivate: [guestGuard], loadComponent: () => import('./auth/register/register.component').then(m => m.RegisterComponent) },
+    { path: 'u/:id', loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent) },
 
     {
         path: '',

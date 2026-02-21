@@ -1,3 +1,4 @@
+<!-- Purpose: Template for the Login page component. -->
 <div class="auth-container">
     <div class="auth-card">
         <header class="auth-header">
@@ -5,28 +6,28 @@
             <p>Sign in to continue to 01Blog</p>
         </header>
 
-        <form class="auth-form" (ngSubmit)="login()">
+        <form class="auth-form" [formGroup]="form" (ngSubmit)="login()">
             <div class="form-group">
                 <label class="form-label">Email</label>
-                <input type="email" [(ngModel)]="email" name="email" class="form-input"
-                    placeholder="your.email@example.com" [disabled]="loading" required>
+                <input type="email" formControlName="email" name="email" class="form-input"
+                    placeholder="your.email@example.com" [disabled]="loading()" required>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Password</label>
-                <input type="password" [(ngModel)]="password" name="password" class="form-input" placeholder="••••••••"
-                    [disabled]="loading" required>
+                <input type="password" formControlName="password" name="password" class="form-input" placeholder="••••••••"
+                    [disabled]="loading()" required>
             </div>
 
-            @if (error) {
-            <p class="form-error">{{ error }}</p>
+            @if (error()) {
+            <p class="form-error">{{ error() }}</p>
             }
 
-            <button type="submit" class="btn btn-primary btn-full" [disabled]="loading || !email || !password">
-                @if (!loading) {
+            <button type="submit" class="btn btn-primary btn-full" [disabled]="loading() || !canSubmit">
+                @if (!loading()) {
                 <span>Sign In</span>
                 }
-                @if (loading) {
+                @if (loading()) {
                 <span>Signing in...</span>
                 }
             </button>
