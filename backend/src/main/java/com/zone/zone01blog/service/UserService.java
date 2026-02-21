@@ -68,6 +68,7 @@ public class UserService {
                 user.getName(),
                 user.getEmail(),
                 user.getRole(),
+                user.isBanned(),
                 user.getCreatedAt(),
                 user.getUpdatedAt());
     }
@@ -115,7 +116,15 @@ public class UserService {
     }
 
     public void deleteUser(String id) {
-        userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+
+        if ("ADMIN".equalsIgnoreCase(user.getRole())) {
+            long adminCount = userRepository.countByRole("ADMIN");
+            if (adminCount <= 1) {
+                throw new IllegalStateException("Cannot delete the last admin account");
+            }
+        }
 
         userRepository.deleteById(id);
     }
@@ -123,6 +132,8 @@ public class UserService {
     public UserDTO toggleBan(String userId) {
         User user = getUserEntityById(userId);
         user.setBanned(!user.isBanned());
+        // Force logout by invalidating existing tokens
+        user.setTokenVersion(user.getTokenVersionSafe() + 1);
         User updatedUser = userRepository.save(user);
         return convertToDTO(updatedUser);
     }

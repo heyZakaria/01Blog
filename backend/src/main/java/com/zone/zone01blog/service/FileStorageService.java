@@ -25,10 +25,10 @@ public class FileStorageService {
     private final Path fileStorageLocation;
 
     private static final List<String> ALLOWED_IMAGE_TYPES = Arrays.asList(
-            "image/jpeg", "image/jpg", "image/png", "image/gif");
+            "image/jpeg", "image/jpg", "image/png", "image/gif", "image/webp");
 
     private static final List<String> ALLOWED_VIDEO_TYPES = Arrays.asList(
-            "video/mp4", "video/avi", "video/mov", "video/quicktime");
+            "video/mp4", "video/avi", "video/mov", "video/quicktime", "video/webm");
 
     private static final long MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
     private static final long MAX_VIDEO_SIZE = 50 * 1024 * 1024; // 50MB

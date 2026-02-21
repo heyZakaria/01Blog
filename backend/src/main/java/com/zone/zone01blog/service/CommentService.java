@@ -109,8 +109,9 @@ public class CommentService {
     }
 
     public long getCommentCount(String postId) {
-        return commentRepository.countByPostId(postId);
+        return commentRepository.countByPostIdAndHiddenFalse(postId);
     }
+
 
     private CommentDTO convertToDTO(Comment comment) {
         User author = comment.getAuthor();
@@ -127,7 +128,11 @@ public class CommentService {
                 comment.getId(),
                 comment.getContent(),
                 authorDTO,
+                comment.getPost().getId(),
+                comment.getPost().getTitle(),
+                comment.isHidden(),
                 comment.getCreatedAt(),
                 comment.getUpdatedAt());
     }
+
 }

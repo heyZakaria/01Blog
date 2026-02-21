@@ -11,12 +11,13 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, String> {
 
     // Find all comments for a specific post (with authors loaded)
-    @Query("SELECT c FROM Comment c JOIN FETCH c.author WHERE c.post.id = :postId ORDER BY c.createdAt DESC")
+    @Query("SELECT c FROM Comment c JOIN FETCH c.author WHERE c.post.id = :postId AND c.hidden = false ORDER BY c.createdAt DESC")
     List<Comment> findByPostIdWithAuthors(String postId);
 
     // Find comment by ID with author loaded
     @Query("SELECT c FROM Comment c JOIN FETCH c.author WHERE c.id = :id")
     Comment findByIdWithAuthor(String id);
 
-    long countByPostId(String postId);
+    long countByPostIdAndHiddenFalse(String postId);
+
 }

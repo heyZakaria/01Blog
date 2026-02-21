@@ -17,20 +17,27 @@ public interface PostRepository extends JpaRepository<Post, String> {
     List<Post> findByAuthorId(String authorId);
 
     // SOLUTION TO N+1 PROBLEM: Join fetch
-    @Query("SELECT p FROM Post p JOIN FETCH p.author")
+    @Query("SELECT p FROM Post p JOIN FETCH p.author WHERE p.hidden = false")
     List<Post> findAllWithAuthors();
+
+    @Query("SELECT p FROM Post p JOIN FETCH p.author ORDER BY p.createdAt DESC")
+    List<Post> findAllWithAuthorsIncludingHidden();
+
 
     @Query("SELECT p FROM Post p JOIN FETCH p.author WHERE p.id = :id")
     Post findByIdWithAuthor(String id);
 
+    @Query("SELECT p FROM Post p JOIN FETCH p.author WHERE p.id = :id AND p.hidden = false")
+    Post findVisibleByIdWithAuthor(String id);
+
     // feed
     @Query("SELECT p FROM Post p JOIN FETCH p.author " +
-            "WHERE p.author.id IN :followingIds " +
+            "WHERE p.author.id IN :followingIds AND p.hidden = false " +
             "ORDER BY p.createdAt DESC")
     List<Post> findFeedPostsByFollowingIds(List<String> followingIds);
 
     // chi profile 
-    @Query("SELECT p FROM Post p JOIN FETCH p.author WHERE p.author.id = :userId ORDER BY p.createdAt DESC")
+    @Query("SELECT p FROM Post p JOIN FETCH p.author WHERE p.author.id = :userId AND p.hidden = false ORDER BY p.createdAt DESC")
     List<Post> findByAuthorIdWithAuthor(String userId);
 
     // private List<Post> posts = new ArrayList<>();

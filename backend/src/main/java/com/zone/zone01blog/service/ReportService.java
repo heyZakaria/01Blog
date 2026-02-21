@@ -5,6 +5,7 @@ import com.zone.zone01blog.entity.Report;
 import com.zone.zone01blog.entity.ReportStatus;
 import com.zone.zone01blog.entity.User;
 import com.zone.zone01blog.exception.CannotReportSelfException;
+import com.zone.zone01blog.exception.CannotReportAdminException;
 import com.zone.zone01blog.exception.ReportNotFoundException;
 import com.zone.zone01blog.repository.ReportRepository;
 import org.springframework.stereotype.Service;
@@ -32,12 +33,11 @@ public class ReportService {
             throw new CannotReportSelfException("You cannot report yourself");
         }
 
-        if (reportRepository.existsByReporterIdAndReportedUserId(reporterId, reportedUserId)) {
-            throw new IllegalStateException("You have already reported this user");
-        }
-
         User reporter = userService.getUserEntityById(reporterId);
         User reportedUser = userService.getUserEntityById(reportedUserId);
+        if ("ADMIN".equalsIgnoreCase(reportedUser.getRole())) {
+            throw new CannotReportAdminException("You cannot report an admin user");
+        }
 
         Report report = new Report(
                 UUID.randomUUID().toString(),

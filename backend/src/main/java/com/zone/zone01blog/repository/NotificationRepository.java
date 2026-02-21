@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.List;
 
 @Repository
@@ -18,6 +19,8 @@ public interface NotificationRepository extends JpaRepository<Notification, Stri
     List<Notification> findByUserIdWithRelatedUser(String userId);
 
     long countByUserIdAndIsRead(String userId, boolean isRead);
+
+    Optional<Notification> findByIdAndUserId(String id, String userId);
 
     @Modifying
     @Query("UPDATE Notification n SET n.isRead = true WHERE n.user.id = :userId AND n.isRead = false")

@@ -57,9 +57,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String role = jwtUtil.getRoleFromToken(token);
 
         Optional<User> userOpt = userRepository.findById(userId);
-        if (userOpt.isPresent() && userOpt.get().isBanned()) {
-            response.sendError(403, "Your account has been banned");
-            return;
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            if (user.isBanned()) {
+                response.sendError(403, "Your account has been banned");
+                return;
+            }
+            if (user.isSuspended()) {
+                response.sendError(403, "Your account has been suspended");
+                return;
+            }
+            long tokenVersion = jwtUtil.getTokenVersionFromToken(token);
+            if (tokenVersion != user.getTokenVersionSafe()) {
+                response.sendError(401, "Token has been revoked");
+                return;
+            }
         }
 
         // Create authentication and store in SecurityContext

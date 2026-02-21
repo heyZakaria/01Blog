@@ -37,7 +37,7 @@ public class AuthService {
             throw new InvalidCredentialsException("Invalid email or password");
         }
 
-        String token = jwtUtil.generateToken(user.getId(), user.getRole());
+        String token = jwtUtil.generateToken(user.getId(), user.getRole(), user.getTokenVersionSafe());
 
         UserDTO userDTO = userService.convertToDTO(user);
 
@@ -47,7 +47,8 @@ public class AuthService {
     public LoginResponse register(CreateUserRequest request) {
         UserDTO createdUser = userService.createUser(request);
 
-        String token = jwtUtil.generateToken(createdUser.getId(), createdUser.getRole());
+        User userEntity = userService.getUserEntityById(createdUser.getId());
+        String token = jwtUtil.generateToken(userEntity.getId(), userEntity.getRole(), userEntity.getTokenVersionSafe());
 
         return new LoginResponse(token, createdUser);
     }

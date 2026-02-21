@@ -7,6 +7,7 @@ import com.zone.zone01blog.entity.NotificationType;
 import com.zone.zone01blog.entity.Post;
 import com.zone.zone01blog.entity.User;
 import com.zone.zone01blog.repository.NotificationRepository;
+import com.zone.zone01blog.exception.NotificationNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,11 +57,19 @@ public class NotificationService {
         return notificationRepository.countByUserIdAndIsRead(userId, false);
     }
 
-    public void markAsRead(String notificationId) {
-        Notification notification = notificationRepository.findById(notificationId)
-                .orElseThrow(() -> new RuntimeException("Notification not found"));
+    public void markAsRead(String userId, String notificationId) {
+        Notification notification = notificationRepository.findByIdAndUserId(notificationId, userId)
+                .orElseThrow(() -> new NotificationNotFoundException("Notification not found"));
 
         notification.setRead(true);
+        notificationRepository.save(notification);
+    }
+
+    public void markAsUnread(String userId, String notificationId) {
+        Notification notification = notificationRepository.findByIdAndUserId(notificationId, userId)
+                .orElseThrow(() -> new NotificationNotFoundException("Notification not found"));
+
+        notification.setRead(false);
         notificationRepository.save(notification);
     }
 

@@ -57,8 +57,21 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    public List<PostDTO> getAllPostsForAdmin() {
+        List<Post> posts = postRepository.findAllWithAuthorsIncludingHidden();
+        return posts.stream()
+                .map(post -> convertToDTO(post, null))
+                .collect(Collectors.toList());
+    }
+
+
+    // ADMIN
+    public long getTotalPostsCount() {
+        return postRepository.count();
+    }
+
     public PostDTO getPostById(String id, String currentUserId) {
-        Post post = postRepository.findByIdWithAuthor(id);
+        Post post = postRepository.findVisibleByIdWithAuthor(id);
         if (post == null) {
             throw new PostNotFoundException("Post not found with id: " + id);
         }
@@ -91,10 +104,13 @@ public class PostService {
     public PostDTO createPost(CreatePostRequest request, String userId) {
         User author = userService.getUserEntityById(userId);
 
+        String title = sanitizeAndValidateText(request.getTitle(), "Title", 3, 150);
+        String description = sanitizeAndValidateText(request.getDescription(), "Description", 10, 1000);
+
         Post post = new Post(
                 UUID.randomUUID().toString(),
-                request.getTitle(),
-                request.getDescription(),
+                title,
+                description,
                 author);
 
         Post savedPost = postRepository.save(post);
@@ -126,8 +142,12 @@ public class PostService {
             throw new UnauthorizedAccessException("You can only update your own posts");
         }
 
-        post.setTitle(request.getTitle());
-        post.setDescription(request.getDescription());
+        if (request.getTitle() != null) {
+            post.setTitle(sanitizeAndValidateText(request.getTitle(), "Title", 3, 150));
+        }
+        if (request.getDescription() != null) {
+            post.setDescription(sanitizeAndValidateText(request.getDescription(), "Description", 10, 1000));
+        }
 
         Post updatedPost = postRepository.save(post);
         return convertToDTO(updatedPost, userId);
@@ -143,13 +163,27 @@ public class PostService {
             throw new UnauthorizedAccessException("You can only delete your own posts");
         }
 
-        if (post.getMediaUrl() != null) {
-            String filename = extractFilenameFromUrl(post.getMediaUrl());
-            fileStorageService.deleteFile(filename);
-        }
-
-        postRepository.deleteById(id);
+        deletePostEntity(post);
     }
+
+    public PostDTO setPostHidden(String postId, boolean hidden) {
+        Post post = postRepository.findByIdWithAuthor(postId);
+        if (post == null) {
+            throw new PostNotFoundException("Post not found with id: " + postId);
+        }
+        post.setHidden(hidden);
+        Post updated = postRepository.save(post);
+        return convertToDTO(updated, null);
+    }
+
+    public void deletePostAsAdmin(String postId) {
+        Post post = postRepository.findByIdWithAuthor(postId);
+        if (post == null) {
+            throw new PostNotFoundException("Post not found with id: " + postId);
+        }
+        deletePostEntity(post);
+    }
+
 
     public PostDTO uploadMedia(String postId, MultipartFile file, String userId) {
         Post post = postRepository.findByIdWithAuthor(postId);
@@ -226,11 +260,63 @@ public class PostService {
                 commentCount,
                 likedByCurrentUser,
                 post.getMediaUrl(),
-                post.getMediaType());
+                post.getMediaType(),
+                post.isHidden());
     }
 
     private String extractFilenameFromUrl(String url) {
         return url.substring(url.lastIndexOf('/') + 1);
+    }
+
+    private void deletePostEntity(Post post) {
+        if (post.getMediaUrl() != null) {
+            String filename = extractFilenameFromUrl(post.getMediaUrl());
+            fileStorageService.deleteFile(filename);
+        }
+        postRepository.deleteById(post.getId());
+    }
+
+    private String sanitizeAndValidateText(String input, String fieldName, int min, int max) {
+        if (input == null) {
+            throw new IllegalArgumentException(fieldName + " is required");
+        }
+
+        // Normalize line breaks and remove control characters (except \n and \t)
+        String normalized = input.replace("\r\n", "\n").replace("\r", "\n");
+        normalized = normalized.replaceAll("[\\p{Cc}&&[^\n\t]]", "");
+
+        String trimmed = normalized.trim();
+        if (trimmed.isEmpty()) {
+            throw new IllegalArgumentException(fieldName + " cannot be empty");
+        }
+
+        String sanitized = sanitizeHtml(trimmed);
+        String textOnly = stripHtml(sanitized).replace("&nbsp;", " ").trim();
+        if (textOnly.isEmpty()) {
+            throw new IllegalArgumentException(fieldName + " cannot be empty");
+        }
+
+        if (textOnly.length() < min || textOnly.length() > max) {
+            throw new IllegalArgumentException(
+                    fieldName + " must be between " + min + " and " + max + " characters");
+        }
+
+        return sanitized;
+    }
+
+    private String sanitizeHtml(String input) {
+        String sanitized = input;
+        // Remove script tags
+        sanitized = sanitized.replaceAll("(?is)<script.*?>.*?</script>", "");
+        // Remove iframe/embed tags
+        sanitized = sanitized.replaceAll("(?is)<(iframe|embed|object).*?>.*?</(iframe|embed|object)>", "");
+        // Remove inline event handlers (onload, onclick, etc.)
+        sanitized = sanitized.replaceAll("(?i)\\son\\w+\\s*=\\s*(['\"]).*?\\1", "");
+        return sanitized;
+    }
+
+    private String stripHtml(String input) {
+        return input.replaceAll("(?is)<[^>]*>", "");
     }
 
 }
