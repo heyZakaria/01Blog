@@ -1,3 +1,4 @@
+<!-- Purpose: Template for the Main layout shell component. -->
 <header class="main-header">
     <div class="container">
         <nav class="navbar">
@@ -14,7 +15,7 @@
                 <a routerLink="/create-post" class="nav-link" routerLinkActive="active">
                     Write
                 </a>
-                @if (currentUser?.role === 'ADMIN') {
+                @if (currentUser()?.role === 'ADMIN') {
                 <a routerLink="/admin" class="nav-link" routerLinkActive="active">
                     Admin
                 </a>
@@ -32,9 +33,9 @@
                         {{ getUserInitials() }}
                     </button>
 
-                    @if (showUserMenu) {
+                    @if (showUserMenu()) {
                     <div class="dropdown-menu">
-                        @if (currentUser?.id) {
+                        @if (currentUser()?.id) {
                         <button (click)="navigateToProfile()" class="dropdown-item"
                             type="button">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -81,22 +82,22 @@
                     <h3>Discover people</h3>
                 </div>
 
-                @if (loadingDiscover) {
+                @if (loadingDiscover()) {
                 <div class="sidebar-loading">
                     <div class="spinner"></div>
                     <span>Loading...</span>
                 </div>
                 }
 
-                @if (!loadingDiscover && discoverUsers.length === 0) {
+                @if (!loadingDiscover() && !hasDiscoverUsers()) {
                 <div class="sidebar-empty">
                     <p>No new people right now.</p>
                 </div>
                 }
 
-                @if (!loadingDiscover && discoverUsers.length > 0) {
+                @if (!loadingDiscover() && hasDiscoverUsers()) {
                 <div class="discover-list">
-                    @for (user of discoverUsers; track user.id) {
+                    @for (user of discoverUsers(); track user.id) {
                     <div class="discover-item">
                         <a [routerLink]="['/profile', user.id]" class="discover-avatar">
                             {{ getInitials(user.name) }}

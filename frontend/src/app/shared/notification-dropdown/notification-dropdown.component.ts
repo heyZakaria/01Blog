@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+// Purpose: Notification dropdown component.
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NotificationService, NotificationDTO } from '../../services/notification.service';
@@ -6,23 +7,30 @@ import { interval, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-notification-dropdown',
-    standalone: true,
     imports: [CommonModule, RouterModule],
     templateUrl: './notification-dropdown.component.html',
-    styleUrls: ['./notification-dropdown.component.css']
+    styleUrls: ['./notification-dropdown.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
+// Class: Component logic.
 export class NotificationDropdownComponent implements OnInit, OnDestroy {
-    notifications: NotificationDTO[] = [];
-    unreadCount: number = 0;
-    isOpen: boolean = false;
-    loading: boolean = false;
+    readonly notifications = signal<NotificationDTO[]>([]);
+    // State: reactive value for the template.
+    readonly unreadCount = signal(0);
+    // State: reactive value for the template.
+    readonly isOpen = signal(false);
+    // State: reactive value for the template.
+    readonly loading = signal(false);
+    readonly hasNotifications = computed(() => this.notifications().length > 0);
+    readonly hasUnread = computed(() => this.unreadCount() > 0);
     private pollSubscription?: Subscription;
 
+    // Constructor: injects dependencies.
     constructor(
-        private notificationService: NotificationService,
-        private cdr: ChangeDetectorRef
+        private notificationService: NotificationService
     ) { }
 
+    // Angular lifecycle: ng on init.
     ngOnInit() {
         this.loadNotifications();
         this.loadUnreadCount();
@@ -32,87 +40,110 @@ export class NotificationDropdownComponent implements OnInit, OnDestroy {
         });
     }
 
+    // Angular lifecycle: ng on destroy.
     ngOnDestroy() {
         this.pollSubscription?.unsubscribe();
     }
 
+    // Toggles dropdown.
     toggleDropdown() {
-        this.isOpen = !this.isOpen;
-        if (this.isOpen) {
+        this.isOpen.update((open) => !open);
+        if (this.isOpen()) {
             this.loadNotifications();
         }
     }
 
+    // Loads  notifications.
     loadNotifications() {
-        this.loading = true;
+        this.loading.set(true);
         this.notificationService.getNotifications().subscribe({
             next: (notifications) => {
-                this.notifications = notifications.slice(0, 10); // Show latest 10
-                this.loading = false;
-                this.cdr.detectChanges();
+                this.notifications.set(notifications.slice(0, 10)); // Show latest 10
+                this.loading.set(false);
             },
             error: (error) => {
                 console.error('Error loading notifications:', error);
-                this.loading = false;
-                this.cdr.detectChanges();
+                this.loading.set(false);
             }
         });
     }
 
+    // Loads  unread count.
     loadUnreadCount() {
         this.notificationService.getUnreadCount().subscribe({
             next: (response) => {
-                this.unreadCount = response.count;
-                this.cdr.detectChanges();
+                this.unreadCount.set(response.count);
             },
             error: (error) => {
                 console.error('Error loading unread count:', error);
-                this.cdr.detectChanges();
             }
         });
     }
 
+    // Marks as read.
     markAsRead(notification: NotificationDTO) {
         if (notification.read) return;
 
         this.notificationService.markAsRead(notification.id).subscribe({
             next: () => {
-                notification.read = true;
+                this.notifications.update((notifications) =>
+                    notifications.map((item) =>
+                        item.id === notification.id ? { ...item, read: true } : item
+                    )
+                );
                 this.loadUnreadCount();
-                this.cdr.detectChanges();
             },
             error: (error) => {
                 console.error('Error marking notification as read:', error);
-                this.cdr.detectChanges();
             }
         });
     }
 
+    // Marks as unread.
+    markAsUnread(notification: NotificationDTO, event: Event) {
+        event.stopPropagation();
+        if (!notification.read) return;
+
+        this.notificationService.markAsUnread(notification.id).subscribe({
+            next: () => {
+                this.notifications.update((notifications) =>
+                    notifications.map((item) =>
+                        item.id === notification.id ? { ...item, read: false } : item
+                    )
+                );
+                this.loadUnreadCount();
+            },
+            error: (error) => {
+                console.error('Error marking notification as unread:', error);
+            }
+        });
+    }
+
+    // Marks all as read.
     markAllAsRead() {
         this.notificationService.markAllAsRead().subscribe({
             next: () => {
-                this.notifications.forEach(n => n.read = true);
-                this.unreadCount = 0;
-                this.cdr.detectChanges();
+                this.notifications.update((notifications) =>
+                    notifications.map((item) => ({ ...item, read: true }))
+                );
+                this.unreadCount.set(0);
             },
             error: (error) => {
                 console.error('Error marking all as read:', error);
-                this.cdr.detectChanges();
             }
         });
     }
 
+    // Deletes notification.
     deleteNotification(notificationId: string, event: Event) {
         event.stopPropagation();
         this.notificationService.deleteNotification(notificationId).subscribe({
             next: () => {
-                this.notifications = this.notifications.filter(n => n.id !== notificationId);
+                this.notifications.update((notifications) => notifications.filter(n => n.id !== notificationId));
                 this.loadUnreadCount();
-                this.cdr.detectChanges();
             },
             error: (error) => {
                 console.error('Error deleting notification:', error);
-                this.cdr.detectChanges();
             }
         });
     }

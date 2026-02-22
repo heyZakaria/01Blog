@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+// Purpose: Main layout shell component.
+import { Component, OnInit, ChangeDetectionStrategy, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -8,7 +9,6 @@ import { SubscriptionService } from '../../services/subscription.service';
 
 @Component({
     selector: 'app-main-layout',
-    standalone: true,
     imports: [
         CommonModule,
         RouterOutlet,
@@ -17,73 +17,79 @@ import { SubscriptionService } from '../../services/subscription.service';
         NotificationDropdownComponent
     ],
     templateUrl: './main-layout.component.html',
-    styleUrl: './main-layout.component.css'
+    styleUrl: './main-layout.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
+// Class: Component logic.
 export class MainLayoutComponent implements OnInit {
-    currentUser: UserDTO | null = null;
-    showUserMenu: boolean = false;
-    discoverUsers: UserDTO[] = [];
-    loadingDiscover: boolean = false;
-    followLoadingIds = new Set<string>();
+    readonly currentUser = signal<UserDTO | null>(null);
+    // State: reactive value for the template.
+    readonly showUserMenu = signal(false);
+    readonly discoverUsers = signal<UserDTO[]>([]);
+    // State: reactive value for the template.
+    readonly loadingDiscover = signal(false);
+    readonly followLoadingIds = signal<Set<string>>(new Set());
+    readonly hasDiscoverUsers = computed(() => this.discoverUsers().length > 0);
 
+    // Constructor: injects dependencies.
     constructor(
         private authService: AuthService,
         private userService: UserService,
         private subscriptionService: SubscriptionService,
-        private router: Router,
-        private cdr: ChangeDetectorRef
+        private router: Router
     ) { }
 
+    // Angular lifecycle: ng on init.
     ngOnInit() {
         // Try to get user from local storage first for immediate display
-        this.currentUser = this.userService.getCurrentUser();
+        this.currentUser.set(this.userService.getCurrentUser());
 
         // Then fetch fresh data from API
         this.loadCurrentUser();
         this.loadDiscoverUsers();
     }
 
+    // Loads  current user.
     loadCurrentUser() {
         this.userService.getCurrentUserObservable().subscribe({
             next: (user) => {
-                this.currentUser = user;
-                this.cdr.detectChanges();
+                this.currentUser.set(user);
             },
             error: (error) => {
                 console.error('Error loading current user:', error);
-                this.cdr.detectChanges();
             }
         });
     }
 
+    // Loads  discover users.
     loadDiscoverUsers() {
-        this.loadingDiscover = true;
+        this.loadingDiscover.set(true);
         this.userService.getDiscoverUsers().subscribe({
             next: (users) => {
-                this.discoverUsers = users;
-                this.loadingDiscover = false;
-                this.cdr.detectChanges();
+                this.discoverUsers.set(users);
+                this.loadingDiscover.set(false);
             },
             error: (error) => {
                 console.error('Error loading discover users:', error);
-                this.loadingDiscover = false;
-                this.cdr.detectChanges();
+                this.loadingDiscover.set(false);
             }
         });
     }
 
+    // Toggles user menu.
     toggleUserMenu() {
-        this.showUserMenu = !this.showUserMenu;
+        this.showUserMenu.update((open) => !open);
     }
 
+    // Handles logout.
     logout() {
         this.authService.logout();
         window.location.href = '/login';
     }
 
     getUserInitials(): string {
-        if (!this.currentUser?.name) return '?';
-        const names = this.currentUser.name.split(' ');
+        if (!this.currentUser()?.name) return '?';
+        const names = this.currentUser()!.name.split(' ');
         if (names.length >= 2) {
             return names[0][0] + names[1][0];
         }
@@ -99,35 +105,41 @@ export class MainLayoutComponent implements OnInit {
         return names[0][0];
     }
 
+    // Method: follow user.
     followUser(userId: string) {
-        if (this.followLoadingIds.has(userId)) {
+        if (this.followLoadingIds().has(userId)) {
             return;
         }
-        this.followLoadingIds.add(userId);
+        const next = new Set(this.followLoadingIds());
+        next.add(userId);
+        this.followLoadingIds.set(next);
         this.subscriptionService.toggleFollow(userId).subscribe({
             next: (response) => {
                 if (response.following) {
-                    this.discoverUsers = this.discoverUsers.filter(u => u.id !== userId);
+                    this.discoverUsers.update((users) => users.filter(u => u.id !== userId));
                 }
-                this.followLoadingIds.delete(userId);
-                this.cdr.detectChanges();
+                const nextIds = new Set(this.followLoadingIds());
+                nextIds.delete(userId);
+                this.followLoadingIds.set(nextIds);
             },
             error: (error) => {
                 console.error('Error following user:', error);
-                this.followLoadingIds.delete(userId);
-                this.cdr.detectChanges();
+                const nextIds = new Set(this.followLoadingIds());
+                nextIds.delete(userId);
+                this.followLoadingIds.set(nextIds);
             }
         });
     }
 
     isFollowLoading(userId: string): boolean {
-        return this.followLoadingIds.has(userId);
+        return this.followLoadingIds().has(userId);
     }
 
+    // Method: navigate to profile.
     navigateToProfile() {
-        this.showUserMenu = false;
-        if (this.currentUser?.id) {
-            this.router.navigate(['/profile', this.currentUser.id]);
+        this.showUserMenu.set(false);
+        if (this.currentUser()?.id) {
+            this.router.navigate(['/profile', this.currentUser()!.id]);
         }
     }
 }

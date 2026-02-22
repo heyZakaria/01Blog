@@ -1,9 +1,10 @@
+<!-- Purpose: Template for the Admin dashboard component. -->
 <div class="admin-container">
     <div class="container">
         <!-- Admin Header -->
         <header class="admin-header">
             <h1>Admin Dashboard</h1>
-            <p>Manage users, posts, and reports</p>
+            <p>Manage users, reports, and posts</p>
         </header>
 
         <!-- Analytics Cards -->
@@ -18,7 +19,21 @@
                 </div>
                 <div class="stat-content">
                     <span class="stat-label">Total Users</span>
-                    <span class="stat-value">{{ analytics.totalUsers }}</span>
+                    <span class="stat-value">{{ analytics().totalUsers }}</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M21 3H3C1.9 3 1 3.9 1 5V19C1 20.1 1.9 21 3 21H21C22.1 21 23 20.1 23 19V5C23 3.9 22.1 3 21 3ZM21 19H3V5H21V19ZM7 7H17V9H7V7ZM7 11H17V13H7V11ZM7 15H13V17H7V15Z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-label">Total Posts</span>
+                    <span class="stat-value">{{ analytics().totalPosts }}</span>
                 </div>
             </div>
 
@@ -32,23 +47,26 @@
                 </div>
                 <div class="stat-content">
                     <span class="stat-label">Pending Reports</span>
-                    <span class="stat-value">{{ analytics.pendingReports }}</span>
+                    <span class="stat-value">{{ analytics().pendingReports }}</span>
                 </div>
             </div>
         </div>
 
         <!-- Tabs -->
         <div class="tabs">
-            <button class="tab-button" [class.active]="activeTab === 'users'" (click)="setActiveTab('users')">
+            <button mat-stroked-button class="tab-button" [class.active]="isUsersTab()" (click)="setActiveTab('users')">
                 Users
             </button>
-            <button class="tab-button" [class.active]="activeTab === 'reports'" (click)="setActiveTab('reports')">
+            <button mat-stroked-button class="tab-button" [class.active]="isReportsTab()" (click)="setActiveTab('reports')">
                 Reports
+            </button>
+            <button mat-stroked-button class="tab-button" [class.active]="isPostsTab()" (click)="setActiveTab('posts')">
+                Posts
             </button>
         </div>
 
         <!-- Users Tab -->
-        @if (activeTab === 'users') {
+        @if (isUsersTab()) {
         <div class="tab-content">
             <div class="table-container">
                 <table class="data-table">
@@ -62,7 +80,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for (user of users; track user.id) {
+                        @for (user of users(); track user.id) {
                         <tr>
                             <td>{{ user.name }}</td>
                             <td>{{ user.email }}</td>
@@ -71,7 +89,7 @@
                             <td>
                                 <div class="action-buttons">
                                     <button class="btn-action" (click)="toggleBanUser(user.id)">
-                                        Ban
+                                        {{ user.banned ? 'Unban' : 'Ban' }}
                                     </button>
                                     <button class="btn-action danger" (click)="deleteUser(user.id)">
                                         Delete
@@ -87,16 +105,16 @@
         }
 
         <!-- Reports Tab -->
-        @if (activeTab === 'reports') {
+        @if (isReportsTab()) {
         <div class="tab-content">
             <div class="reports-list">
-                @if (reports.length === 0) {
+                @if (!hasReports()) {
                 <div class="empty-state">
                     <p>No reports to review</p>
                 </div>
                 }
 
-                @for (report of reports; track report.id) {
+                @for (report of reports(); track report.id) {
                 <div class="report-card">
                     <div class="report-header">
                         <div class="report-info">
@@ -107,19 +125,71 @@
                         </div>
                     </div>
                     <div class="report-body">
-                        <p><strong>Reporter:</strong> {{ report.reporterName }}</p>
-                        <p><strong>Reported User:</strong> {{ report.reportedUserName }}</p>
+                        <p><strong>Reporter:</strong> {{ report.reporter.name }}</p>
+                        <p><strong>Reported User:</strong> {{ report.reportedUser.name }}</p>
                         <p><strong>Reason:</strong> {{ report.reason }}</p>
                     </div>
                     <div class="report-actions">
                         <button class="btn btn-sm btn-primary" (click)="resolveReport(report.id, 'RESOLVED')">
                             Resolve
                         </button>
+                        <button class="btn btn-sm btn-primary" (click)="resolveReport(report.id, 'RESOLVED', true)">
+                            Resolve + Ban User
+                        </button>
+                        <button class="btn btn-sm btn-secondary" (click)="resolveReport(report.id, 'DISMISSED')">
+                            Dismiss Report
+                        </button>
                         <button class="btn btn-sm btn-secondary" (click)="deleteReport(report.id)">
-                            Dismiss
+                            Delete Record
                         </button>
                     </div>
                 </div>
+                }
+            </div>
+        </div>
+        }
+
+        @if (isPostsTab()) {
+        <div class="tab-content">
+            <div class="table-container">
+                @if (!hasPosts()) {
+                <div class="empty-state">
+                    <p>No posts found</p>
+                </div>
+                }
+
+                @if (hasPosts()) {
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (post of posts(); track post.id) {
+                        <tr>
+                            <td>{{ post.title }}</td>
+                            <td>{{ post.author?.name }}</td>
+                            <td>{{ post.hidden ? 'Hidden' : 'Visible' }}</td>
+                            <td>{{ post.createdAt | date:'short' }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-action" (click)="togglePostVisibility(post)">
+                                        {{ post.hidden ? 'Unhide' : 'Hide' }}
+                                    </button>
+                                    <button class="btn-action danger" (click)="deletePost(post.id)">
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
                 }
             </div>
         </div>

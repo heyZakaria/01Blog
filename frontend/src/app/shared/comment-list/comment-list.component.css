@@ -1,3 +1,4 @@
+/* Purpose: Styles for the Comment list component. */
 .comment-section {
     margin-top: var(--space-8);
 }
@@ -21,6 +22,8 @@
     font-size: var(--text-xl);
     margin: 0;
     color: var(--color-text-primary);
+    padding: var(--space-4);
+
 }
 
 .comment-count {
@@ -41,6 +44,8 @@
 .comment-subtitle {
     font-size: var(--text-sm);
     color: var(--color-text-muted);
+    padding: var(--space-4);
+
 }
 
 /* Comment Form */
@@ -139,6 +144,8 @@
     line-height: var(--leading-relaxed);
     color: var(--color-text-secondary);
     margin: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 /* Comment Edit */

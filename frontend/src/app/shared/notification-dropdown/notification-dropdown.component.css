@@ -1,3 +1,4 @@
+/* Purpose: Styles for the Notification dropdown component. */
 .notification-container {
     position: relative;
 }
@@ -116,6 +117,28 @@
 
 .notification-content {
     flex: 1;
+}
+
+.notification-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.mark-unread-btn {
+    background: none;
+    border: 1px solid var(--color-border-dark);
+    color: var(--color-text-secondary);
+    font-size: var(--text-xs);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.mark-unread-btn:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-text-primary);
 }
 
 .notification-message {

@@ -1,3 +1,4 @@
+<!-- Purpose: Template for the Home feed page component. -->
 <div class="home-container">
     <div class="container container-content">
         <!-- Hero Section -->
@@ -10,15 +11,15 @@
         <!-- Loading State Removed -->
 
         <!-- Error State -->
-        @if (error && !loading) {
+        @if (error() && !loading()) {
         <div class="error-container">
-            <p>{{ error }}</p>
+            <p>{{ error() }}</p>
             <button class="btn btn-primary" (click)="loadFeed()">Try Again</button>
         </div>
         }
 
         <!-- Empty State -->
-        @if (!loading && !error && posts.length === 0) {
+        @if (!loading() && !error() && !hasPosts()) {
         <div class="empty-state">
             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -31,9 +32,9 @@
         }
 
         <!-- Posts Feed -->
-        @if (!loading && !error && posts.length > 0) {
+        @if (!loading() && !error() && hasPosts()) {
         <div class="posts-feed">
-            @for (post of posts; track post.id) {
+            @for (post of posts(); track post.id) {
             <app-post-card [post]="post" (like)="onLike($event)" (delete)="onDelete($event)">
             </app-post-card>
             }

@@ -1,3 +1,4 @@
+/* Purpose: Styles for the Create-post page component. */
 .create-post-container {
     min-height: 100vh;
     padding: var(--space-12) 0;

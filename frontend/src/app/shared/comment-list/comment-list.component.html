@@ -1,27 +1,27 @@
+<!-- Purpose: Template for the Comment list component. -->
 <div class="comment-section">
     <div class="comment-header-bar">
         <div class="comment-title-group">
             <h4 class="comment-title">Comments</h4>
-            <span class="comment-count">{{ comments.length }}</span>
+            <span class="comment-count">{{ commentCount() }}</span>
         </div>
         <span class="comment-subtitle">Join the conversation</span>
     </div>
 
     <!-- Add Comment Form -->
     <div class="comment-form">
-        <textarea [(ngModel)]="newComment" placeholder="Share your thoughts..." class="form-textarea" rows="3"
+        <textarea [formControl]="newCommentControl" placeholder="Share your thoughts..." class="form-textarea" rows="3"
             (keydown.enter)="onKeyDown($event)">
         </textarea>
         <div class="comment-form-actions">
-            <span class="hint">Press Ctrl+Enter to post</span>
-            <button class="btn btn-primary btn-sm" (click)="addComment()" [disabled]="!newComment.trim()">
+            <button class="btn btn-primary btn-sm" (click)="addComment()" [disabled]="!canPost">
                 Post Comment
             </button>
         </div>
     </div>
 
     <!-- Loading State -->
-    @if (loading) {
+    @if (loading()) {
     <div class="loading-state">
         <div class="spinner"></div>
         <span>Loading comments...</span>
@@ -29,15 +29,15 @@
     }
 
     <!-- Comments List -->
-    @if (!loading) {
+    @if (!loading()) {
     <div class="comments-list">
-        @if (comments.length === 0) {
+        @if (commentCount() === 0) {
         <div class="empty-state">
             <p>No comments yet. Be the first to share your thoughts!</p>
         </div>
         }
 
-        @for (comment of comments; track comment.id) {
+        @for (comment of comments(); track comment.id) {
         <div class="comment-item">
             <div class="comment-header">
                 <div class="comment-author">
@@ -52,16 +52,16 @@
             </div>
 
             <div class="comment-body">
-                @if (editingCommentId !== comment.id) {
+                @if (editingCommentId() !== comment.id) {
                 <p class="comment-content">
                     {{ comment.content }}
                 </p>
                 }
 
                 <!-- Edit Mode -->
-                @if (editingCommentId === comment.id) {
+                @if (editingCommentId() === comment.id) {
                 <div class="comment-edit">
-                    <textarea [(ngModel)]="editContent" class="form-textarea" rows="3">
+                    <textarea [formControl]="editContentControl" class="form-textarea" rows="3">
                     </textarea>
                     <div class="comment-edit-actions">
                         <button class="btn btn-secondary btn-sm" (click)="cancelEdit()">
@@ -76,6 +76,7 @@
             </div>
 
             <!-- Comment Actions -->
+            @if (canModify(comment)) {
             <div class="comment-actions">
                 <button class="action-btn" (click)="startEdit(comment)">
                     Edit
@@ -84,6 +85,7 @@
                     Delete
                 </button>
             </div>
+            }
         </div>
         }
     </div>

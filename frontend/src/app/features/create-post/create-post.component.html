@@ -1,3 +1,4 @@
+<!-- Purpose: Template for the Create-post page component. -->
 <div class="create-post-container">
     <div class="container container-sm">
         <header class="page-header">
@@ -5,19 +6,19 @@
             <p>Share your learning journey with the community</p>
         </header>
 
-        <form class="create-post-form" (ngSubmit)="createPost()">
+        <form class="create-post-form" [formGroup]="form" (ngSubmit)="createPost()">
             <!-- Title -->
             <div class="form-group">
                 <label class="form-label">Title</label>
-                <input type="text" [(ngModel)]="title" name="title" class="form-input"
-                    placeholder="Give your post a compelling title" [disabled]="loading" required>
+                <input type="text" formControlName="title" name="title" class="form-input"
+                    placeholder="Give your post a compelling title" [disabled]="loading()" required>
             </div>
 
             <!-- Description -->
             <div class="form-group">
                 <label class="form-label">Content</label>
-                <textarea [(ngModel)]="description" name="description" class="form-textarea"
-                    placeholder="Share your thoughts, insights, and experiences..." rows="12" [disabled]="loading"
+                <textarea formControlName="description" name="description" class="form-textarea"
+                    placeholder="Share your thoughts, insights, and experiences..." rows="12" [disabled]="loading()"
                     required>
                 </textarea>
             </div>
@@ -26,10 +27,10 @@
             <div class="form-group">
                 <label class="form-label">Media (Optional)</label>
 
-                @if (!filePreview) {
+                @if (!filePreview()) {
                 <div class="file-upload-area">
                     <input type="file" id="file-input" accept="image/*,video/*" (change)="onFileSelected($event)"
-                        [disabled]="loading" hidden>
+                        [disabled]="loading()" hidden>
                     <label for="file-input" class="file-upload-label">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -47,13 +48,13 @@
                 }
 
                 <!-- File Preview -->
-                @if (filePreview) {
+                @if (filePreview()) {
                 <div class="file-preview">
-                    @if (fileType === 'image') {
-                    <img [src]="filePreview" alt="Preview">
+                    @if (fileType() === 'image') {
+                    <img [src]="filePreview()" alt="Preview">
                     }
-                    @if (fileType === 'video') {
-                    <video [src]="filePreview" controls></video>
+                    @if (fileType() === 'video') {
+                    <video [src]="filePreview()" controls></video>
                     }
                     <button type="button" class="remove-file-btn" (click)="removeFile()">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,21 +67,21 @@
             </div>
 
             <!-- Error Message -->
-            @if (error) {
-            <p class="form-error">{{ error }}</p>
+            @if (error()) {
+            <p class="form-error">{{ error() }}</p>
             }
 
             <!-- Actions -->
             <div class="form-actions">
-                <button type="button" class="btn btn-secondary" routerLink="/" [disabled]="loading">
+                <button type="button" class="btn btn-secondary" routerLink="/" [disabled]="loading()">
                     Cancel
                 </button>
                 <button type="submit" class="btn btn-primary"
-                    [disabled]="loading || !title.trim() || !description.trim()">
-                    @if (!loading) {
+                    [disabled]="loading() || !canSubmit">
+                    @if (!loading()) {
                     <span>Publish Post</span>
                     }
-                    @if (loading) {
+                    @if (loading()) {
                     <span class="flex items-center gap-2">
                         <span class="spinner"></span>
                         Publishing...

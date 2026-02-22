@@ -1,48 +1,66 @@
-import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+// Purpose: Comment list component.
+import { Component, OnInit, ChangeDetectionStrategy, signal, computed, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommentService, CommentDTO, CreateCommentRequest } from '../../services/comment.service';
+import { DialogService } from '../../core/services/dialog.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-comment-list',
-    standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, ReactiveFormsModule],
     templateUrl: './comment-list.component.html',
-    styleUrls: ['./comment-list.component.css']
+    styleUrls: ['./comment-list.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
+// Class: Component logic.
 export class CommentListComponent implements OnInit {
-    @Input() postId!: string;
-    comments: CommentDTO[] = [];
-    newComment: string = '';
-    loading: boolean = false;
-    editingCommentId: string | null = null;
-    editContent: string = '';
+    readonly postId = input.required<string>();
+    readonly commentCountChange = output<number>();
+    readonly comments = signal<CommentDTO[]>([]);
+    // State: reactive value for the template.
+    readonly loading = signal(false);
+    readonly editingCommentId = signal<string | null>(null);
+    readonly commentCount = computed(() => this.comments().length);
+    // Form control: single input state.
+    readonly newCommentControl = new FormControl('', { nonNullable: true });
+    // Form control: single input state.
+    readonly editContentControl = new FormControl('', { nonNullable: true });
 
+    // Checks if post.
+    get canPost(): boolean {
+        return this.newCommentControl.value.trim().length > 0;
+    }
+
+    // Constructor: injects dependencies.
     constructor(
         private commentService: CommentService,
-        private cdr: ChangeDetectorRef
+        private dialogService: DialogService,
+        private authService: AuthService
     ) { }
 
+    // Angular lifecycle: ng on init.
     ngOnInit() {
         this.loadComments();
     }
 
+    // Loads  comments.
     loadComments() {
-        this.loading = true;
-        this.commentService.getPostComments(this.postId).subscribe({
+        this.loading.set(true);
+        this.commentService.getPostComments(this.postId()).subscribe({
             next: (comments) => {
-                this.comments = comments;
-                this.loading = false;
-                this.cdr.detectChanges();
+                this.comments.set(comments);
+                this.commentCountChange.emit(this.comments().length);
+                this.loading.set(false);
             },
             error: (error) => {
                 console.error('Error loading comments:', error);
-                this.loading = false;
-                this.cdr.detectChanges();
+                this.loading.set(false);
             }
         });
     }
 
+    // Handles key down.
     onKeyDown(event: Event) {
         const keyboardEvent = event as KeyboardEvent;
         if (keyboardEvent.ctrlKey) {
@@ -50,68 +68,89 @@ export class CommentListComponent implements OnInit {
         }
     }
 
+    // Method: add comment.
     addComment() {
-        if (!this.newComment.trim()) return;
+        if (!this.newCommentControl.value.trim()) return;
 
         const request: CreateCommentRequest = {
-            content: this.newComment
+            content: this.newCommentControl.value
         };
 
-        this.commentService.createComment(this.postId, request).subscribe({
+        this.commentService.createComment(this.postId(), request).subscribe({
             next: (comment) => {
-                this.comments.unshift(comment);
-                this.newComment = '';
-                this.cdr.detectChanges();
+                this.comments.update((comments) => [comment, ...comments]);
+                this.commentCountChange.emit(this.comments().length);
+                this.newCommentControl.setValue('');
             },
             error: (error) => {
                 console.error('Error creating comment:', error);
-                this.cdr.detectChanges();
             }
         });
     }
 
+    // Starts edit.
     startEdit(comment: CommentDTO) {
-        this.editingCommentId = comment.id;
-        this.editContent = comment.content;
+        if (!this.canModify(comment)) return;
+        this.editingCommentId.set(comment.id);
+        this.editContentControl.setValue(comment.content);
     }
 
+    // Checks if cancel edit.
     cancelEdit() {
-        this.editingCommentId = null;
-        this.editContent = '';
+        this.editingCommentId.set(null);
+        this.editContentControl.setValue('');
     }
 
+    // Saves edit.
     saveEdit(commentId: string) {
-        if (!this.editContent.trim()) return;
+        const target = this.comments().find(c => c.id === commentId);
+        if (!target || !this.canModify(target)) return;
+        if (!this.editContentControl.value.trim()) return;
 
-        this.commentService.updateComment(this.postId, commentId, { content: this.editContent }).subscribe({
+        this.commentService.updateComment(this.postId(), commentId, { content: this.editContentControl.value }).subscribe({
             next: (updatedComment) => {
-                const index = this.comments.findIndex(c => c.id === commentId);
-                if (index !== -1) {
-                    this.comments[index] = updatedComment;
-                }
+                this.comments.update((comments) => {
+                    const next = [...comments];
+                    const index = next.findIndex(c => c.id === commentId);
+                    if (index !== -1) {
+                        next[index] = updatedComment;
+                    }
+                    return next;
+                });
                 this.cancelEdit();
-                this.cdr.detectChanges();
             },
             error: (error) => {
                 console.error('Error updating comment:', error);
-                this.cdr.detectChanges();
             }
         });
     }
 
-    deleteComment(commentId: string) {
-        if (!confirm('Delete this comment?')) return;
+    // Deletes comment.
+    async deleteComment(commentId: string) {
+        const target = this.comments().find(c => c.id === commentId);
+        if (!target || !this.canModify(target)) return;
+        const confirmed = await this.dialogService.confirm(
+            'Delete Comment',
+            'Delete this comment?',
+            'Delete'
+        );
+        if (!confirmed) return;
 
-        this.commentService.deleteComment(this.postId, commentId).subscribe({
+        this.commentService.deleteComment(this.postId(), commentId).subscribe({
             next: () => {
-                this.comments = this.comments.filter(c => c.id !== commentId);
-                this.cdr.detectChanges();
+                this.comments.update((comments) => comments.filter(c => c.id !== commentId));
+                this.commentCountChange.emit(this.comments().length);
             },
             error: (error) => {
                 console.error('Error deleting comment:', error);
-                this.cdr.detectChanges();
             }
         });
+    }
+
+    canModify(comment: CommentDTO): boolean {
+        const currentUser = this.authService.getCurrentUser();
+        if (!currentUser?.id || !comment.author?.id) return false;
+        return currentUser.id === comment.author.id;
     }
 
     getAuthorInitials(name: string): string {
