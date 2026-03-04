@@ -2,6 +2,7 @@ package com.zone.zone01blog.service;
 
 import com.zone.zone01blog.exception.FileStorageException;
 import com.zone.zone01blog.exception.InvalidFileException;
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -10,6 +11,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,18 +19,22 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @Service
 public class FileStorageService {
 
     private final Path fileStorageLocation;
+    private final Tika tika = new Tika();
+
+    private static final String DEFAULT_CONTENT_TYPE = "application/octet-stream";
 
     private static final List<String> ALLOWED_IMAGE_TYPES = Arrays.asList(
             "image/jpeg", "image/jpg", "image/png", "image/gif", "image/webp");
 
     private static final List<String> ALLOWED_VIDEO_TYPES = Arrays.asList(
-            "video/mp4", "video/avi", "video/mov", "video/quicktime", "video/webm");
+            "video/mp4", "video/avi", "video/x-msvideo", "video/mov", "video/quicktime", "video/webm");
 
     private static final long MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
     private static final long MAX_VIDEO_SIZE = 50 * 1024 * 1024; // 50MB
@@ -43,8 +49,8 @@ public class FileStorageService {
         }
     }
 
-    public String storeFile(MultipartFile file) {
-        validateFile(file);
+    public StoredFile storeFile(MultipartFile file) {
+        String contentType = validateFile(file);
 
         // Generate unique filename
         String originalFilename = StringUtils.cleanPath(file.getOriginalFilename());
@@ -61,7 +67,7 @@ public class FileStorageService {
             Path targetLocation = this.fileStorageLocation.resolve(newFilename);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-            return newFilename;
+            return new StoredFile(newFilename, contentType);
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + newFilename, ex);
         }
@@ -91,12 +97,12 @@ public class FileStorageService {
         }
     }
 
-    private void validateFile(MultipartFile file) {
+    private String validateFile(MultipartFile file) {
         if (file.isEmpty()) {
             throw new InvalidFileException("File is empty");
         }
 
-        String contentType = file.getContentType();
+        String contentType = detectContentType(file);
         long fileSize = file.getSize();
 
         if (ALLOWED_IMAGE_TYPES.contains(contentType)) {
@@ -108,8 +114,9 @@ public class FileStorageService {
                 throw new InvalidFileException("Video size exceeds maximum allowed size (50MB)");
             }
         } else {
-            throw new InvalidFileException("File type not allowed. Allowed types: JPG, PNG, GIF, MP4, AVI, MOV");
+            throw new InvalidFileException("File type not allowed. Allowed types: JPG, PNG, GIF, WEBP, MP4, AVI, MOV, WEBM");
         }
+        return contentType;
     }
 
     private String getFileExtension(String filename) {
@@ -121,11 +128,41 @@ public class FileStorageService {
     }
 
     public String getMediaType(String contentType) {
-        if (ALLOWED_IMAGE_TYPES.contains(contentType)) {
+        String normalizedContentType = normalizeContentType(contentType);
+        if (ALLOWED_IMAGE_TYPES.contains(normalizedContentType)) {
             return "image";
-        } else if (ALLOWED_VIDEO_TYPES.contains(contentType)) {
+        } else if (ALLOWED_VIDEO_TYPES.contains(normalizedContentType)) {
             return "video";
         }
         return "unknown";
+    }
+
+    public String detectContentType(MultipartFile file) {
+        try (InputStream inputStream = file.getInputStream()) {
+            String detected = tika.detect(inputStream, file.getOriginalFilename());
+            return normalizeContentType(detected);
+        } catch (IOException ex) {
+            throw new FileStorageException("Could not detect file type", ex);
+        }
+    }
+
+    public String detectContentType(Resource resource) {
+        try (InputStream inputStream = resource.getInputStream()) {
+            String detected = tika.detect(inputStream, resource.getFilename());
+            return normalizeContentType(detected);
+        } catch (IOException ex) {
+            return DEFAULT_CONTENT_TYPE;
+        }
+    }
+
+    private String normalizeContentType(String contentType) {
+        if (contentType == null || contentType.isBlank()) {
+            return DEFAULT_CONTENT_TYPE;
+        }
+        String baseType = contentType.split(";")[0].trim().toLowerCase(Locale.ROOT);
+        return baseType.isEmpty() ? DEFAULT_CONTENT_TYPE : baseType;
+    }
+
+    public record StoredFile(String filename, String contentType) {
     }
 }

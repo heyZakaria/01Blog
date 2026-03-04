@@ -1,3 +1,4 @@
+/* Purpose: Styles for the Post card component. */
 .post-card {
     background-color: var(--color-bg-primary);
     border-radius: var(--radius-lg);
@@ -16,6 +17,10 @@
 .post-header {
     padding: var(--space-6);
     border-bottom: 1px solid var(--color-border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
 }
 
 .post-author-info {
@@ -47,6 +52,80 @@
     color: var(--color-text-muted);
 }
 
+.post-action-btn {
+    border: 1px solid var(--color-border-dark);
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.post-action-btn:hover {
+    color: var(--color-error);
+    border-color: var(--color-error);
+    background-color: rgba(193, 85, 74, 0.08);
+}
+
+.post-header-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.post-action-btn.danger {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.post-actions-menu {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.post-actions-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+    min-width: 140px;
+    margin-top: 6px;
+    background: var(--color-surface, #ffffff);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 6px;
+}
+
+.post-action-item {
+    width: 100%;
+    text-align: left;
+    padding: 8px 10px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    color: inherit;
+}
+
+.post-action-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.post-action-item.danger {
+    color: var(--color-error);
+}
+
+.post-edit-form .edit-actions {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+}
+
 /* Content */
 .post-content {
     padding: var(--space-6);
@@ -59,6 +138,8 @@
     line-height: var(--leading-tight);
     color: var(--color-text-primary);
     margin-bottom: var(--space-3);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .post-description {
@@ -66,6 +147,8 @@
     line-height: var(--leading-relaxed);
     color: var(--color-text-secondary);
     margin-bottom: var(--space-4);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .post-media {

@@ -1,3 +1,4 @@
+// Purpose: User API and current-user service.
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,6 +9,7 @@ export interface UserDTO {
     name: string;
     email: string;
     role?: string;
+    banned?: boolean;
     followersCount: number;
     followingCount: number;
     isFollowedByCurrentUser: boolean;
@@ -16,13 +18,20 @@ export interface UserDTO {
 @Injectable({
     providedIn: 'root'
 })
+// Class: Provides API calls and shared state.
 export class UserService {
-    private apiUrl = `${environment.apiBaseUrl}/api/v1/users`;
+    // Config: base API endpoint.
+    private apiUrl = `${environment.apiBaseUrl}/users`;
 
+    // Constructor: injects dependencies.
     constructor(private http: HttpClient) { }
 
     getUserById(id: string): Observable<UserDTO> {
         return this.http.get<UserDTO>(`${this.apiUrl}/${id}`);
+    }
+
+    getPublicUserById(id: string): Observable<UserDTO> {
+        return this.http.get<UserDTO>(`${environment.apiBaseUrl}/public/users/${id}`);
     }
 
     getCurrentUser(): UserDTO | null {

@@ -1,0 +1,16 @@
+<!-- Purpose: Template for the Error banner component. -->
+@if (message$ | async; as message) {
+<div class="error-banner-wrap">
+    <div class="container">
+        <div class="error-banner" role="alert">
+            <div class="error-banner__content">
+                <span class="error-banner__label">Error</span>
+                <span class="error-banner__message">{{ message }}</span>
+            </div>
+            <button class="btn btn-sm btn-secondary error-banner__action" type="button" (click)="dismiss()">
+                Dismiss
+            </button>
+        </div>
+    </div>
+</div>
+}

@@ -1,22 +1,27 @@
+// Purpose: Admin API service.
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserDTO } from './user.service';
-import { PostDTO } from './post.service';
 import { ReportDTO } from './report.service';
+import { PostDTO } from './post.service';
 import { environment } from '../../environments/environment';
 
 export interface ResolveReportRequest {
-    action: string;
-    notes?: string;
+    status: 'PENDING' | 'REVIEWED' | 'RESOLVED' | 'DISMISSED';
+    adminNotes?: string;
+    banUser?: boolean;
 }
 
 @Injectable({
     providedIn: 'root'
 })
+// Class: Provides API calls and shared state.
 export class AdminService {
-    private apiUrl = `${environment.apiBaseUrl}/api/v1/admin`;
+    // Config: base API endpoint.
+    private apiUrl = `${environment.apiBaseUrl}/admin`;
 
+    // Constructor: injects dependencies.
     constructor(private http: HttpClient) { }
 
     // User Management
@@ -50,7 +55,24 @@ export class AdminService {
     }
 
     // Analytics
-    getAnalytics(): Observable<{ pendingReports: number; totalUsers: number }> {
-        return this.http.get<{ pendingReports: number; totalUsers: number }>(`${this.apiUrl}/analytics`);
+    getAnalytics(): Observable<{ pendingReports: number; totalUsers: number; totalPosts: number }> {
+        return this.http.get<{ pendingReports: number; totalUsers: number; totalPosts: number }>(`${this.apiUrl}/analytics`);
+    }
+
+    // Post Moderation
+    getAllPosts(): Observable<PostDTO[]> {
+        return this.http.get<PostDTO[]>(`${this.apiUrl}/posts`);
+    }
+
+    hidePost(postId: string): Observable<PostDTO> {
+        return this.http.put<PostDTO>(`${this.apiUrl}/posts/${postId}/hide`, {});
+    }
+
+    unhidePost(postId: string): Observable<PostDTO> {
+        return this.http.put<PostDTO>(`${this.apiUrl}/posts/${postId}/unhide`, {});
+    }
+
+    deletePost(postId: string): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/posts/${postId}`);
     }
 }

@@ -200,10 +200,10 @@ public class PostService {
             fileStorageService.deleteFile(oldFilename);
         }
 
-        String filename = fileStorageService.storeFile(file);
-        String mediaType = fileStorageService.getMediaType(file.getContentType());
+        FileStorageService.StoredFile storedFile = fileStorageService.storeFile(file);
+        String mediaType = fileStorageService.getMediaType(storedFile.contentType());
 
-        post.setMediaUrl("/api/v1/media/" + filename);
+        post.setMediaUrl("/api/v1/media/" + storedFile.filename());
         post.setMediaType(mediaType);
 
         Post updatedPost = postRepository.save(post);

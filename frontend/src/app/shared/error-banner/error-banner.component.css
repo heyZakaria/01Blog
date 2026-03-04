@@ -1,0 +1,60 @@
+/* Purpose: Styles for the Error banner component. */
+.error-banner-wrap {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-toast);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.88));
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.error-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin: var(--space-4) 0;
+    padding: var(--space-4) var(--space-5);
+    background-color: rgba(193, 85, 74, 0.08);
+    border: 1px solid var(--color-error);
+    border-radius: var(--radius-lg);
+    color: var(--color-error);
+    box-shadow: var(--shadow-sm);
+}
+
+.error-banner__content {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+
+.error-banner__label {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: var(--text-sm);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.error-banner__message {
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+}
+
+.error-banner__action {
+    border-color: var(--color-error);
+    color: var(--color-error);
+}
+
+.error-banner__action:hover {
+    background-color: rgba(193, 85, 74, 0.08);
+    border-color: var(--color-error);
+}
+
+@media (max-width: 768px) {
+    .error-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

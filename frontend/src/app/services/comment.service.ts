@@ -1,3 +1,4 @@
+// Purpose: Comment API service.
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,6 +13,8 @@ export interface CommentDTO {
         email: string;
     };
     postId: string;
+    postTitle?: string;
+    hidden?: boolean;
     createdAt: string;
     updatedAt: string;
 }
@@ -27,9 +30,12 @@ export interface UpdateCommentRequest {
 @Injectable({
     providedIn: 'root'
 })
+// Class: Provides API calls and shared state.
 export class CommentService {
-    private apiUrl = `${environment.apiBaseUrl}/api/v1`;
+    // Config: base API endpoint.
+    private apiUrl = `${environment.apiBaseUrl}`;
 
+    // Constructor: injects dependencies.
     constructor(private http: HttpClient) { }
 
     getPostComments(postId: string): Observable<CommentDTO[]> {

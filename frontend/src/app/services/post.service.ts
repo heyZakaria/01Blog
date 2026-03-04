@@ -1,3 +1,4 @@
+// Purpose: Post API service.
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -15,6 +16,7 @@ export interface PostDTO {
     likedByCurrentUser: boolean;
     mediaUrl?: string;
     mediaType?: string;
+    hidden?: boolean;
 }
 
 export interface CreatePostRequest {
@@ -25,9 +27,12 @@ export interface CreatePostRequest {
 @Injectable({
     providedIn: 'root'
 })
+// Class: Provides API calls and shared state.
 export class PostService {
-    private apiUrl = `${environment.apiBaseUrl}/api/v1/posts`;
+    // Config: base API endpoint.
+    private apiUrl = `${environment.apiBaseUrl}/posts`;
 
+    // Constructor: injects dependencies.
     constructor(private http: HttpClient) { }
 
     createPost(data: CreatePostRequest): Observable<PostDTO> {
@@ -39,7 +44,11 @@ export class PostService {
     }
 
     getUserPosts(userId: string): Observable<PostDTO[]> {
-        return this.http.get<PostDTO[]>(`${environment.apiBaseUrl}/api/v1/users/${userId}/posts`);
+        return this.http.get<PostDTO[]>(`${environment.apiBaseUrl}/users/${userId}/posts`);
+    }
+
+    getPublicUserPosts(userId: string): Observable<PostDTO[]> {
+        return this.http.get<PostDTO[]>(`${environment.apiBaseUrl}/public/users/${userId}/posts`);
     }
 
     getPostById(postId: string): Observable<PostDTO> {

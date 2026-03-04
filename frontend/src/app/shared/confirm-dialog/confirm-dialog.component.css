@@ -1,0 +1,17 @@
+/* Purpose: Styles for the Confirm dialog component. */
+.confirm-modal .modal-body p {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+}
+
+.confirm-modal .modal-footer {
+    justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+    .confirm-modal .modal-footer {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+}

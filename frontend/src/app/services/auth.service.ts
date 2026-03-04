@@ -1,3 +1,4 @@
+// Purpose: Auth API and session storage service.
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
@@ -23,16 +24,24 @@ export interface LoginResponse {
 @Injectable({
     providedIn: 'root'
 })
+// Class: Provides API calls and shared state.
 export class AuthService {
-    private apiUrl = `${environment.apiBaseUrl}/api/v1/auth`;
+    // Config: base API endpoint.
+    private apiUrl = `${environment.apiBaseUrl}/auth`;
     private tokenKey = 'auth_token';
     private userKey = 'auth_user';
+    // Stream: shared state for subscribers.
     private tokenSubject = new BehaviorSubject<string | null>(this.loadToken());
+    // Stream: shared state for subscribers.
     private userSubject = new BehaviorSubject<any | null>(this.loadUser());
+    // Stream: public observable state.
     readonly token$ = this.tokenSubject.asObservable();
+    // Stream: public observable state.
     readonly currentUser$ = this.userSubject.asObservable();
+    // Stream: shared state for subscribers.
     readonly isAuthenticated$ = new BehaviorSubject<boolean>(!!this.tokenSubject.value);
 
+    // Constructor: injects dependencies.
     constructor(private http: HttpClient) { }
 
     register(data: RegisterRequest): Observable<LoginResponse> {

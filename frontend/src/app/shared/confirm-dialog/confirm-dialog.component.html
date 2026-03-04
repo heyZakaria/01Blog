@@ -1,0 +1,25 @@
+<!-- Purpose: Template for the Confirm dialog component. -->
+@if (state$ | async; as state) {
+    @if (state.open) {
+    <div class="modal-overlay" role="presentation">
+        <div class="modal confirm-modal" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+            <div class="modal-header">
+                <h3 class="modal-title" id="dialog-title">{{ state.title }}</h3>
+            </div>
+            <div class="modal-body">
+                <p>{{ state.message }}</p>
+            </div>
+            <div class="modal-footer">
+                @if (state.showCancel) {
+                <button class="btn btn-secondary" type="button" (click)="cancel()">
+                    {{ state.cancelText }}
+                </button>
+                }
+                <button class="btn btn-primary" type="button" (click)="confirm()">
+                    {{ state.confirmText }}
+                </button>
+            </div>
+        </div>
+    </div>
+    }
+}

@@ -1,3 +1,4 @@
+<!-- Purpose: Template for the Report modal component. -->
 <div class="modal-overlay" (click)="closeModal()">
     <div class="modal" (click)="$event.stopPropagation()">
         <div class="modal-header">
@@ -5,20 +6,20 @@
             <button class="close-btn" (click)="closeModal()" type="button">×</button>
         </div>
 
-        <div class="modal-body">
+        <form class="modal-body" [formGroup]="form" (ngSubmit)="submitReport()">
             <p class="report-info">
-                You are reporting <strong>{{ userName }}</strong>.
+                You are reporting <strong>{{ userName() }}</strong>.
                 Please provide a detailed reason for this report.
             </p>
 
             <div class="form-group">
                 <label class="form-label">Reason for Report</label>
-                <textarea [(ngModel)]="reason" class="form-textarea"
+                <textarea formControlName="reason" class="form-textarea"
                     placeholder="Describe the issue (inappropriate content, harassment, spam, etc.)" rows="5"
-                    [disabled]="loading">
+                    [disabled]="loading()">
                 </textarea>
-                @if (error) {
-                <p class="form-error">{{ error }}</p>
+                @if (error()) {
+                <p class="form-error">{{ error() }}</p>
                 }
             </div>
 
@@ -30,23 +31,23 @@
                 </svg>
                 <p>False reports may result in action against your account. Reports are reviewed by administrators.</p>
             </div>
-        </div>
 
-        <div class="modal-footer">
-            <button class="btn btn-secondary" (click)="closeModal()" [disabled]="loading">
-                Cancel
-            </button>
-            <button class="btn btn-primary" (click)="submitReport()" [disabled]="loading || !reason.trim()">
-                @if (!loading) {
-                <span>Submit Report</span>
-                }
-                @if (loading) {
-                <span class="flex items-center gap-2">
-                    <span class="spinner"></span>
-                    Submitting...
-                </span>
-                }
-            </button>
-        </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" (click)="closeModal()" [disabled]="loading()">
+                    Cancel
+                </button>
+                <button class="btn btn-primary" type="submit" [disabled]="loading() || !canSubmit">
+                    @if (!loading()) {
+                    <span>Submit Report</span>
+                    }
+                    @if (loading()) {
+                    <span class="flex items-center gap-2">
+                        <span class="spinner"></span>
+                        Submitting...
+                    </span>
+                    }
+                </button>
+            </div>
+        </form>
     </div>
 </div>

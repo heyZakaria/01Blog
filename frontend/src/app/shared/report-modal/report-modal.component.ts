@@ -1,54 +1,85 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+// Purpose: Report modal component.
+import { Component, ChangeDetectionStrategy, signal, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReportService, CreateReportRequest } from '../../services/report.service';
+import { DialogService } from '../../core/services/dialog.service';
 
 @Component({
     selector: 'app-report-modal',
-    standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, ReactiveFormsModule],
     templateUrl: './report-modal.component.html',
-    styleUrls: ['./report-modal.component.css']
+    styleUrls: ['./report-modal.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
+// Class: Component logic.
 export class ReportModalComponent {
-    @Input() userId!: string;
-    @Input() userName!: string;
-    @Output() close = new EventEmitter<void>();
-    @Output() reported = new EventEmitter<void>();
+    readonly userId = input.required<string>();
+    readonly userName = input.required<string>();
+    readonly close = output<void>();
+    readonly reported = output<void>();
 
-    reason: string = '';
-    loading: boolean = false;
-    error: string = '';
+    // State: reactive value for the template.
+    readonly loading = signal(false);
+    // State: reactive value for the template.
+    readonly error = signal('');
+    // Form model: groups form controls.
+    readonly form = new FormGroup({
+        reason: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+    });
+    // Checks if submit.
+    get canSubmit(): boolean {
+        return this.form.valid;
+    }
 
-    constructor(private reportService: ReportService) { }
+    // Constructor: injects dependencies.
+    constructor(
+        private reportService: ReportService,
+        private dialogService: DialogService
+    ) { }
 
-    submitReport() {
-        if (!this.reason.trim()) {
-            this.error = 'Please provide a reason for reporting';
+    // Method: submit report.
+    async submitReport() {
+        if (this.form.invalid) {
+            this.form.markAllAsTouched();
+            this.error.set('Please provide a reason for reporting');
             return;
         }
 
-        this.loading = true;
-        this.error = '';
+        const confirmed = await this.dialogService.confirm(
+            'Submit Report',
+            'Are you sure you want to submit this report?',
+            'Submit'
+        );
+        if (!confirmed) {
+            return;
+        }
 
+        this.loading.set(true);
+        this.error.set('');
+        this.form.disable();
+
+        const { reason } = this.form.getRawValue();
         const request: CreateReportRequest = {
-            reportedUserId: this.userId,
-            reason: this.reason
+            reason
         };
 
-        this.reportService.createReport(request).subscribe({
+        this.reportService.createReport(this.userId(), request).subscribe({
             next: () => {
-                this.loading = false;
+                this.loading.set(false);
                 this.reported.emit();
+                this.form.enable();
                 this.closeModal();
             },
             error: (error) => {
-                this.loading = false;
-                this.error = error.error?.message || 'Failed to submit report';
+                this.loading.set(false);
+                this.error.set(error.error?.message || 'Failed to submit report');
+                this.form.enable();
             }
         });
     }
 
+    // Closes modal.
     closeModal() {
         this.close.emit();
     }

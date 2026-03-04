@@ -1,3 +1,4 @@
+// Purpose: Notification API service.
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -16,9 +17,12 @@ export interface NotificationDTO {
 @Injectable({
     providedIn: 'root'
 })
+// Class: Provides API calls and shared state.
 export class NotificationService {
-    private apiUrl = `${environment.apiBaseUrl}/api/v1/notifications`;
+    // Config: base API endpoint.
+    private apiUrl = `${environment.apiBaseUrl}/notifications`;
 
+    // Constructor: injects dependencies.
     constructor(private http: HttpClient) { }
 
     getNotifications(): Observable<NotificationDTO[]> {
@@ -35,6 +39,10 @@ export class NotificationService {
 
     markAsRead(notificationId: string): Observable<void> {
         return this.http.put<void>(`${this.apiUrl}/${notificationId}/read`, {});
+    }
+
+    markAsUnread(notificationId: string): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/${notificationId}/unread`, {});
     }
 
     markAllAsRead(): Observable<void> {
