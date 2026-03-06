@@ -40,11 +40,7 @@ Create a database `mydb` with user `root` and password `root`, or update:
 cd backend
 ./mvnw spring-boot:run
 ```
-or
-```bash
-cd backend
-./clean-run.sh
-```
+
 Backend runs at `http://localhost:8080`.
 
 ## Frontend
