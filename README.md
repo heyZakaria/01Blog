@@ -3,12 +3,14 @@
 01Blog is a full-stack social blogging platform for students to share learning progress, follow peers, and engage in discussions.
 
 ## Features
-- JWT-based authentication with user/admin roles
-- User profiles ("blocks") with subscriptions
-- Post CRUD with media (image/video) and timestamps
-- Likes and comments on posts
-- Reporting system and admin moderation tools
-- Notifications for updates from subscriptions
+
+- 9 Core Features (Auth, Users, Posts, Comments, Likes, Follows, Feed, Notifications, Reports)
+- 8 Entity Models (User, Post, Comment, Like, Subscription, Notification, Report)
+- 50+ API Endpoints
+- 3-Layer Architecture (Controller → Service → Repository)
+- JWT Authentication with Spring Security
+- PostgreSQL Database with JPA/Hibernate
+- RESTful Design with proper HTTP methods and status codes
 
 ## Tech Stack
 - Backend: Java 17, Spring Boot, Spring Security, Spring Data JPA, JWT
