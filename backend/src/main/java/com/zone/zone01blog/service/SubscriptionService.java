@@ -45,10 +45,11 @@ public class SubscriptionService {
             subscriptionRepository.delete(existingSubscription.get());
             return false;
         } else {
-            Subscription subscription = new Subscription(
-                    UUID.randomUUID().toString(),
-                    follower,
-                    following);
+            Subscription subscription = Subscription.builder()
+                    .id(UUID.randomUUID().toString())
+                    .follower(follower)
+                    .following(following)
+                    .build();
 
             subscriptionRepository.save(subscription);
 

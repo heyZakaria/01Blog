@@ -22,9 +22,9 @@ public class ReportController {
 
     @PostMapping("/users/{userId}/report")
     public ResponseEntity<ReportDTO> reportUser(
-            @PathVariable String userId,
-            @Valid @RequestBody CreateReportRequest request,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @PathVariable String userId,
+        @Valid @RequestBody CreateReportRequest request,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String reporterId = auth.getUserId();
         ReportDTO report = reportService.createReport(userId, request, reporterId);
         return ResponseEntity.status(HttpStatus.CREATED).body(report);

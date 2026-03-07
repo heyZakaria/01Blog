@@ -57,11 +57,12 @@ public class CommentService {
 
         User author = userService.getUserEntityById(userId);
 
-        Comment comment = new Comment(
-                UUID.randomUUID().toString(),
-                request.getContent(),
-                post,
-                author);
+        Comment comment = Comment.builder()
+                .id(UUID.randomUUID().toString())
+                .content(request.getContent())
+                .post(post)
+                .author(author)
+                .build();
 
         Comment savedComment = commentRepository.save(comment);
 

@@ -42,7 +42,7 @@ public class PostController {
 
     @GetMapping
     public ResponseEntity<List<PostDTO>> getAllPosts(
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         List<PostDTO> posts = postService.getAllPosts(userId);
         return ResponseEntity.ok(posts);
@@ -50,8 +50,8 @@ public class PostController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PostDTO> getPostById(
-            @PathVariable String id,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @PathVariable String id,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         PostDTO post = postService.getPostById(id, userId);
         return ResponseEntity.ok(post);
@@ -59,7 +59,7 @@ public class PostController {
 
     @GetMapping("/feed")
     public ResponseEntity<List<PostDTO>> getFeed(
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         List<PostDTO> feed = postService.getFeed(userId);
         return ResponseEntity.ok(feed);
@@ -68,8 +68,8 @@ public class PostController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PostDTO> createPost(
-            @Valid @RequestBody CreatePostRequest request,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @Valid @RequestBody CreatePostRequest request,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         PostDTO post = postService.createPost(request, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(post);
@@ -77,9 +77,9 @@ public class PostController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PostDTO> updatePost(
-            @PathVariable String id,
-            @Valid @RequestBody UpdatePostRequest request,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @PathVariable String id,
+        @Valid @RequestBody UpdatePostRequest request,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         PostDTO post = postService.updatePost(id, request, userId);
         return ResponseEntity.ok(post);
@@ -87,8 +87,8 @@ public class PostController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePost(
-            @PathVariable String id,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @PathVariable String id,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         postService.deletePost(id, userId);
         return ResponseEntity.noContent().build();
@@ -96,8 +96,8 @@ public class PostController {
 
     @PostMapping("/{id}/like")
     public ResponseEntity<Map<String, Object>> toggleLike(
-            @PathVariable String id,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @PathVariable String id,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         boolean liked = likeService.toggleLike(id, userId);
         long likeCount = likeService.getLikeCount(id);
@@ -111,9 +111,9 @@ public class PostController {
 
     @PostMapping("/{id}/media")
     public ResponseEntity<PostDTO> uploadMedia(
-            @PathVariable String id,
-            @RequestParam("file") MultipartFile file,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @PathVariable String id,
+        @RequestParam("file") MultipartFile file,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         PostDTO post = postService.uploadMedia(id, file, userId);
         return ResponseEntity.ok(post);
@@ -121,8 +121,8 @@ public class PostController {
 
     @DeleteMapping("/{id}/media")
     public ResponseEntity<PostDTO> deleteMedia(
-            @PathVariable String id,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @PathVariable String id,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         PostDTO post = postService.deleteMedia(id, userId);
         return ResponseEntity.ok(post);

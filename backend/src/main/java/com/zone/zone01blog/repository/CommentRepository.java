@@ -18,6 +18,6 @@ public interface CommentRepository extends JpaRepository<Comment, String> {
     @Query("SELECT c FROM Comment c JOIN FETCH c.author WHERE c.id = :id")
     Comment findByIdWithAuthor(String id);
 
-    long countByPostIdAndHiddenFalse(String postId);
+        long countByPostIdAndHiddenFalse(String postId);
 
 }

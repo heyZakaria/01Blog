@@ -8,6 +8,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -15,6 +17,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "users")
 @EntityListeners(AuditingEntityListener.class) // 🆕 Enable auditing
@@ -40,9 +44,10 @@ public class User {
     @Column(nullable = false)
     private boolean banned = false;
 
-    @Column(nullable = true)
-    private Boolean suspended = false;
+    @Column(nullable = false)
+    private boolean suspended = false;
 
+    @Builder.Default
     @Column(nullable = true)
     private Long tokenVersion = 0L;
 
@@ -54,30 +59,12 @@ public class User {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public User(String id, String name, String email, String password, String role) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-        this.banned = false;
-        this.suspended = false;
-        this.tokenVersion = 0L;
-    }
-
-    // JPA uses it to create objects from database
-    // public User() {
-
-    // }
-
     public boolean isBanned() {
         return banned;
     }
 
     public boolean isSuspended() {
-        return Boolean.TRUE.equals(suspended);
+        return suspended;
     }
 
     public long getTokenVersionSafe() {

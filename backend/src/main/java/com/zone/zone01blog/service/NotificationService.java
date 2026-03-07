@@ -27,14 +27,14 @@ public class NotificationService {
 
     public void createNotification(User recipient, NotificationType type, String message,
             User relatedUser, Post relatedPost) {
-        Notification notification = new Notification(
-                UUID.randomUUID().toString(),
-                recipient,
-                type,
-                message);
-
-        notification.setRelatedUser(relatedUser);
-        notification.setRelatedPost(relatedPost);
+        Notification notification = Notification.builder()
+                .id(UUID.randomUUID().toString())
+                .user(recipient)
+                .type(type)
+                .message(message)
+                .relatedUser(relatedUser)
+                .relatedPost(relatedPost)
+                .build();
 
         notificationRepository.save(notification);
     }

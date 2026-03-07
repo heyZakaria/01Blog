@@ -2,6 +2,9 @@ package com.zone.zone01blog.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -9,10 +12,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Data
 @Entity
 @Table(name = "likes", uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "user_id", "post_id" })
+    @UniqueConstraint(columnNames = { "user_id", "post_id" })
 })
 @EntityListeners(AuditingEntityListener.class)
 public class Like {
@@ -32,15 +38,7 @@ public class Like {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public Like(String id, User user, Post post) {
-        this.id = id;
-        this.user = user;
-        this.post = post;
-    }
-
-    public Like() {
-    }
-
+    
 
     // equals and hashCode for composite uniqueness
     @Override

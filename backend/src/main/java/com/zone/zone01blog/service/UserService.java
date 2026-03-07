@@ -81,12 +81,17 @@ public class UserService {
         if (role == null) {
             role = "USER";
         }
-        User user = new User(
-                id,
-                request.getName(),
-                request.getEmail().toLowerCase(),
-                hashedPassword,
-                role);
+        String normalizedEmail = request.getEmail().toLowerCase();
+        if (userRepository.findByEmail(normalizedEmail).isPresent()) {
+            throw new IllegalStateException("Email already exists");
+        }
+        User user = User.builder()
+                .id(id)
+                .name(request.getName())
+                .email(normalizedEmail)
+                .password(hashedPassword)
+                .role(role)
+                .build();
 
         User savedUser = userRepository.save(user);
 
@@ -98,8 +103,18 @@ public class UserService {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
 
-        existingUser.setName(request.getName());
-        existingUser.setEmail(request.getEmail().toLowerCase());
+        if (request.getName() != null && !request.getName().isBlank()) {
+            existingUser.setName(request.getName());
+        }
+
+        if (request.getEmail() != null && !request.getEmail().isBlank()) {
+            String normalizedEmail = request.getEmail().toLowerCase();
+            Optional<User> existingByEmail = userRepository.findByEmail(normalizedEmail);
+            if (existingByEmail.isPresent() && !existingByEmail.get().getId().equals(existingUser.getId())) {
+                throw new IllegalStateException("Email already exists");
+            }
+            existingUser.setEmail(normalizedEmail);
+        }
 
         if (request.getPassword() != null && !request.getPassword().isEmpty()) {
             String hashed = passwordEncoder.encode(request.getPassword());

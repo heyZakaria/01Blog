@@ -24,7 +24,7 @@ public class NotificationController {
 
     @GetMapping
     public ResponseEntity<List<NotificationDTO>> getNotifications(
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         List<NotificationDTO> notifications = notificationService.getUserNotifications(userId);
         return ResponseEntity.ok(notifications);
@@ -32,7 +32,7 @@ public class NotificationController {
 
     @GetMapping("/unread")
     public ResponseEntity<List<NotificationDTO>> getUnreadNotifications(
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         List<NotificationDTO> notifications = notificationService.getUnreadNotifications(userId);
         return ResponseEntity.ok(notifications);
@@ -40,7 +40,7 @@ public class NotificationController {
 
     @GetMapping("/unread/count")
     public ResponseEntity<Map<String, Object>> getUnreadCount(
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         long count = notificationService.getUnreadCount(userId);
 
@@ -52,8 +52,8 @@ public class NotificationController {
 
     @PutMapping("/{notificationId}/read")
     public ResponseEntity<Void> markAsRead(
-            @PathVariable String notificationId,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @PathVariable String notificationId,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         if (auth == null) {
             throw new AuthenticationCredentialsNotFoundException("Authentication required");
         }
@@ -64,8 +64,8 @@ public class NotificationController {
 
     @PutMapping("/{notificationId}/unread")
     public ResponseEntity<Void> markAsUnread(
-            @PathVariable String notificationId,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @PathVariable String notificationId,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         if (auth == null) {
             throw new AuthenticationCredentialsNotFoundException("Authentication required");
         }
@@ -76,7 +76,7 @@ public class NotificationController {
 
     @PutMapping("/read-all")
     public ResponseEntity<Void> markAllAsRead(
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         notificationService.markAllAsRead(userId);
         return ResponseEntity.noContent().build();
@@ -90,7 +90,7 @@ public class NotificationController {
 
     @DeleteMapping
     public ResponseEntity<Void> deleteAllNotifications(
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         notificationService.deleteAllUserNotifications(userId);
         return ResponseEntity.noContent().build();

@@ -3,9 +3,13 @@ package com.zone.zone01blog.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = false)
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class CreatePostRequest {
     @NotBlank(message = "Title is required")
@@ -16,11 +20,5 @@ public class CreatePostRequest {
     @Size(min = 10, max = 1000, message = "Description must be between 10 and 1000 characters")
     private String description;
 
-    public CreatePostRequest() {
-    }
-
-    public CreatePostRequest(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
+    
 }

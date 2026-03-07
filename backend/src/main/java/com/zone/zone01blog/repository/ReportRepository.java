@@ -20,7 +20,7 @@ public interface ReportRepository extends JpaRepository<Report, String> {
     @Query("SELECT r FROM Report r JOIN FETCH r.reporter JOIN FETCH r.reportedUser WHERE r.id = :id")
     Report findByIdWithUsers(String id);
 
-    long countByStatus(ReportStatus status);
+        long countByStatus(ReportStatus status);
 
-    boolean existsByReporterIdAndReportedUserId(String reporterId, String reportedUserId);
+        boolean existsByReporterIdAndReportedUserId(String reporterId, String reportedUserId);
 }

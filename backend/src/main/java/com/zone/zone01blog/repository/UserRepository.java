@@ -25,9 +25,9 @@ public interface UserRepository extends JpaRepository<User, String> {
             "AND u.id NOT IN (" +
             "   SELECT s.following.id FROM Subscription s WHERE s.follower.id = :userId" +
             ")")
-    List<User> findUsersNotFollowed(@Param("userId") String userId);
+        List<User> findUsersNotFollowed(@Param("userId") String userId);
 
-    long countByRole(String role);
+        long countByRole(String role);
     //OR
     // Optional<User> findByEmail(String email);
     // Spring JPA/DATA will create a JPQL ==> SELECT u FROM User u WHERE u.email = ?1

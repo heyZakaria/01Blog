@@ -22,7 +22,7 @@ public class MediaController {
 
     @GetMapping("/{filename:.+}")
     public ResponseEntity<Resource> getFile(
-            @PathVariable String filename) {
+        @PathVariable String filename) {
         Resource resource = fileStorageService.loadFileAsResource(filename);
 
         String contentType = fileStorageService.detectContentType(resource);

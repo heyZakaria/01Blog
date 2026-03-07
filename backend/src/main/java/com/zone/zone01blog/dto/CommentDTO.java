@@ -1,10 +1,16 @@
 package com.zone.zone01blog.dto;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 
-@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
 public class CommentDTO {
     private String id;
     private String content;
@@ -15,16 +21,4 @@ public class CommentDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public CommentDTO(String id, String content, UserDTO author,
-            String postId, String postTitle, boolean hidden,
-            LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.content = content;
-        this.author = author;
-        this.postId = postId;
-        this.postTitle = postTitle;
-        this.hidden = hidden;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
 }

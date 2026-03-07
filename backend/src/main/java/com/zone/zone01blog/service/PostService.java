@@ -107,11 +107,12 @@ public class PostService {
         String title = sanitizeAndValidateText(request.getTitle(), "Title", 3, 150);
         String description = sanitizeAndValidateText(request.getDescription(), "Description", 10, 1000);
 
-        Post post = new Post(
-                UUID.randomUUID().toString(),
-                title,
-                description,
-                author);
+        Post post = Post.builder()
+                .id(UUID.randomUUID().toString())
+                .title(title)
+                .description(description)
+                .author(author)
+                .build();
 
         Post savedPost = postRepository.save(post);
 

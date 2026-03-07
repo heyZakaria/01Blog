@@ -2,6 +2,9 @@ package com.zone.zone01blog.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -9,6 +12,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "comments")
 @EntityListeners(AuditingEntityListener.class)
@@ -42,14 +48,5 @@ public class Comment {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public Comment(String id, String content, Post post, User author) {
-        this.id = id;
-        this.content = content;
-        this.post = post;
-        this.author = author;
-        this.hidden = false;
-    }
-
-    public Comment() {
-    }
+    
 }

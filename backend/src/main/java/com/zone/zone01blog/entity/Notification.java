@@ -2,12 +2,18 @@ package com.zone.zone01blog.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Data
 @Entity
 @Table(name = "notifications")
@@ -43,15 +49,6 @@ public class Notification {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public Notification(String id, User user, NotificationType type, String message) {
-        this.id = id;
-        this.user = user;
-        this.type = type;
-        this.message = message;
-        this.isRead = false;
-    }
-
-    public Notification() {
-    }
+    
 
 }

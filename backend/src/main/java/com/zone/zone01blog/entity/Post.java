@@ -15,7 +15,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "posts")
 @EntityListeners(AuditingEntityListener.class)
@@ -54,16 +60,5 @@ public class Post {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public Post(String id, String title, String description, User author) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.author = author;
-        this.hidden = false;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    public Post() {
-    }
+    
 }

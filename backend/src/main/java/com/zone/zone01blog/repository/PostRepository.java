@@ -11,10 +11,10 @@ import com.zone.zone01blog.entity.User;
 @Repository
 public interface PostRepository extends JpaRepository<Post, String> {
 
-    List<Post> findByAuthor(User author);
+        List<Post> findByAuthor(User author);
 
     // Find posts by author ID (more efficient if you only have ID)
-    List<Post> findByAuthorId(String authorId);
+        List<Post> findByAuthorId(String authorId);
 
     // SOLUTION TO N+1 PROBLEM: Join fetch
     @Query("SELECT p FROM Post p JOIN FETCH p.author WHERE p.hidden = false")
@@ -34,7 +34,7 @@ public interface PostRepository extends JpaRepository<Post, String> {
     @Query("SELECT p FROM Post p JOIN FETCH p.author " +
             "WHERE p.author.id IN :followingIds AND p.hidden = false " +
             "ORDER BY p.createdAt DESC")
-    List<Post> findFeedPostsByFollowingIds(List<String> followingIds);
+        List<Post> findFeedPostsByFollowingIds(List<String> followingIds);
 
     // chi profile 
     @Query("SELECT p FROM Post p JOIN FETCH p.author WHERE p.author.id = :userId AND p.hidden = false ORDER BY p.createdAt DESC")

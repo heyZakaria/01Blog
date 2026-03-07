@@ -44,10 +44,11 @@ public class LikeService {
         } else {
             User user = userService.getUserEntityById(userId);
 
-            Like newLike = new Like(
-                    UUID.randomUUID().toString(),
-                    user,
-                    post);
+            Like newLike = Like.builder()
+                    .id(UUID.randomUUID().toString())
+                    .user(user)
+                    .post(post)
+                    .build();
 
             likeRepository.save(newLike);
 

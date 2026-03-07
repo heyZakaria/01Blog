@@ -3,11 +3,13 @@ package com.zone.zone01blog.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-@Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class LoginRequest {
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
@@ -17,11 +19,5 @@ public class LoginRequest {
     @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
 
-    public LoginRequest() {
-    }
-
-    public LoginRequest(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
+    
 }

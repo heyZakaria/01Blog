@@ -29,10 +29,6 @@ export class NotificationService {
         return this.http.get<NotificationDTO[]>(this.apiUrl);
     }
 
-    getUnreadNotifications(): Observable<NotificationDTO[]> {
-        return this.http.get<NotificationDTO[]>(`${this.apiUrl}/unread`);
-    }
-
     getUnreadCount(): Observable<{ count: number }> {
         return this.http.get<{ count: number }>(`${this.apiUrl}/unread/count`);
     }
@@ -53,7 +49,4 @@ export class NotificationService {
         return this.http.delete<void>(`${this.apiUrl}/${notificationId}`);
     }
 
-    deleteAllNotifications(): Observable<void> {
-        return this.http.delete<void>(this.apiUrl);
-    }
 }

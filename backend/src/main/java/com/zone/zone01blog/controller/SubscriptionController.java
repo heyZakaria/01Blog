@@ -23,8 +23,8 @@ public class SubscriptionController {
 
     @PostMapping("/{userId}/follow")
     public ResponseEntity<Map<String, Object>> toggleFollow(
-            @PathVariable String userId,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @PathVariable String userId,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String currentUserId = auth.getUserId();
         boolean following = subscriptionService.toggleFollow(userId, currentUserId);
         long followersCount = subscriptionService.getFollowersCount(userId);
@@ -38,7 +38,7 @@ public class SubscriptionController {
 
     @GetMapping("/me/following")
     public ResponseEntity<List<UserDTO>> getMyFollowing(
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         List<UserDTO> following = subscriptionService.getFollowing(userId);
         return ResponseEntity.ok(following);
@@ -46,7 +46,7 @@ public class SubscriptionController {
 
     @GetMapping("/me/followers")
     public ResponseEntity<List<UserDTO>> getMyFollowers(
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         List<UserDTO> followers = subscriptionService.getFollowers(userId);
         return ResponseEntity.ok(followers);

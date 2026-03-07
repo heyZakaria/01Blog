@@ -16,7 +16,7 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Stri
     @Query("SELECT s FROM Subscription s WHERE s.follower.id = :followerId AND s.following.id = :followingId")
     Optional<Subscription> findByFollowerIdAndFollowingId(String followerId, String followingId);
 
-    boolean existsByFollowerIdAndFollowingId(String followerId, String followingId);
+        boolean existsByFollowerIdAndFollowingId(String followerId, String followingId);
 
     @Query("SELECT s.following FROM Subscription s WHERE s.follower.id = :userId")
     List<User> findFollowingByUserId(String userId);
@@ -24,9 +24,9 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Stri
     @Query("SELECT s.follower FROM Subscription s WHERE s.following.id = :userId")
     List<User> findFollowersByUserId(String userId);
 
-    long countByFollowerId(String followerId);
+        long countByFollowerId(String followerId);
 
-    long countByFollowingId(String followingId);
+        long countByFollowingId(String followingId);
 
-    void deleteByFollowerIdAndFollowingId(String followerId, String followingId);
+        void deleteByFollowerIdAndFollowingId(String followerId, String followingId);
 }

@@ -16,11 +16,11 @@ public interface NotificationRepository extends JpaRepository<Notification, Stri
             "LEFT JOIN FETCH n.relatedUser " +
             "WHERE n.user.id = :userId " +
             "ORDER BY n.createdAt DESC")
-    List<Notification> findByUserIdWithRelatedUser(String userId);
+        List<Notification> findByUserIdWithRelatedUser(String userId);
 
-    long countByUserIdAndIsRead(String userId, boolean isRead);
+        long countByUserIdAndIsRead(String userId, boolean isRead);
 
-    Optional<Notification> findByIdAndUserId(String id, String userId);
+        Optional<Notification> findByIdAndUserId(String id, String userId);
 
     @Modifying
     @Query("UPDATE Notification n SET n.isRead = true WHERE n.user.id = :userId AND n.isRead = false")
@@ -30,5 +30,5 @@ public interface NotificationRepository extends JpaRepository<Notification, Stri
             "LEFT JOIN FETCH n.relatedUser " +
             "WHERE n.user.id = :userId AND n.isRead = false " +
             "ORDER BY n.createdAt DESC")
-    List<Notification> findUnreadByUserId(String userId);
+        List<Notification> findUnreadByUserId(String userId);
 }

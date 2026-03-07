@@ -32,9 +32,9 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity<CommentDTO> createComment(
-            @PathVariable String postId,
-            @Valid @RequestBody CreateCommentRequest request,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @PathVariable String postId,
+        @Valid @RequestBody CreateCommentRequest request,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         CommentDTO comment = commentService.createComment(postId, request, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(comment);
@@ -42,10 +42,10 @@ public class CommentController {
 
     @PutMapping("/{commentId}")
     public ResponseEntity<CommentDTO> updateComment(
-            @PathVariable String postId,
-            @PathVariable String commentId,
-            @Valid @RequestBody UpdateCommentRequest request,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @PathVariable String postId,
+        @PathVariable String commentId,
+        @Valid @RequestBody UpdateCommentRequest request,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         CommentDTO comment = commentService.updateComment(commentId, request, userId);
         return ResponseEntity.ok(comment);
@@ -53,9 +53,9 @@ public class CommentController {
 
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> deleteComment(
-            @PathVariable String postId,
-            @PathVariable String commentId,
-            @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        @PathVariable String postId,
+        @PathVariable String commentId,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
         String userId = auth.getUserId();
         commentService.deleteComment(commentId, userId);
         return ResponseEntity.noContent().build();

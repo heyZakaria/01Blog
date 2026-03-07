@@ -39,11 +39,12 @@ public class ReportService {
             throw new CannotReportAdminException("You cannot report an admin user");
         }
 
-        Report report = new Report(
-                UUID.randomUUID().toString(),
-                reporter,
-                reportedUser,
-                request.getReason());
+        Report report = Report.builder()
+                .id(UUID.randomUUID().toString())
+                .reporter(reporter)
+                .reportedUser(reportedUser)
+                .reason(request.getReason())
+                .build();
 
         Report savedReport = reportRepository.save(report);
         return convertToDTO(savedReport);

@@ -2,12 +2,18 @@ package com.zone.zone01blog.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Data
 @Entity
 @Table(name = "reports")
@@ -28,9 +34,10 @@ public class Report {
     @Column(nullable = false, length = 1000)
     private String reason;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ReportStatus status;
+    private ReportStatus status = ReportStatus.PENDING;
 
     @Column(length = 1000)
     private String adminNotes;
@@ -42,15 +49,6 @@ public class Report {
     @Column
     private LocalDateTime resolvedAt;
 
-    public Report(String id, User reporter, User reportedUser, String reason) {
-        this.id = id;
-        this.reporter = reporter;
-        this.reportedUser = reportedUser;
-        this.reason = reason;
-        this.status = ReportStatus.PENDING;
-    }
-
-    public Report() {
-    }
+    
 
 }

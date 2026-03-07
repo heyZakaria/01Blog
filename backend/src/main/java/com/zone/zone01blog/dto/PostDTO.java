@@ -2,9 +2,15 @@ package com.zone.zone01blog.dto;
 
 import java.time.LocalDateTime;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
-@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
 public class PostDTO {
     private String id;
     private String title;
@@ -20,20 +26,4 @@ public class PostDTO {
     private String mediaType;
     private boolean hidden;
 
-    public PostDTO(String id, String title, String description, long likeCount, UserDTO author,
-            LocalDateTime createdAt, LocalDateTime updatedAt, long commentCount, boolean likedByCurrentUser,
-            String mediaUrl, String mediaType, boolean hidden) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.likeCount = likeCount;
-        this.author = author;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.commentCount = commentCount;
-        this.likedByCurrentUser = likedByCurrentUser;
-        this.mediaUrl = mediaUrl;
-        this.mediaType = mediaType;
-        this.hidden = hidden;
-    }
 }

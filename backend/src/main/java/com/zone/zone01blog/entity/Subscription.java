@@ -2,6 +2,9 @@ package com.zone.zone01blog.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -9,10 +12,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Data
 @Entity
 @Table(name = "subscriptions", uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "follower_id", "following_id" })
+    @UniqueConstraint(columnNames = { "follower_id", "following_id" })
 })
 @EntityListeners(AuditingEntityListener.class)
 public class Subscription {
@@ -32,15 +38,7 @@ public class Subscription {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public Subscription(String id, User follower, User following) {
-        this.id = id;
-        this.follower = follower;
-        this.following = following;
-    }
-
-    public Subscription() {
-    }
-
+    
     // equals and hashCode for composite uniqueness
     @Override
     public boolean equals(Object o) {
