@@ -77,6 +77,11 @@ public class UserService {
         String id = UUID.randomUUID().toString();
         String hashedPassword = this.passwordEncoder.encode(request.getPassword());
 
+        String normalizedName = request.getName().trim();
+        if (userRepository.existsByNameIgnoreCase(normalizedName)) {
+            throw new IllegalStateException("Username already exists");
+        }
+
         String role = normalizeRole(request.getRole());
         if (role == null) {
             role = "USER";
@@ -87,7 +92,7 @@ public class UserService {
         }
         User user = User.builder()
                 .id(id)
-                .name(request.getName())
+                .name(normalizedName)
                 .email(normalizedEmail)
                 .password(hashedPassword)
                 .role(role)
@@ -104,7 +109,11 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
 
         if (request.getName() != null && !request.getName().isBlank()) {
-            existingUser.setName(request.getName());
+            String normalizedName = request.getName().trim();
+            if (userRepository.existsByNameIgnoreCaseAndIdNot(normalizedName, existingUser.getId())) {
+                throw new IllegalStateException("Username already exists");
+            }
+            existingUser.setName(normalizedName);
         }
 
         if (request.getEmail() != null && !request.getEmail().isBlank()) {

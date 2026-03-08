@@ -19,6 +19,10 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("SELECT u FROM User u WHERE u.email = :email")
     Optional<User> findByEmail(@Param("email") String email);
 
+    boolean existsByNameIgnoreCase(String name);
+
+    boolean existsByNameIgnoreCaseAndIdNot(String name, String id);
+
     @Query("SELECT u FROM User u " +
             "WHERE u.id <> :userId " +
             "AND u.banned = false " +
