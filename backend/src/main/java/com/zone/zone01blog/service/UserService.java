@@ -135,10 +135,7 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
 
         if ("ADMIN".equalsIgnoreCase(user.getRole())) {
-            long adminCount = userRepository.countByRole("ADMIN");
-            if (adminCount <= 1) {
-                throw new IllegalStateException("Cannot delete the last admin account");
-            }
+            throw new IllegalStateException("Cannot delete admin user");
         }
 
         userRepository.deleteById(id);
@@ -146,6 +143,9 @@ public class UserService {
 
     public UserDTO toggleBan(String userId) {
         User user = getUserEntityById(userId);
+        if ("ADMIN".equalsIgnoreCase(user.getRole())) {
+            throw new IllegalStateException("Cannot ban admin user");
+        }
         user.setBanned(!user.isBanned());
         // Force logout by invalidating existing tokens
         user.setTokenVersion(user.getTokenVersionSafe() + 1);

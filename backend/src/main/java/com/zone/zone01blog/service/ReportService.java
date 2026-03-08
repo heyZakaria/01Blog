@@ -1,12 +1,15 @@
 package com.zone.zone01blog.service;
 
 import com.zone.zone01blog.dto.*;
+import com.zone.zone01blog.entity.Post;
 import com.zone.zone01blog.entity.Report;
 import com.zone.zone01blog.entity.ReportStatus;
 import com.zone.zone01blog.entity.User;
 import com.zone.zone01blog.exception.CannotReportSelfException;
 import com.zone.zone01blog.exception.CannotReportAdminException;
+import com.zone.zone01blog.exception.PostNotFoundException;
 import com.zone.zone01blog.exception.ReportNotFoundException;
+import com.zone.zone01blog.repository.PostRepository;
 import com.zone.zone01blog.repository.ReportRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,10 +24,12 @@ import java.util.stream.Collectors;
 public class ReportService {
 
     private final ReportRepository reportRepository;
+    private final PostRepository postRepository;
     private final UserService userService;
 
-    public ReportService(ReportRepository reportRepository, UserService userService) {
+    public ReportService(ReportRepository reportRepository, PostRepository postRepository, UserService userService) {
         this.reportRepository = reportRepository;
+        this.postRepository = postRepository;
         this.userService = userService;
     }
 
@@ -43,6 +48,34 @@ public class ReportService {
                 .id(UUID.randomUUID().toString())
                 .reporter(reporter)
                 .reportedUser(reportedUser)
+                .reason(request.getReason())
+                .build();
+
+        Report savedReport = reportRepository.save(report);
+        return convertToDTO(savedReport);
+    }
+
+    public ReportDTO createPostReport(String postId, CreateReportRequest request, String reporterId) {
+        Post post = postRepository.findVisibleByIdWithAuthor(postId);
+        if (post == null) {
+            throw new PostNotFoundException("Post not found with id: " + postId);
+        }
+
+        User reporter = userService.getUserEntityById(reporterId);
+        User reportedUser = post.getAuthor();
+
+        if (reporterId.equals(reportedUser.getId())) {
+            throw new CannotReportSelfException("You cannot report your own post");
+        }
+        if ("ADMIN".equalsIgnoreCase(reportedUser.getRole())) {
+            throw new CannotReportAdminException("You cannot report an admin user");
+        }
+
+        Report report = Report.builder()
+                .id(UUID.randomUUID().toString())
+                .reporter(reporter)
+                .reportedUser(reportedUser)
+                .reportedPost(post)
                 .reason(request.getReason())
                 .build();
 
@@ -104,18 +137,29 @@ public class ReportService {
     private ReportDTO convertToDTO(Report report) {
         User reporter = report.getReporter();
         User reportedUser = report.getReportedUser();
+        Post reportedPost = report.getReportedPost();
 
         UserDTO reporterDTO = userService.convertToDTO(reporter);
         UserDTO reportedUserDTO = userService.convertToDTO(reportedUser);
+        PostSummaryDTO reportedPostDTO = null;
+        if (reportedPost != null) {
+            UserDTO authorDTO = userService.convertToDTO(reportedPost.getAuthor());
+            reportedPostDTO = new PostSummaryDTO(
+                    reportedPost.getId(),
+                    reportedPost.getTitle(),
+                    authorDTO);
+        }
 
-        return new ReportDTO(
-                report.getId(),
-                reporterDTO,
-                reportedUserDTO,
-                report.getReason(),
-                report.getStatus().name(),
-                report.getAdminNotes(),
-                report.getCreatedAt(),
-                report.getResolvedAt());
+        return ReportDTO.builder()
+                .id(report.getId())
+                .reporter(reporterDTO)
+                .reportedUser(reportedUserDTO)
+                .reportedPost(reportedPostDTO)
+                .reason(report.getReason())
+                .status(report.getStatus().name())
+                .adminNotes(report.getAdminNotes())
+                .createdAt(report.getCreatedAt())
+                .resolvedAt(report.getResolvedAt())
+                .build();
     }
 }

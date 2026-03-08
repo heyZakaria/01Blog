@@ -168,6 +168,11 @@
     background-color: var(--color-bg-secondary);
 }
 
+.btn-action:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .btn-action.danger:hover {
     background-color: var(--color-error);
     color: white;
@@ -214,6 +219,8 @@
     margin-bottom: var(--space-2);
     font-size: var(--text-base);
     line-height: var(--leading-normal);
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .report-body strong {

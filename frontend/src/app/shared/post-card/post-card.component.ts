@@ -6,12 +6,14 @@ import { RouterModule } from '@angular/router';
 import { PostDTO, CreatePostRequest, PostService } from '../../services/post.service';
 import { environment } from '../../../environments/environment';
 import { CommentListComponent } from '../comment-list/comment-list.component';
+import { ReportModalComponent } from '../report-modal/report-modal.component';
 import { DialogService } from '../../core/services/dialog.service';
 import { AuthService } from '../../services/auth.service';
+import { ReportDTO } from '../../services/report.service';
 
 @Component({
     selector: 'app-post-card',
-    imports: [CommonModule, NgOptimizedImage, RouterModule, CommentListComponent, ReactiveFormsModule],
+    imports: [CommonModule, NgOptimizedImage, RouterModule, CommentListComponent, ReactiveFormsModule, ReportModalComponent],
     templateUrl: './post-card.component.html',
     styleUrls: ['./post-card.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -25,6 +27,8 @@ export class PostCardComponent {
     readonly localPost = signal<PostDTO | null>(null);
     // State: reactive value for the template.
     readonly showComments = signal(false);
+    // State: reactive value for the template.
+    readonly showReportModal = signal(false);
     // State: reactive value for the template.
     readonly isEditing = signal(false);
     // State: reactive value for the template.
@@ -103,6 +107,34 @@ export class PostCardComponent {
     // Closes actions menu.
     closeActionsMenu() {
         this.actionsOpen.set(false);
+    }
+
+    // Checks if report.
+    canReport(): boolean {
+        const post = this.localPost();
+        const currentUser = this.authService.getCurrentUser();
+        if (!currentUser || !post?.author?.id) return false;
+        if (post.author?.role === 'ADMIN') return false;
+        return currentUser.id !== post.author.id;
+    }
+
+    // Opens report modal.
+    openReportModal() {
+        this.closeActionsMenu();
+        this.showReportModal.set(true);
+    }
+
+    // Closes report modal.
+    closeReportModal() {
+        this.showReportModal.set(false);
+    }
+
+    // Handles reported.
+    async onReported(_report?: ReportDTO) {
+        await this.dialogService.alert(
+            'Report Submitted',
+            'Report submitted successfully.'
+        );
     }
 
     // Starts edit.

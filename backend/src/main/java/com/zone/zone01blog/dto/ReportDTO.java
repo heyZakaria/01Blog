@@ -16,6 +16,7 @@ public class ReportDTO {
     private String id;
     private UserDTO reporter;
     private UserDTO reportedUser;
+    private PostSummaryDTO reportedPost;
     private String reason;
     private String status;
     private String adminNotes;

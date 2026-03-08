@@ -11,13 +11,19 @@ import java.util.List;
 @Repository
 public interface ReportRepository extends JpaRepository<Report, String> {
 
-    @Query("SELECT r FROM Report r JOIN FETCH r.reporter JOIN FETCH r.reportedUser ORDER BY r.createdAt DESC")
+    @Query("SELECT r FROM Report r JOIN FETCH r.reporter JOIN FETCH r.reportedUser " +
+            "LEFT JOIN FETCH r.reportedPost rp LEFT JOIN FETCH rp.author " +
+            "ORDER BY r.createdAt DESC")
     List<Report> findAllWithUsers();
 
-    @Query("SELECT r FROM Report r JOIN FETCH r.reporter JOIN FETCH r.reportedUser WHERE r.status = :status ORDER BY r.createdAt DESC")
+    @Query("SELECT r FROM Report r JOIN FETCH r.reporter JOIN FETCH r.reportedUser " +
+            "LEFT JOIN FETCH r.reportedPost rp LEFT JOIN FETCH rp.author " +
+            "WHERE r.status = :status ORDER BY r.createdAt DESC")
     List<Report> findByStatusWithUsers(ReportStatus status);
 
-    @Query("SELECT r FROM Report r JOIN FETCH r.reporter JOIN FETCH r.reportedUser WHERE r.id = :id")
+    @Query("SELECT r FROM Report r JOIN FETCH r.reporter JOIN FETCH r.reportedUser " +
+            "LEFT JOIN FETCH r.reportedPost rp LEFT JOIN FETCH rp.author " +
+            "WHERE r.id = :id")
     Report findByIdWithUsers(String id);
 
         long countByStatus(ReportStatus status);

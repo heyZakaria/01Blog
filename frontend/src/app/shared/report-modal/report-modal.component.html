@@ -2,13 +2,22 @@
 <div class="modal-overlay" (click)="closeModal()">
     <div class="modal" (click)="$event.stopPropagation()">
         <div class="modal-header">
-            <h2 class="modal-title">Report User</h2>
+            <h2 class="modal-title">{{ targetType() === 'post' ? 'Report Post' : 'Report User' }}</h2>
             <button class="close-btn" (click)="closeModal()" type="button">×</button>
         </div>
 
         <form class="modal-body" [formGroup]="form" (ngSubmit)="submitReport()">
             <p class="report-info">
+                @if (targetType() === 'post') {
+                You are reporting the post
+                <strong>{{ postTitle() || 'this post' }}</strong>
+                @if (postAuthorName()) {
+                by <strong>{{ postAuthorName() }}</strong>
+                }.
+                }
+                @if (targetType() !== 'post') {
                 You are reporting <strong>{{ userName() }}</strong>.
+                }
                 Please provide a detailed reason for this report.
             </p>
 

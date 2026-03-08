@@ -88,10 +88,16 @@
                             <td>{{ user.followingCount }}</td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="btn-action" (click)="toggleBanUser(user.id)">
+                                    <button class="btn-action"
+                                        (click)="toggleBanUser(user.id)"
+                                        [disabled]="user.role === 'ADMIN'"
+                                        [title]="user.role === 'ADMIN' ? 'Admins cannot be banned' : ''">
                                         {{ user.banned ? 'Unban' : 'Ban' }}
                                     </button>
-                                    <button class="btn-action danger" (click)="deleteUser(user.id)">
+                                    <button class="btn-action danger"
+                                        (click)="deleteUser(user.id)"
+                                        [disabled]="user.role === 'ADMIN'"
+                                        [title]="user.role === 'ADMIN' ? 'Admins cannot be deleted' : ''">
                                         Delete
                                     </button>
                                 </div>
@@ -127,6 +133,10 @@
                     <div class="report-body">
                         <p><strong>Reporter:</strong> {{ report.reporter.name }}</p>
                         <p><strong>Reported User:</strong> {{ report.reportedUser.name }}</p>
+                        @if (report.reportedPost) {
+                        <p><strong>Reported Post:</strong> {{ report.reportedPost.title }}</p>
+                        }
+                        <p><strong>Reported At:</strong> {{ report.createdAt | date:'medium' }}</p>
                         <p><strong>Reason:</strong> {{ report.reason }}</p>
                     </div>
                     <div class="report-actions">

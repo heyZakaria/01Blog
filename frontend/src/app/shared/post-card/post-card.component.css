@@ -8,9 +8,18 @@
     border: 1px solid var(--color-border-light);
 }
 
+.post-card.modal-open {
+    overflow: visible;
+    transform: none;
+}
+
 .post-card:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
+}
+
+.post-card.modal-open:hover {
+    transform: none;
 }
 
 /* Header */
@@ -198,6 +207,15 @@
 }
 
 .stat-button.liked {
+    color: var(--color-error);
+}
+
+.stat-button.report {
+    color: var(--color-error);
+}
+
+.stat-button.report:hover {
+    background-color: rgba(193, 85, 74, 0.12);
     color: var(--color-error);
 }
 

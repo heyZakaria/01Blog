@@ -2,7 +2,7 @@
 import { Component, ChangeDetectionStrategy, signal, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ReportService, CreateReportRequest } from '../../services/report.service';
+import { ReportService, CreateReportRequest, ReportDTO } from '../../services/report.service';
 import { DialogService } from '../../core/services/dialog.service';
 
 @Component({
@@ -14,10 +14,14 @@ import { DialogService } from '../../core/services/dialog.service';
 })
 // Class: Component logic.
 export class ReportModalComponent {
-    readonly userId = input.required<string>();
-    readonly userName = input.required<string>();
+    readonly targetType = input<'user' | 'post'>('user');
+    readonly userId = input<string | null>(null);
+    readonly userName = input<string | null>(null);
+    readonly postId = input<string | null>(null);
+    readonly postTitle = input<string | null>(null);
+    readonly postAuthorName = input<string | null>(null);
     readonly close = output<void>();
-    readonly reported = output<void>();
+    readonly reported = output<ReportDTO>();
 
     // State: reactive value for the template.
     readonly loading = signal(false);
@@ -64,10 +68,43 @@ export class ReportModalComponent {
             reason
         };
 
-        this.reportService.createReport(this.userId(), request).subscribe({
-            next: () => {
+        const targetType = this.targetType();
+        if (targetType === 'post') {
+            const postId = this.postId();
+            if (!postId) {
                 this.loading.set(false);
-                this.reported.emit();
+                this.error.set('Post not found for reporting');
+                this.form.enable();
+                return;
+            }
+            this.reportService.createPostReport(postId, request).subscribe({
+                next: (report) => {
+                    this.loading.set(false);
+                    this.reported.emit(report);
+                    this.form.enable();
+                    this.closeModal();
+                },
+                error: (error) => {
+                    this.loading.set(false);
+                    this.error.set(error.error?.message || 'Failed to submit report');
+                    this.form.enable();
+                }
+            });
+            return;
+        }
+
+        const userId = this.userId();
+        if (!userId) {
+            this.loading.set(false);
+            this.error.set('User not found for reporting');
+            this.form.enable();
+            return;
+        }
+
+        this.reportService.createReport(userId, request).subscribe({
+            next: (report) => {
+                this.loading.set(false);
+                this.reported.emit(report);
                 this.form.enable();
                 this.closeModal();
             },

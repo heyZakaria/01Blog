@@ -15,6 +15,14 @@ export interface ReportDTO {
         id: string;
         name: string;
     };
+    reportedPost?: {
+        id: string;
+        title: string;
+        author?: {
+            id: string;
+            name: string;
+        };
+    };
     status: string;
     createdAt: string;
 }
@@ -30,11 +38,16 @@ export interface CreateReportRequest {
 export class ReportService {
     // Config: base API endpoint.
     private apiUrl = `${environment.apiBaseUrl}/users`;
+    private postsApiUrl = `${environment.apiBaseUrl}/posts`;
 
     // Constructor: injects dependencies.
     constructor(private http: HttpClient) { }
 
     createReport(userId: string, data: CreateReportRequest): Observable<ReportDTO> {
         return this.http.post<ReportDTO>(`${this.apiUrl}/${userId}/report`, data);
+    }
+
+    createPostReport(postId: string, data: CreateReportRequest): Observable<ReportDTO> {
+        return this.http.post<ReportDTO>(`${this.postsApiUrl}/${postId}/report`, data);
     }
 }

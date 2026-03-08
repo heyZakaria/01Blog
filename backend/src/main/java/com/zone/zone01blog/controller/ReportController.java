@@ -29,4 +29,14 @@ public class ReportController {
         ReportDTO report = reportService.createReport(userId, request, reporterId);
         return ResponseEntity.status(HttpStatus.CREATED).body(report);
     }
+
+    @PostMapping("/posts/{postId}/report")
+    public ResponseEntity<ReportDTO> reportPost(
+        @PathVariable String postId,
+        @Valid @RequestBody CreateReportRequest request,
+        @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        String reporterId = auth.getUserId();
+        ReportDTO report = reportService.createPostReport(postId, request, reporterId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(report);
+    }
 }

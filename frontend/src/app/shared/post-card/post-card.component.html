@@ -1,5 +1,5 @@
 <!-- Purpose: Template for the Post card component. -->
-<article class="post-card">
+<article class="post-card" [class.modal-open]="showReportModal()">
     <!-- Post Header -->
     <div class="post-header">
         <div class="post-author-info">
@@ -105,11 +105,27 @@
             <button class="stat-button" type="button" (click)="toggleComments()">
                 <span>{{ showComments() ? 'Hide' : 'Comments' }}</span><span>{{ localPost()?.commentCount }}</span>
             </button>
+            @if (canReport()) {
+            <button class="stat-button report" type="button" (click)="openReportModal()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M6 3H14.5L16 5H20V15H6V3ZM6 17H18V19H6V17Z"
+                        stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                </svg>
+                <span>Report</span>
+            </button>
+            }
         </div>
     </div>
     }
 
     @if (showComments() && localPost()) {
     <app-comment-list [postId]="localPost()!.id" (commentCountChange)="onCommentCountChange($event)"></app-comment-list>
+    }
+
+    @if (showReportModal() && localPost()) {
+    <app-report-modal [targetType]="'post'" [postId]="localPost()!.id" [postTitle]="localPost()!.title"
+        [postAuthorName]="localPost()!.author?.name" (close)="closeReportModal()" (reported)="onReported()">
+    </app-report-modal>
     }
 </article>

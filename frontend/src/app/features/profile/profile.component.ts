@@ -10,6 +10,7 @@ import { PostCardComponent } from '../../shared/post-card/post-card.component';
 import { ReportModalComponent } from '../../shared/report-modal/report-modal.component';
 import { DialogService } from '../../core/services/dialog.service';
 import { AuthService } from '../../services/auth.service';
+import { ReportDTO } from '../../services/report.service';
 
 @Component({
     selector: 'app-profile',
@@ -150,10 +151,13 @@ export class ProfileComponent implements OnInit {
     }
 
     // Handles reported.
-    async onReported() {
+    async onReported(report?: ReportDTO) {
+        const timestamp = report?.createdAt
+            ? new Date(report.createdAt).toLocaleString()
+            : new Date().toLocaleString();
         await this.dialogService.alert(
             'Report Submitted',
-            'Report submitted successfully.'
+            `Report submitted successfully at ${timestamp}.`
         );
     }
 

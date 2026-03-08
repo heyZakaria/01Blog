@@ -1,4 +1,8 @@
 /* Purpose: Styles for the Confirm dialog component. */
+.modal-overlay {
+    z-index: calc(var(--z-modal) + 10);
+}
+
 .confirm-modal .modal-body p {
     margin: 0;
     font-size: var(--text-base);
